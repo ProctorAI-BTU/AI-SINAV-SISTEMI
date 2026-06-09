@@ -16,8 +16,7 @@ Bu proje; yapay zeka (AI) destekli, gerçek zamanlı kopya ve ihlal tespiti yapa
   * [🛠️ Sistem Servisleri (Backend / Node.js)](#️-sistem-servisleri-backend--nodejs)
   * [🤖 Yapay Zeka Servisleri (AI / Python & FastAPI)](#-yapay-zeka-servisleri-ai--python--fastapi)
 * [🔌 B2B SaaS Entegrasyon Modeli](#-b2b-saas-entegrasyon-modeli)
-* [💾 Git ve GitHub Yükleme Kılavuzu](#-git-ve-github-yükleme-kılavuzu)
-  * [⚠️ Olası Hatalar ve Çözümleri](#️-olası-hatalar-ve-çözümleri)
+
 
 ---
 

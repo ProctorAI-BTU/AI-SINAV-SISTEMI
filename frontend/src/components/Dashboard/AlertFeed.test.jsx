@@ -15,7 +15,7 @@ describe('AlertFeed Component', () => {
   test('istatistik labellarini gostermeli', () => {
     render(<AlertFeed stats={stats} />)
 
-    expect(screen.getByText('Bugunku Aktif Sinavlar')).toBeInTheDocument()
+    expect(screen.getByText('Bugünkü Aktif Sınavlar')).toBeInTheDocument()
     expect(screen.getByText('Aktif Oturumlar')).toBeInTheDocument()
     expect(screen.getByText('Kritik Alarm')).toBeInTheDocument()
   })

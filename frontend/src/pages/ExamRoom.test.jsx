@@ -107,6 +107,8 @@ describe('ExamRoom Page', () => {
     await userEvent.click(await screen.findByText('Sonraki'))
     await userEvent.click(await screen.findByText('Sınavı Bitir'))
 
+    await userEvent.click(await screen.findByText('Ana Sayfaya Dön'))
+
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('student-home'))
   })
 })

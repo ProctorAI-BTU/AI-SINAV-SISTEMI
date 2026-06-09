@@ -65,8 +65,8 @@ export default function AdminPanel({ onNavigate }) {
           ))}
         </nav>
 
-        <button className="admin-back-btn" onClick={() => onNavigate && onNavigate('instructor-dashboard')}>
-          ← Panele Dön
+        <button className="admin-back-btn" onClick={() => onNavigate && onNavigate('admin-dashboard')}>
+          ← Admin Paneline Dön
         </button>
       </aside>
 

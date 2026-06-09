@@ -41,16 +41,16 @@ describe('InstructorDashboard Page', () => {
   test('navbar ve dashboard basligi render edilmeli', () => {
     render(<InstructorDashboard onNavigate={() => {}} onLogout={() => {}} />)
 
-    expect(screen.getAllByText('Dashboard')).toHaveLength(2)
-    expect(screen.getByText('Sinav Yonetimi')).toBeInTheDocument()
-    expect(screen.getByText('Raporlar')).toBeInTheDocument()
-    expect(screen.getByText('Cikis')).toBeInTheDocument()
+    expect(screen.getByText('Dashboard')).toBeInTheDocument()
+    expect(screen.getByText('Sınav Oluştur')).toBeInTheDocument()
+    expect(screen.getByText('Rapor Ara')).toBeInTheDocument()
+    expect(screen.getByText('Çıkış')).toBeInTheDocument()
   })
 
   test('AlertFeed istatistikleri render edilmeli', async () => {
     render(<InstructorDashboard onNavigate={() => {}} onLogout={() => {}} />)
 
-    expect(screen.getByText('Bugunku Aktif Sinavlar')).toBeInTheDocument()
+    expect(screen.getByText('Bugünkü Aktif Sınavlar')).toBeInTheDocument()
     expect(screen.getByText('Aktif Oturumlar')).toBeInTheDocument()
     expect(screen.getByText('Kritik Alarm')).toBeInTheDocument()
     expect(await screen.findByText('2')).toBeInTheDocument()
@@ -65,15 +65,12 @@ describe('InstructorDashboard Page', () => {
     expect(screen.getByText('Fizik Final')).toBeInTheDocument()
   })
 
-  test('Raporlar butonuna tiklaninca onNavigate report ile calismali', async () => {
-    const mockNavigate = vi.fn()
+  test('Raporlar butonuna tiklaninca tab degismeli', async () => {
+    render(<InstructorDashboard onNavigate={() => {}} onLogout={() => {}} />)
 
-    render(<InstructorDashboard onNavigate={mockNavigate} onLogout={() => {}} />)
+    await userEvent.click(screen.getByText('Rapor Ara'))
 
-    await userEvent.click(screen.getByText('Raporlar'))
-
-    expect(mockNavigate).toHaveBeenCalledTimes(1)
-    expect(mockNavigate).toHaveBeenCalledWith('report')
+    expect(await screen.findByText('Öğrenci Raporları')).toBeInTheDocument()
   })
 
   test('StudentGrid icindeki Rapor butonuna tiklaninca session ile calismali', async () => {
@@ -92,7 +89,7 @@ describe('InstructorDashboard Page', () => {
 
     render(<InstructorDashboard onNavigate={() => {}} onLogout={mockLogout} />)
 
-    await userEvent.click(screen.getByText('Cikis'))
+    await userEvent.click(screen.getByText('Çıkış'))
 
     expect(mockLogout).toHaveBeenCalledTimes(1)
   })

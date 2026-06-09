@@ -1,8 +1,24 @@
 const ProctoringEvent = require('../models/ProctoringEvent');
 const ProctoringSession = require('../models/ProctoringSession');
+const aiClient = require('./aiClient');
 
 const memorySessions = new Map();
 const memoryEvents = [];
+
+// const lastLoggedEvents = new Map();
+// const COOLDOWN_EVENTS = [
+//   'FACE_NOT_FOUND',
+//   'MULTIPLE_FACE_DETECTED',
+//   'GAZE_AWAY',
+//   'GAZE_WARNING',
+//   'SPEECH_DETECTED',
+//   'NOISE_DETECTED',
+//   'AUDIO_DETECTED',
+//   'OBJECT_DETECTED',
+//   'PROHIBITED_OBJECT_DETECTED',
+//   'PHONE_DETECTED'
+// ];
+// const COOLDOWN_MS = 5000;
 
 const EVENT_WEIGHTS = {
   FACE_NOT_FOUND: 18,
@@ -188,15 +204,44 @@ async function logEvent(input = {}) {
     throw err;
   }
 
+  // const nowTime = Date.now();
+  // if (COOLDOWN_EVENTS.includes(eventType)) {
+  //   const cooldownKey = `${sessionId}_${eventType}`;
+  //   const lastTime = lastLoggedEvents.get(cooldownKey) || 0;
+  //   if (nowTime - lastTime < COOLDOWN_MS) {
+  //     const currentSession = await getSession(sessionId);
+  //     return { event: null, session: currentSession };
+  //   }
+  //   lastLoggedEvents.set(cooldownKey, nowTime);
+  // }
+
   const session = await upsertSession(input);
   const existingCounts = { ...(session.eventCounts || {}) };
   existingCounts[eventType] = (existingCounts[eventType] || 0) + 1;
 
   const calculated = calculateRisk(existingCounts);
-  const riskScore = Number(input.riskScore ?? input.risk_score ?? calculated.riskScore);
+  
+  let riskScore = input.riskScore ?? input.risk_score;
+  let riskLevel = input.riskLevel ?? input.risk_level;
+
+  if (riskScore === undefined || riskScore === null) {
+    try {
+      const riskData = await aiClient.analyzeRisk(sessionId, eventType, {
+        ...input,
+        existingCounts,
+      });
+      if (riskData && riskData.risk_score !== undefined) {
+        riskScore = riskData.risk_score;
+        riskLevel = riskData.risk_level || riskLevel;
+      }
+    } catch (err) {
+      console.warn('[Proctoring Risk Fallback] AI risk servisi hatasi, local hesaplama kullaniliyor:', err.message);
+    }
+  }
+
   const risk = {
-    riskScore,
-    riskLevel: input.riskLevel || input.risk_level || calculated.riskLevel,
+    riskScore: Number(riskScore ?? calculated.riskScore),
+    riskLevel: riskLevel || calculated.riskLevel,
   };
 
   const now = new Date(input.timestamp || Date.now());

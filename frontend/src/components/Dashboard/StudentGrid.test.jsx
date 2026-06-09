@@ -37,8 +37,8 @@ describe('StudentGrid Component', () => {
 
     expect(screen.getByText('24')).toBeInTheDocument()
     expect(screen.getByText('78')).toBeInTheDocument()
-    expect(screen.getByText('Tamamlandi')).toBeInTheDocument()
-    expect(screen.getByText('Yuksek Risk')).toBeInTheDocument()
+    expect(screen.getByText('Tamamlandı')).toBeInTheDocument()
+    expect(screen.getByText('Yüksek Risk')).toBeInTheDocument()
   })
 
   test('rapor butonuna tiklaninca onNavigate calismali', async () => {
@@ -55,6 +55,6 @@ describe('StudentGrid Component', () => {
   test('bos liste icin bos durum gostermeli', () => {
     render(<StudentGrid sessions={[]} onNavigate={() => {}} />)
 
-    expect(screen.getByText('Henuz raporlanmis oturum yok.')).toBeInTheDocument()
+    expect(screen.getByText('Henüz raporlanmış oturum yok.')).toBeInTheDocument()
   })
 })

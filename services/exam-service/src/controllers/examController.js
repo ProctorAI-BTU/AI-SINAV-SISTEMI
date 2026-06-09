@@ -143,6 +143,41 @@ async function markSubmissionExpired(submission) {
   }
 }
 
+async function autoExpireStartedSubmissions() {
+  try {
+    const now = new Date();
+    if (isMongoConnected()) {
+      const result = await Submission.updateMany(
+        { status: 'started', expiresAt: { $lt: now } },
+        { $set: { status: 'auto_submitted', submittedAt: now } }
+      );
+      if (result.modifiedCount > 0) {
+        console.log(`[Auto-Expire] ${result.modifiedCount} adet suresi dolmus sinav oturumu otomatik olarak sonlandirildi.`);
+      }
+    } else {
+      let expiredCount = 0;
+      memorySubmissions.forEach((sub, index) => {
+        if (sub.status === 'started' && sub.expiresAt && new Date(sub.expiresAt) < now) {
+          memorySubmissions[index] = {
+            ...sub,
+            status: 'auto_submitted',
+            submittedAt: now,
+            updatedAt: now,
+          };
+          expiredCount++;
+        }
+      });
+      if (expiredCount > 0) {
+        console.log(`[Auto-Expire Memory] ${expiredCount} adet suresi dolmus sinav oturumu otomatik olarak sonlandirildi.`);
+      }
+    }
+  } catch (err) {
+    console.error('[Auto-Expire Error] Suresi dolmus sinavlar kapatilirken hata olustu:', err.message);
+  }
+}
+
+setInterval(autoExpireStartedSubmissions, 15000);
+
 async function loadQuestionsForExam(examId) {
   if (isMongoConnected()) {
     return Question.find({ examId }).sort({ orderIndex: 1 });

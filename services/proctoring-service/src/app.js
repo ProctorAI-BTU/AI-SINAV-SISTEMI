@@ -83,6 +83,25 @@ const io = new Server(server, {
   },
 });
 
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET || 'ai-mulakat-test-secret-key-2026-gizli-anahtar';
+
+io.use((socket, next) => {
+  const token = socket.handshake.auth?.token || socket.handshake.query?.token || (socket.handshake.headers?.authorization && socket.handshake.headers.authorization.split(' ')[1]);
+  if (!token) {
+    console.error('[Socket Auth] Hata: Token bulunamadi.');
+    return next(new Error('Authentication error: Token is required'));
+  }
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    socket.user = decoded;
+    next();
+  } catch (err) {
+    console.error('[Socket Auth] Hata:', err.message);
+    return next(new Error('Authentication error: Invalid token'));
+  }
+});
+
 app.use(helmet());
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '12mb' }));
@@ -170,22 +189,15 @@ function shouldRecordAudio(audioResult) {
 
 async function recordAnalyzedEvent(sessionId, eventType, source, result, meta = {}) {
   const normalizedEvent = normalizeEventType(eventType);
-  const riskData = await aiClient.analyzeRisk(sessionId, normalizedEvent, {
-    ...meta,
-    source,
-    result,
-  });
 
-  const logged = await logEvent({
-    ...buildEventInput(sessionId, normalizedEvent, source, result, meta),
-    riskScore: riskData?.risk_score,
-    riskLevel: riskData?.risk_level,
-  });
+  const logged = await logEvent(
+    buildEventInput(sessionId, normalizedEvent, source, result, meta)
+  );
 
   io.to(logged.session.sessionId).emit('proctoring-event', logged);
   io.emit('proctoring-dashboard-event', logged);
 
-  return { ...logged, risk: riskData };
+  return { ...logged, risk: { risk_score: logged.session.riskScore, risk_level: logged.session.riskLevel } };
 }
 
 async function analyzeFrameHandler(req, res) {

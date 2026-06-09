@@ -5,6 +5,7 @@ import ExamRoom from "./pages/ExamRoom.jsx";
 import ReportDetail from "./pages/ReportDetail.jsx";
 import PreExamCheck from "./pages/PreExamCheck.jsx";
 import AdminPanel from "./pages/AdminPanel.jsx";
+import B2BAdminPanel from "./pages/AdminPanel/index.jsx";
 import StudentHome from "./pages/StudentHome.jsx";
 import authService from "./services/auth.js";
 
@@ -136,9 +137,16 @@ export default function App() {
       );
 
     case "admin-dashboard":
-    case "admin-panel":
       return (
         <AdminPanel
+          onNavigate={handleNavigate}
+          onLogout={handleLogout}
+        />
+      );
+
+    case "admin-panel":
+      return (
+        <B2BAdminPanel
           onNavigate={handleNavigate}
           onLogout={handleLogout}
         />

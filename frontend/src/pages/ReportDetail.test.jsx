@@ -73,9 +73,9 @@ describe('ReportPage', () => {
     render(<ReportPage onNavigate={() => {}} sessionId="S12345" />)
 
     expect(await screen.findByText('Tam ekran ihlali:')).toBeInTheDocument()
-    expect(screen.getByText('Sekme degisimi:')).toBeInTheDocument()
-    expect(screen.getByText('Supheli ses:')).toBeInTheDocument()
-    expect(screen.getByText('Bakis kaybi:')).toBeInTheDocument()
+    expect(screen.getByText('Sekme değişimi:')).toBeInTheDocument()
+    expect(screen.getByText('Şüpheli ses:')).toBeInTheDocument()
+    expect(screen.getByText('Bakış kaybı:')).toBeInTheDocument()
     expect(screen.getByText('Telefon / nesne:')).toBeInTheDocument()
   })
 
@@ -89,8 +89,8 @@ describe('ReportPage', () => {
   test('aksiyon butonlari render edilmeli', async () => {
     render(<ReportPage onNavigate={() => {}} sessionId="S12345" />)
 
-    expect(await screen.findByText('JSON Disa Aktar')).toBeInTheDocument()
-    expect(screen.getByText('Oturumlari Goster')).toBeInTheDocument()
+    expect(await screen.findByText('📄 JSON')).toBeInTheDocument()
+    expect(screen.getByText('Oturumları Göster')).toBeInTheDocument()
   })
 
   test('geri don butonu onNavigate calistirmali', async () => {
@@ -98,7 +98,7 @@ describe('ReportPage', () => {
 
     render(<ReportPage onNavigate={mockNavigate} sessionId="S12345" />)
 
-    await userEvent.click(screen.getByText('Geri Don'))
+    await userEvent.click(screen.getByText('Geri Dön'))
 
     expect(mockNavigate).toHaveBeenCalledTimes(1)
     expect(mockNavigate).toHaveBeenCalledWith('admin-dashboard')

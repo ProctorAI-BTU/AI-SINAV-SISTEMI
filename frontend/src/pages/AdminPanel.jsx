@@ -216,6 +216,7 @@ export default function AdminPanel({ onNavigate, onLogout }) {
           ))}
         </div>
         <div className="navbar-actions">
+          <button className="navbar-link" onClick={() => onNavigate("admin-panel")} style={{ background: "#4b35f2", color: "#ffffff", borderRadius: 4, padding: "6px 12px", marginRight: 8 }}>B2B SaaS Yönetimi</button>
           <button className="navbar-link" onClick={() => onNavigate("instructor-dashboard")}>Eğitmen Paneli</button>
           <button className="btn-logout" onClick={onLogout}>Çıkış</button>
         </div>

@@ -118,7 +118,7 @@ describe('AdminPanel', () => {
 
     expect(screen.getByText('Eğitmenler')).toBeInTheDocument()
     expect(screen.getByText('Öğrenciler')).toBeInTheDocument()
-    expect(screen.getByText('Eğitmen Kodu Üret')).toBeInTheDocument()
+    expect(screen.getByText('Eğitmen Oluştur')).toBeInTheDocument()
 
     expect(await screen.findByText('Ali Eğitmen')).toBeInTheDocument()
     expect(screen.getByText('ali@test.com')).toBeInTheDocument()
@@ -199,10 +199,10 @@ describe('AdminPanel', () => {
   test('Eğitmen Kodu Üret tabında kodlar listelenmeli', async () => {
     render(<AdminPanel onNavigate={() => {}} onLogout={() => {}} />)
 
-    await userEvent.click(screen.getByText('Eğitmen Kodu Üret'))
+    await userEvent.click(screen.getByText('Eğitmen Oluştur'))
 
-    expect(await screen.findByText('Yeni Kod Üret')).toBeInTheDocument()
-    expect(screen.getByText('Üretilen Kodlar')).toBeInTheDocument()
+    expect(await screen.findByText('Eğitmen Davet Kodu Üret')).toBeInTheDocument()
+    expect(screen.getByText('Davet Kodları')).toBeInTheDocument()
 
     expect(screen.getByText('ABC123')).toBeInTheDocument()
     expect(screen.getByText('USED01')).toBeInTheDocument()
@@ -214,10 +214,10 @@ describe('AdminPanel', () => {
   test('yeni eğitmen kodu üretilebilmeli', async () => {
     render(<AdminPanel onNavigate={() => {}} onLogout={() => {}} />)
 
-    await userEvent.click(screen.getByText('Eğitmen Kodu Üret'))
+    await userEvent.click(screen.getByText('Eğitmen Oluştur'))
 
-    const buttons = await screen.findAllByText(/Yeni Kod Üret/)
-    await userEvent.click(buttons[1])
+    const button = await screen.findByText('Yeni Davet Kodu Üret')
+    await userEvent.click(button)
 
     expect(authService.generateInstructorCode).toHaveBeenCalledTimes(1)
 
@@ -228,10 +228,10 @@ describe('AdminPanel', () => {
   test('üretilen kod kopyalanmalı', async () => {
     render(<AdminPanel onNavigate={() => {}} onLogout={() => {}} />)
 
-    await userEvent.click(screen.getByText('Eğitmen Kodu Üret'))
+    await userEvent.click(screen.getByText('Eğitmen Oluştur'))
 
-    const buttons = await screen.findAllByText(/Yeni Kod Üret/)
-    await userEvent.click(buttons[1])
+    const button = await screen.findByText('Yeni Davet Kodu Üret')
+    await userEvent.click(button)
 
     expect(await screen.findAllByText('NEW999')).toHaveLength(2)
 
@@ -256,10 +256,10 @@ describe('AdminPanel', () => {
 
     render(<AdminPanel onNavigate={() => {}} onLogout={() => {}} />)
 
-    await userEvent.click(screen.getByText('Eğitmen Kodu Üret'))
+    await userEvent.click(screen.getByText('Eğitmen Oluştur'))
 
-    const buttons = await screen.findAllByText(/Yeni Kod Üret/)
-    await userEvent.click(buttons[1])
+    const button = await screen.findByText('Yeni Davet Kodu Üret')
+    await userEvent.click(button)
 
     expect(await screen.findByText('Kod üretilemedi')).toBeInTheDocument()
   })

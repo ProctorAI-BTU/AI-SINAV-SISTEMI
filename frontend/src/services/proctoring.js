@@ -6,9 +6,12 @@ let socket = null;
 
 function getSocket() {
   if (!socket) {
+    const token = localStorage.getItem('token');
     socket = io(SOCKET_URL, {
       transports: ["websocket"],
       autoConnect: true,
+      auth: token ? { token } : {},
+      query: token ? { token } : {},
     });
 
     socket.on("connect", () => {

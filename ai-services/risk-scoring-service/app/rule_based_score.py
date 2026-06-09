@@ -8,13 +8,13 @@ score by themselves.
 
 EVENT_RULES = {
     "FACE_NOT_FOUND": {
-        "weight": 22.0,
-        "max": 66.0,
+        "weight": 18.0,
+        "max": 54.0,
         "reason": "Face was not detected",
     },
     "MULTIPLE_FACE_DETECTED": {
         "weight": 20.0,
-        "max": 60.0,
+        "max": 40.0,
         "reason": "Multiple faces were detected",
     },
     "GAZE_AWAY": {
@@ -27,11 +27,6 @@ EVENT_RULES = {
         "max": 10.0,
         "reason": "Gaze briefly moved away from the screen",
     },
-    "AUDIO_DETECTED": {
-        "weight": 4.0,
-        "max": 16.0,
-        "reason": "2-3 seconds of audio activity was detected",
-    },
     "SPEECH_DETECTED": {
         "weight": 6.0,
         "max": 24.0,
@@ -42,9 +37,14 @@ EVENT_RULES = {
         "max": 12.0,
         "reason": "2-3 seconds of loud or suspicious noise was detected",
     },
+    "AUDIO_DETECTED": {
+        "weight": 4.0,
+        "max": 16.0,
+        "reason": "2-3 seconds of audio activity was detected",
+    },
     "PHONE_DETECTED": {
         "weight": 25.0,
-        "max": 75.0,
+        "max": 50.0,
         "reason": "A phone was detected",
     },
     "OBJECT_DETECTED": {
@@ -58,8 +58,8 @@ EVENT_RULES = {
         "reason": "A prohibited object was detected",
     },
     "TAB_SWITCH": {
-        "weight": 25.0,
-        "max": 50.0,
+        "weight": 10.0,
+        "max": 30.0,
         "reason": "Browser tab was switched",
     },
     "FULLSCREEN_EXIT": {
@@ -72,10 +72,25 @@ EVENT_RULES = {
         "max": 20.0,
         "reason": "Keyboard shortcut attempt was detected",
     },
+    "COPY_PASTE_ATTEMPT": {
+        "weight": 8.0,
+        "max": 16.0,
+        "reason": "Copy-paste attempt was detected",
+    },
+    "RIGHT_CLICK_ATTEMPT": {
+        "weight": 6.0,
+        "max": 12.0,
+        "reason": "Right-click attempt was detected",
+    },
     "CONNECTION_LOST": {
         "weight": 5.0,
         "max": 15.0,
         "reason": "Connection was lost",
+    },
+    "SESSION_TERMINATED": {
+        "weight": 20.0,
+        "max": 20.0,
+        "reason": "Session was terminated",
     },
 }
 

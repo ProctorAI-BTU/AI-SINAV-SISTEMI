@@ -75,8 +75,8 @@ services:
     build: ./services/auth-service
     container_name: ai_sinav_auth
     restart: unless-stopped
-    ports:
-      - "3001:3001"
+    # ports:
+    #   - "3001:3001"
     networks:
       - proctoring-net
     environment:
@@ -97,8 +97,8 @@ services:
     build: ./services/exam-service
     container_name: ai_sinav_exam
     restart: unless-stopped
-    ports:
-      - "3002:3002"
+    # ports:
+    #   - "3002:3002"
     networks:
       - proctoring-net
     environment:
@@ -114,8 +114,8 @@ services:
     build: ./services/reporting-service
     container_name: ai_sinav_reporting
     restart: unless-stopped
-    ports:
-      - "3003:3003"
+    # ports:
+    #   - "3003:3003"
     networks:
       - proctoring-net
     environment:
@@ -131,8 +131,8 @@ services:
     build: ./services/proctoring-service
     container_name: ai_sinav_proctoring
     restart: unless-stopped
-    ports:
-      - "3004:3004"
+    # ports:
+    #   - "3004:3004"
     networks:
       - proctoring-net
     environment:
@@ -145,6 +145,7 @@ services:
       RISK_SERVICE_URL: ${RISK_SERVICE_URL:-http://risk-scoring:8094}
       WEBHOOK_SERVICE_URL: ${WEBHOOK_SERVICE_URL:-http://webhook-service:3005}
       AI_REQUEST_TIMEOUT_MS: ${AI_REQUEST_TIMEOUT_MS:-6000}
+      JWT_SECRET: ${JWT_SECRET}
     depends_on:
       mongodb:
         condition: service_healthy
@@ -154,8 +155,8 @@ services:
     build: ./services/webhook-service
     container_name: ai_sinav_webhook
     restart: unless-stopped
-    ports:
-      - "3005:3005"
+    # ports:
+    #   - "3005:3005"
     networks:
       - proctoring-net
     environment:
@@ -173,8 +174,8 @@ services:
     build: ./ai-services/face-detection-service
     container_name: ai_sinav_face
     restart: unless-stopped
-    ports:
-      - "8091:8091"
+    # ports:
+    #   - "8091:8091"
     networks:
       - proctoring-net
     environment:
@@ -184,8 +185,8 @@ services:
     build: ./ai-services/eye-tracking-service
     container_name: ai_sinav_eye
     restart: unless-stopped
-    ports:
-      - "8092:8092"
+    # ports:
+    #   - "8092:8092"
     networks:
       - proctoring-net
     environment:
@@ -195,8 +196,8 @@ services:
     build: ./ai-services/audio-analysis-service
     container_name: ai_sinav_audio
     restart: unless-stopped
-    ports:
-      - "8093:8093"
+    # ports:
+    #   - "8093:8093"
     networks:
       - proctoring-net
 
@@ -204,8 +205,8 @@ services:
     build: ./ai-services/risk-scoring-service
     container_name: ai_sinav_risk
     restart: unless-stopped
-    ports:
-      - "8094:8094"
+    # ports:
+    #   - "8094:8094"
     networks:
       - proctoring-net
 

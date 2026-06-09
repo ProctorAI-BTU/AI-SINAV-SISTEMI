@@ -41,7 +41,7 @@ class TestAudioAnalyzer:
     def test_tone_is_audio_detected(self):
         result = analyzer.analyze(make_tone(), 16000)
         assert result["audio_detected"] is True
-        assert result["event_type"] == "AUDIO_DETECTED"
+        assert result["event_type"] in ("SPEECH_DETECTED", "NOISE_DETECTED")
         assert result["avg_db"] >= 55.0
 
     def test_invalid_base64_is_safe(self):
@@ -85,4 +85,4 @@ class TestAPI:
             },
         )
         assert response.status_code == 200
-        assert response.json()["event_type"] == "AUDIO_DETECTED"
+        assert response.json()["event_type"] in ("SPEECH_DETECTED", "NOISE_DETECTED")

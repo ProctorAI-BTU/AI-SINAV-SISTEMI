@@ -1,0 +1,21 @@
+# Bağımlılıklar
+node_modules/
+npm-debug.log
+
+# Çevresel Değişkenler
+.env
+.env.*
+!.env.example
+
+# Test ve Coverage
+coverage/
+.nyc_output/
+
+# Loglar
+logs
+*.log
+
+# IDE ve İşletim Sistemi
+.DS_Store
+.vscode/
+.idea/

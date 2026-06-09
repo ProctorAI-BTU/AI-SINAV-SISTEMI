@@ -1,0 +1,301 @@
+{"kind":"deck","id":"pr/cfwe3x","name":"Deck"}
+{"kind":"slide","id":"sl/lrw12n","slide":1,"title":"AI Destekli Online Sınav Sistemi","textShapes":10}
+{"kind":"shape","id":"sh/gfmlkjm1","slide":1,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/rytsvu9k","slide":1,"name":"cover-eyebrow","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[84,70,918,32]}
+{"kind":"textbox","id":"sh/yd0z6103","slide":1,"name":"cover-title","text":"V1 Demo","textPreview":"V1 Demo","textChars":7,"textLines":1,"bbox":[84,126,918,136]}
+{"kind":"textbox","id":"sh/9s36hcrm","slide":1,"name":"cover-subtitle","text":"Girişten risk raporuna kadar uçtan uca gözetimli sınav akışı","textPreview":"Girişten risk raporuna kadar uçtan uca gözetimli sınav akışı","textChars":60,"textLines":1,"bbox":[84,284,826,42]}
+{"kind":"shape","id":"sh/g7adsji5","slide":1,"bbox":[84,350,260,6]}
+{"kind":"shape","id":"sh/rmhk3q5o","slide":1,"bbox":[84,379.6,450,76.8]}
+{"kind":"textbox","id":"sh/y1kre1w7","slide":1,"text":"20","textPreview":"20","textChars":2,"textLines":1,"bbox":[106,398,82,40]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":1,"text":"Mayıs 2026 canlı demo","textPreview":"Mayıs 2026 canlı demo","textChars":21,"textLines":1,"bbox":[204,404,308,28]}
+{"kind":"shape","id":"sh/g3ex0nux","slide":1,"bbox":[552,379.6,450,76.8]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":1,"text":"V1","textPreview":"V1","textChars":2,"textLines":1,"bbox":[574,398,82,40]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":1,"text":"Sınav + ihlal + rapor akışı","textPreview":"Sınav + ihlal + rapor akışı","textChars":27,"textLines":1,"bbox":[672,404,308,28]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":1,"text":"Hazırlayan: Koray Garip ve ekip","textPreview":"Hazırlayan: Koray Garip ve ekip","textChars":31,"textLines":1,"bbox":[84,932,918,28]}
+{"kind":"textbox","id":"sh/x0nuxc3y","slide":1,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[84,966,228,44]}
+{"kind":"textbox","id":"sh/qxs72x4n","slide":1,"name":"footer-slide","text":"V1 Demo  |  01/10","textPreview":"V1 Demo  |  01/10","textChars":17,"textLines":1,"bbox":[866,978,136,20]}
+{"kind":"shape","id":"sh/fil0rqd4","slide":1,"name":"cover-poster-frame","bbox":[1054,70,782,940]}
+{"kind":"image","id":"im/ji5snelo","slide":1,"name":"project-poster","alt":"AI destekli online sınav sistemi poster görseli","bbox":[1054,70,782,940]}
+{"kind":"notes","id":"nt/lrw12n","slide":1,"text":""}
+{"kind":"slide","id":"sl/0ybq4q","slide":2,"title":"Online sınavda güven sorunu gerçek zamanlı çözülmeli","textShapes":15}
+{"kind":"shape","id":"sh/9knih4by","slide":2,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":2,"name":"slide-title","text":"Online sınavda güven sorunu gerçek zamanlı çözülmeli","textPreview":"Online sınavda güven sorunu gerçek zamanlı çözülmeli","textChars":52,"textLines":1,"bbox":[86,68,1748,68]}
+{"kind":"shape","id":"sh/re1w7mp0","slide":2,"name":"title-rule","bbox":[86,150,190,5]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":2,"name":"slide-subtitle","text":"V1, öğrenciyi sınavdan koparmadan izleyen ve eğitmene kanıtlı rapor üreten bir gözetim akışı sunar.","textPreview":"V1, öğrenciyi sınavdan koparmadan izleyen ve eğitmene kanıtlı rapor üreten bir gözetim akışı sunar.","textChars":99,"textLines":1,"bbox":[86,168,1124,34]}
+{"kind":"shape","id":"sh/9w3m94fu","slide":2,"bbox":[86,353.3,894.6,122.4]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":2,"bbox":[116,380,8,38]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":2,"text":"Problem","textPreview":"Problem","textChars":7,"textLines":1,"bbox":[134,380,818,32]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":2,"text":"Klasik online sınavlar çoğunlukla sınav bittikten sonra incelenir; canlı ihlal yönetimi zayıftır.","textPreview":"Klasik online sınavlar çoğunlukla sınav bittikten sonra incelenir; canlı ihlal yönetimi zayıftır.","textChars":97,"textLines":1,"bbox":[114,426,838,28]}
+{"kind":"shape","id":"sh/94fu18jq","slide":2,"bbox":[86,497.7,894.6,148.8]}
+{"kind":"shape","id":"sh/1orytsvu","slide":2,"bbox":[116,524,8,38]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":2,"text":"V1 hedefi","textPreview":"V1 hedefi","textChars":9,"textLines":1,"bbox":[134,524,818,32]}
+{"kind":"textbox","id":"sh/jm1cfa9w","slide":2,"text":"Yüz, bakış, ses ve tam ekran olaylarını aynı oturum mantığında takip edip risk raporuna bağlamak.","textPreview":"Yüz, bakış, ses ve tam ekran olaylarını aynı oturum mantığında takip edip risk raporuna bağlamak.","textChars":97,"textLines":1,"bbox":[114,570,838,54]}
+{"kind":"shape","id":"sh/u18jqh0f","slide":2,"bbox":[86,668.5,894.6,148.8]}
+{"kind":"shape","id":"sh/1032lszq","slide":2,"bbox":[116,692,8,38]}
+{"kind":"textbox","id":"sh/cfa9w3m9","slide":2,"text":"Demo mesajı","textPreview":"Demo mesajı","textChars":11,"textLines":1,"bbox":[134,696,818,32]}
+{"kind":"textbox","id":"sh/judg7ads","slide":2,"text":"Sistem yalnızca uyarı vermez; öğrencinin devam edip edemeyeceğine ve rapora ne yazılacağına karar akışıyla yaklaşır.","textPreview":"Sistem yalnızca uyarı vermez; öğrencinin devam edip edemeyeceğine ve rapora ne yazılacağına karar akışıyla yaklaşır.","textChars":116,"textLines":1,"bbox":[114,740,838,54]}
+{"kind":"shape","id":"sh/u9knih4b","slide":2,"bbox":[1024.6,243.8,809.4,683]}
+{"kind":"textbox","id":"sh/54zidony","slide":2,"text":"V1 başarı kriteri","textPreview":"V1 başarı kriteri","textChars":17,"textLines":1,"bbox":[1066,376,726,38]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":2,"text":"Öğrenci sınava güvenli şekilde başlar, koparsa kaldığı yerden döner, ihlal limiti dolarsa sınav kontrollü biter.","textPreview":"Öğrenci sınava güvenli şekilde başlar, koparsa kaldığı yerden döner, ihlal limiti dolarsa sınav kontrollü biter.","textChars":112,"textLines":1,"bbox":[1066,442,726,152]}
+{"kind":"shape","id":"sh/crmhk3q5","slide":2,"bbox":[1066,622,726,2]}
+{"kind":"shape","id":"sh/1cfa9w3m","slide":2,"bbox":[1066,652,12,12]}
+{"kind":"textbox","id":"sh/ulwval87","slide":2,"text":"Biten sınava aynı kişi aynı kodla tekrar giremez.","textPreview":"Biten sınava aynı kişi aynı kodla tekrar giremez.","textChars":49,"textLines":1,"bbox":[1092,652,700,30]}
+{"kind":"shape","id":"sh/j6tovaho","slide":2,"bbox":[1066,708,12,12]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":2,"text":"Aktif sınavda bağlantı koparsa oturum devam eder.","textPreview":"Aktif sınavda bağlantı koparsa oturum devam eder.","textChars":49,"textLines":1,"bbox":[1092,708,700,30]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":2,"bbox":[1066,764,12,12]}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":2,"text":"Yüz görünmeden sınav başlatılamaz.","textPreview":"Yüz görünmeden sınav başlatılamaz.","textChars":34,"textLines":1,"bbox":[1092,764,700,30]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":2,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[86,968,228,44]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":2,"name":"footer-slide","text":"V1 Demo  |  02/10","textPreview":"V1 Demo  |  02/10","textChars":17,"textLines":1,"bbox":[1698,980,136,20]}
+{"kind":"notes","id":"nt/0ybq4q","slide":2,"text":""}
+{"kind":"slide","id":"sl/zcbhyy","slide":3,"title":"Öğrenci başlar, sistem izler, eğitmen raporlar","textShapes":13}
+{"kind":"shape","id":"sh/fyxobm58","slide":3,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/8jqh0fep","slide":3,"name":"slide-title","text":"Öğrenci başlar, sistem izler, eğitmen raporlar","textPreview":"Öğrenci başlar, sistem izler, eğitmen raporlar","textChars":46,"textLines":1,"bbox":[86,68,1748,68]}
+{"kind":"shape","id":"sh/x4nap4r6","slide":3,"name":"title-rule","bbox":[86,150,190,5]}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":3,"name":"slide-subtitle","text":"Canlı demoda göstereceğimiz ana değer: sınav akışı, proctoring kararları ve rapor aynı üründe kapanıyor.","textPreview":"Canlı demoda göstereceğimiz ana değer: sınav akışı, proctoring kararları ve rapor aynı üründe kapanıyor.","textChars":104,"textLines":1,"bbox":[86,168,1178,34]}
+{"kind":"shape","id":"sh/fa9w3m94","slide":3,"bbox":[86,245.8,517.33,558.6]}
+{"kind":"textbox","id":"sh/8v6psfil","slide":3,"text":"1. Başlatma","textPreview":"1. Başlatma","textChars":11,"textLines":1,"bbox":[112,468,466,36]}
+{"kind":"shape","id":"sh/xczed8v6","slide":3,"bbox":[112,514,96,5]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":3,"text":"Kod girilir, kamera ve yüz onayı alınır, tam ekran sağlanır.","textPreview":"Kod girilir, kamera ve yüz onayı alınır, tam ekran sağlanır.","textChars":60,"textLines":1,"bbox":[112,532,466,52]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":3,"text":">","textPreview":">","textChars":1,"textLines":1,"bbox":[638,492,28,66]}
+{"kind":"shape","id":"sh/nih4byhg","slide":3,"bbox":[701.33,245.8,517.33,558.6]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":3,"text":"2. Gözetim","textPreview":"2. Gözetim","textChars":10,"textLines":1,"bbox":[728,468,466,36]}
+{"kind":"shape","id":"sh/5o7qpg3e","slide":3,"bbox":[728,514,96,5]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":3,"text":"Cevaplar korunur; yüz, bakış, ses ve tam ekran olayları işlenir.","textPreview":"Cevaplar korunur; yüz, bakış, ses ve tam ekran olayları işlenir.","textChars":64,"textLines":1,"bbox":[728,532,466,52]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":3,"text":">","textPreview":">","textChars":1,"textLines":1,"bbox":[1254,492,28,66]}
+{"kind":"shape","id":"sh/ylc7u54z","slide":3,"bbox":[1316.67,245.8,517.33,558.6]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":3,"text":"3. Rapor","textPreview":"3. Rapor","textChars":8,"textLines":1,"bbox":[1342,468,466,36]}
+{"kind":"shape","id":"sh/gr2p8nqx","slide":3,"bbox":[1342,514,96,5]}
+{"kind":"textbox","id":"sh/rytsvu9k","slide":3,"text":"İhlaller, risk puanı ve olay zaman çizelgesi eğitmen ekranında görünür.","textPreview":"İhlaller, risk puanı ve olay zaman çizelgesi eğitmen ekranında görünür.","textChars":71,"textLines":1,"bbox":[1342,532,466,52]}
+{"kind":"shape","id":"sh/yd0z6103","slide":3,"bbox":[86,848.4,1748,76.4]}
+{"kind":"textbox","id":"sh/a9w3m94f","slide":3,"text":"Demo sırasında tek cümlelik anlatım: V1 artık sınavı başlatma, sürdürme, ihlal yönetme ve raporlama zincirini koparmadan gösterebiliyor.","textPreview":"Demo sırasında tek cümlelik anlatım: V1 artık sınavı başlatma, sürdürme, ihlal yönetme ve raporlama zincirini koparmadan gösterebiliyor.","textChars":136,"textLines":1,"bbox":[116,870,1688,34]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":3,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[86,968,228,44]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":3,"name":"footer-slide","text":"V1 Demo  |  03/10","textPreview":"V1 Demo  |  03/10","textChars":17,"textLines":1,"bbox":[1698,980,136,20]}
+{"kind":"notes","id":"nt/zcbhyy","slide":3,"text":""}
+{"kind":"slide","id":"sl/7g6d6f","slide":4,"title":"Yarınki demo 5 kısa sahneden oluşsun","textShapes":19}
+{"kind":"shape","id":"sh/2t83itgf","slide":4,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/9knih4by","slide":4,"name":"slide-title","text":"Yarınki demo 5 kısa sahneden oluşsun","textPreview":"Yarınki demo 5 kısa sahneden oluşsun","textChars":36,"textLines":1,"bbox":[74,64,1772,68]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":4,"name":"title-rule","bbox":[74,146,190,5]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":4,"name":"slide-subtitle","text":"Her sahne tek bir ürün kararını kanıtlar; anlatım kısa, tıklama akışı net kalır.","textPreview":"Her sahne tek bir ürün kararını kanıtlar; anlatım kısa, tıklama akışı net kalır.","textChars":80,"textLines":1,"bbox":[74,164,844,34]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":4,"name":"demo-step-1","bbox":[74,231.8,340,707]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":4,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[96,256,64,48]}
+{"kind":"shape","id":"sh/kb6xkf6d","slide":4,"bbox":[96,322,296,5]}
+{"kind":"textbox","id":"sh/r2p8nqxs","slide":4,"text":"Öğrenci paneli","textPreview":"Öğrenci paneli","textChars":14,"textLines":1,"bbox":[96,344,296,34]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":4,"text":"Kod girilir; sistem doğrudan boş kod ekranına düşmez.","textPreview":"Kod girilir; sistem doğrudan boş kod ekranına düşmez.","textChars":53,"textLines":1,"bbox":[96,396,296,54]}
+{"kind":"shape","id":"sh/crmhk3q5","slide":4,"name":"demo-step-2","bbox":[432,231.8,340,707]}
+{"kind":"textbox","id":"sh/1cfa9w3m","slide":4,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[454,256,64,48]}
+{"kind":"shape","id":"sh/ulwval87","slide":4,"bbox":[454,322,296,5]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":4,"text":"Ön kontrol","textPreview":"Ön kontrol","textChars":10,"textLines":1,"bbox":[454,344,296,34]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":4,"text":"Kamera, mikrofon, yüz ve tam ekran onayı alınır.","textPreview":"Kamera, mikrofon, yüz ve tam ekran onayı alınır.","textChars":48,"textLines":1,"bbox":[454,396,296,54]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":4,"name":"demo-step-3","bbox":[790,231.8,340,707]}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":4,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[812,256,64,48]}
+{"kind":"shape","id":"sh/ji5snelo","slide":4,"bbox":[812,322,296,5]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":4,"text":"Sınav odası","textPreview":"Sınav odası","textChars":11,"textLines":1,"bbox":[812,344,296,34]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":4,"text":"Soru gezintisi, önceki butonu ve cevap koruma gösterilir.","textPreview":"Soru gezintisi, önceki butonu ve cevap koruma gösterilir.","textChars":57,"textLines":1,"bbox":[812,396,296,54]}
+{"kind":"shape","id":"sh/1orytsvu","slide":4,"name":"demo-step-4","bbox":[1148,231.8,340,707]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":4,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[1170,256,64,48]}
+{"kind":"shape","id":"sh/jm1cfa9w","slide":4,"bbox":[1170,322,296,5]}
+{"kind":"textbox","id":"sh/u18jqh0f","slide":4,"text":"İhlal yönetimi","textPreview":"İhlal yönetimi","textChars":14,"textLines":1,"bbox":[1170,344,296,34]}
+{"kind":"textbox","id":"sh/1032lszq","slide":4,"text":"Tam ekrandan çıkışta 1/3, 2/3, 3/3 popup akışı denenir.","textPreview":"Tam ekrandan çıkışta 1/3, 2/3, 3/3 popup akışı denenir.","textChars":55,"textLines":1,"bbox":[1170,396,296,54]}
+{"kind":"shape","id":"sh/cfa9w3m9","slide":4,"name":"demo-step-5","bbox":[1506,231.8,340,707]}
+{"kind":"textbox","id":"sh/judg7ads","slide":4,"text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[1528,256,64,48]}
+{"kind":"shape","id":"sh/u9knih4b","slide":4,"bbox":[1528,322,296,5]}
+{"kind":"textbox","id":"sh/54zidony","slide":4,"text":"Rapor","textPreview":"Rapor","textChars":5,"textLines":1,"bbox":[1528,344,296,34]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":4,"text":"Yüz, bakış, ses ve tam ekran olayları risk puanıyla incelenir.","textPreview":"Yüz, bakış, ses ve tam ekran olayları risk puanıyla incelenir.","textChars":62,"textLines":1,"bbox":[1528,396,296,54]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":4,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[74,972,228,44]}
+{"kind":"textbox","id":"sh/f6dcbulw","slide":4,"name":"footer-slide","text":"V1 Demo  |  04/10","textPreview":"V1 Demo  |  04/10","textChars":17,"textLines":1,"bbox":[1710,984,136,20]}
+{"kind":"notes","id":"nt/7g6d6f","slide":4,"text":""}
+{"kind":"slide","id":"sl/pzc6hm","slide":5,"title":"V1 mimarisi modüler servisler üzerine kurulu","textShapes":16}
+{"kind":"shape","id":"sh/6tovahoz","slide":5,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":5,"name":"slide-title","text":"V1 mimarisi modüler servisler üzerine kurulu","textPreview":"V1 mimarisi modüler servisler üzerine kurulu","textChars":44,"textLines":1,"bbox":[78,62,1764,68]}
+{"kind":"shape","id":"sh/ovahoza1","slide":5,"name":"title-rule","bbox":[78,144,190,5]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":5,"name":"slide-subtitle","text":"Frontend, Node servisleri ve Python AI servisleri aynı sınav oturumu etrafında konuşur.","textPreview":"Frontend, Node servisleri ve Python AI servisleri aynı sınav oturumu etrafında konuşur.","textChars":87,"textLines":1,"bbox":[78,162,980,68]}
+{"kind":"shape","id":"sh/6hcrmhk3","slide":5,"bbox":[78,259.4,413.09,591.8]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":5,"text":"React istemci","textPreview":"React istemci","textChars":13,"textLines":1,"bbox":[104,498,362,36]}
+{"kind":"shape","id":"sh/onyd0z61","slide":5,"bbox":[104,544,96,5]}
+{"kind":"textbox","id":"sh/vy90je9c","slide":5,"text":"Öğrenci ve eğitmen panelleri, WebRTC kamera/mikrofon, Socket.IO olayları.","textPreview":"Öğrenci ve eğitmen panelleri, WebRTC kamera/mikrofon, Socket.IO olayları.","textChars":73,"textLines":1,"bbox":[104,562,362,52]}
+{"kind":"textbox","id":"sh/6dcbulwv","slide":5,"text":">","textPreview":">","textChars":1,"textLines":1,"bbox":[512,528,20,54]}
+{"kind":"shape","id":"sh/4zidonyd","slide":5,"bbox":[553.09,259.4,413.09,591.8]}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":5,"text":"Node API servisleri","textPreview":"Node API servisleri","textChars":19,"textLines":1,"bbox":[580,486,362,36]}
+{"kind":"shape","id":"sh/mtwra5gb","slide":5,"bbox":[580,532,96,5]}
+{"kind":"textbox","id":"sh/fepkzupw","slide":5,"text":"Auth, exam, proctoring ve reporting servisleri. JWT, REST ve WebSocket katmanı.","textPreview":"Auth, exam, proctoring ve reporting servisleri. JWT, REST ve WebSocket katmanı.","textChars":79,"textLines":1,"bbox":[580,550,362,76]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":5,"text":">","textPreview":">","textChars":1,"textLines":1,"bbox":[988,528,20,54]}
+{"kind":"shape","id":"sh/xc3ylc7u","slide":5,"bbox":[1028.18,259.4,413.09,591.8]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":5,"text":"Python AI servisleri","textPreview":"Python AI servisleri","textChars":20,"textLines":1,"bbox":[1054,498,362,36]}
+{"kind":"shape","id":"sh/f6dcbulw","slide":5,"bbox":[1054,544,96,5]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":5,"text":"Face detection, eye tracking, audio analysis ve risk scoring mikroservisleri.","textPreview":"Face detection, eye tracking, audio analysis ve risk scoring mikroservisleri.","textChars":77,"textLines":1,"bbox":[1054,562,362,52]}
+{"kind":"textbox","id":"sh/x0nuxc3y","slide":5,"text":">","textPreview":">","textChars":1,"textLines":1,"bbox":[1462,528,20,54]}
+{"kind":"shape","id":"sh/h4byhgn2","slide":5,"bbox":[1503.27,259.4,338.73,591.8]}
+{"kind":"textbox","id":"sh/sji5snel","slide":5,"text":"MongoDB","textPreview":"MongoDB","textChars":7,"textLines":1,"bbox":[1530,498,286,36]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":5,"bbox":[1530,544,96,5]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":5,"text":"Kullanıcı, sınav, oturum, cevap ve rapor kayıtları.","textPreview":"Kullanıcı, sınav, oturum, cevap ve rapor kayıtları.","textChars":51,"textLines":1,"bbox":[1530,562,286,52]}
+{"kind":"shape","id":"sh/lszqtcj6","slide":5,"bbox":[78,881.2,1764,63.6]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":5,"text":"Demo notu: Audio tarafı için REST mi WebSocket mi kararı V1 sonrası netleştirilecek; canlı akış gereksinimi ağır basarsa WebSocket hattı tercih edilmeli.","textPreview":"Demo notu: Audio tarafı için REST mi WebSocket mi kararı V1 sonrası netleştirilecek; canlı akış gereksinimi ağır basarsa WebSocket hattı ...","textChars":153,"textLines":1,"bbox":[104,900,1712,28]}
+{"kind":"textbox","id":"sh/3m94fu18","slide":5,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[78,974,228,44]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":5,"name":"footer-slide","text":"V1 Demo  |  05/10","textPreview":"V1 Demo  |  05/10","textChars":17,"textLines":1,"bbox":[1706,986,136,20]}
+{"kind":"notes","id":"nt/pzc6hm","slide":5,"text":""}
+{"kind":"slide","id":"sl/c03pmc","slide":6,"title":"İhlal değil, kanıtlı risk sinyali topluyoruz","textShapes":22}
+{"kind":"shape","id":"sh/mtwra5gb","slide":6,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":6,"name":"slide-title","text":"İhlal değil, kanıtlı risk sinyali topluyoruz","textPreview":"İhlal değil, kanıtlı risk sinyali topluyoruz","textChars":44,"textLines":1,"bbox":[82,64,1756,68]}
+{"kind":"shape","id":"sh/4zidonyd","slide":6,"name":"title-rule","bbox":[82,146,190,5]}
+{"kind":"textbox","id":"sh/f6dcbulw","slide":6,"name":"slide-subtitle","text":"Her olay hem öğrencinin akışına hem eğitmen raporuna etki eder; amaç ölçülebilir ve açıklanabilir risk puanı üretmek.","textPreview":"Her olay hem öğrencinin akışına hem eğitmen raporuna etki eder; amaç ölçülebilir ve açıklanabilir risk puanı üretmek.","textChars":117,"textLines":1,"bbox":[82,164,1222,68]}
+{"kind":"shape","id":"sh/mlkjm1cf","slide":6,"bbox":[82,265.4,524.62,325.7]}
+{"kind":"shape","id":"sh/xc3ylc7u","slide":6,"bbox":[112,292,8,38]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":6,"text":"Yüz / kamera","textPreview":"Yüz / kamera","textChars":12,"textLines":1,"bbox":[130,292,448,32]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":6,"text":"Yüz görünmezse sınav başlamaz; sınav içinde yüz kaybolursa ekran kilitlenir ve kamera bağlantısı beklenir.","textPreview":"Yüz görünmezse sınav başlamaz; sınav içinde yüz kaybolursa ekran kilitlenir ve kamera bağlantısı beklenir.","textChars":106,"textLines":1,"bbox":[110,338,468,80]}
+{"kind":"shape","id":"sh/m94fu18j","slide":6,"bbox":[628.62,265.4,524.62,325.7]}
+{"kind":"shape","id":"sh/sji5snel","slide":6,"bbox":[656,292,8,38]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":6,"text":"Bakış","textPreview":"Bakış","textChars":5,"textLines":1,"bbox":[676,292,448,32]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":6,"text":"Ekran dışına bakışlar rapora olay olarak düşer; küçük risk katkıları birikimli değerlendirilir.","textPreview":"Ekran dışına bakışlar rapora olay olarak düşer; küçük risk katkıları birikimli değerlendirilir.","textChars":95,"textLines":1,"bbox":[656,338,468,54]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":6,"bbox":[82,613.1,524.62,325.7]}
+{"kind":"shape","id":"sh/s72x4nap","slide":6,"bbox":[112,640,8,38]}
+{"kind":"textbox","id":"sh/lszqtcj6","slide":6,"text":"Ses","textPreview":"Ses","textChars":3,"textLines":1,"bbox":[130,640,448,32]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":6,"text":"2-3 saniye yüksek ses veya konuşma tespitinde raporda 'ses riski' olarak işaretlenir.","textPreview":"2-3 saniye yüksek ses veya konuşma tespitinde raporda 'ses riski' olarak işaretlenir.","textChars":85,"textLines":1,"bbox":[110,686,468,54]}
+{"kind":"shape","id":"sh/3m94fu18","slide":6,"bbox":[628.62,613.1,524.62,325.7]}
+{"kind":"shape","id":"sh/s36hcrmh","slide":6,"bbox":[656,640,8,38]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":6,"text":"Tam ekran","textPreview":"Tam ekran","textChars":9,"textLines":1,"bbox":[676,640,448,32]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":6,"text":"Girişte ihlal sayılmaz; tam ekrandan çıkınca popup gösterilir, 3/3 olduğunda sınav sonlanır.","textPreview":"Girişte ihlal sayılmaz; tam ekrandan çıkınca popup gösterilir, 3/3 olduğunda sınav sonlanır.","textChars":92,"textLines":1,"bbox":[656,686,468,54]}
+{"kind":"shape","id":"sh/szqtcj6t","slide":6,"bbox":[1195.25,265.4,642.75,673.4]}
+{"kind":"textbox","id":"sh/3ex0nuxc","slide":6,"text":"Risk puanı örneği","textPreview":"Risk puanı örneği","textChars":17,"textLines":1,"bbox":[1230,358,574,38]}
+{"kind":"shape","id":"sh/at47y1kr","slide":6,"bbox":[1229.25,418.5,574.75,76.8]}
+{"kind":"textbox","id":"sh/l87ed8ba","slide":6,"text":"+18","textPreview":"+18","textChars":3,"textLines":1,"bbox":[1252,436,82,40]}
+{"kind":"textbox","id":"sh/sneloj2t","slide":6,"text":"Yüz algılanmadı","textPreview":"Yüz algılanmadı","textChars":15,"textLines":1,"bbox":[1350,442,432,28]}
+{"kind":"shape","id":"sh/32lszqtc","slide":6,"bbox":[1229.25,519.3,574.75,76.8]}
+{"kind":"textbox","id":"sh/ahoza1gv","slide":6,"text":"+8","textPreview":"+8","textChars":2,"textLines":1,"bbox":[1252,538,82,40]}
+{"kind":"textbox","id":"sh/lwval87e","slide":6,"text":"Yüksek ses 3 sn","textPreview":"Yüksek ses 3 sn","textChars":15,"textLines":1,"bbox":[1350,544,432,28]}
+{"kind":"shape","id":"sh/wb2hwfyx","slide":6,"bbox":[1229.25,620.1,574.75,76.8]}
+{"kind":"textbox","id":"sh/6dcbulwv","slide":6,"text":"+6","textPreview":"+6","textChars":2,"textLines":1,"bbox":[1252,638,82,40]}
+{"kind":"textbox","id":"sh/vy90je9c","slide":6,"text":"Bakış ekran dışında","textPreview":"Bakış ekran dışında","textChars":19,"textLines":1,"bbox":[1350,644,432,28]}
+{"kind":"shape","id":"sh/oj2t83it","slide":6,"bbox":[1229.25,720.9,574.75,76.8]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":6,"text":"1/3","textPreview":"1/3","textChars":3,"textLines":1,"bbox":[1252,740,82,40]}
+{"kind":"textbox","id":"sh/61032lsz","slide":6,"text":"Tam ekran ihlali","textPreview":"Tam ekran ihlali","textChars":16,"textLines":1,"bbox":[1350,746,432,28]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":6,"text":"Puanlar tek başına karar değil; raporun kanıt satırlarıdır.","textPreview":"Puanlar tek başına karar değil; raporun kanıt satırlarıdır.","textChars":59,"textLines":1,"bbox":[1230,822,574,26]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":6,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[82,972,228,44]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":6,"name":"footer-slide","text":"V1 Demo  |  06/10","textPreview":"V1 Demo  |  06/10","textChars":17,"textLines":1,"bbox":[1702,984,136,20]}
+{"kind":"notes","id":"nt/c03pmc","slide":6,"text":""}
+{"kind":"slide","id":"sl/a69lw4","slide":7,"title":"V1 demo öncesi kritik kullanıcı akışı toparlandı","textShapes":18}
+{"kind":"shape","id":"sh/xkf6dcbu","slide":7,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":7,"name":"slide-title","text":"V1 demo öncesi kritik kullanıcı akışı toparlandı","textPreview":"V1 demo öncesi kritik kullanıcı akışı toparlandı","textChars":48,"textLines":1,"bbox":[82,62,1756,68]}
+{"kind":"shape","id":"sh/fepkzupw","slide":7,"name":"title-rule","bbox":[82,144,190,5]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":7,"name":"slide-subtitle","text":"Bu slayt, önceki sorun listesinin demoda nasıl kapatıldığını açıkça anlatmak için.","textPreview":"Bu slayt, önceki sorun listesinin demoda nasıl kapatıldığını açıkça anlatmak için.","textChars":82,"textLines":1,"bbox":[82,162,896,68]}
+{"kind":"shape","id":"sh/xc3ylc7u","slide":7,"bbox":[82,255.4,1756,693.4]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":7,"text":"Alan","textPreview":"Alan","textChars":4,"textLines":1,"bbox":[126,288,304,24]}
+{"kind":"textbox","id":"sh/f6dcbulw","slide":7,"text":"V1 davranışı","textPreview":"V1 davranışı","textChars":12,"textLines":1,"bbox":[442,288,1352,24]}
+{"kind":"shape","id":"sh/4fu18jqh","slide":7,"bbox":[108,328,1704,2]}
+{"kind":"textbox","id":"sh/x0nuxc3y","slide":7,"text":"Tekrar giriş","textPreview":"Tekrar giriş","textChars":12,"textLines":1,"bbox":[126,342,304,24]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":7,"text":"Biten sınava aynı kişi aynı kodla yeniden giremez; aktif oturum koparsa devam eder.","textPreview":"Biten sınava aynı kişi aynı kodla yeniden giremez; aktif oturum koparsa devam eder.","textChars":83,"textLines":1,"bbox":[442,342,1352,24]}
+{"kind":"shape","id":"sh/szqtcj6t","slide":7,"bbox":[108,378,1704,1]}
+{"kind":"textbox","id":"sh/3ex0nuxc","slide":7,"text":"İhlal sayacı","textPreview":"İhlal sayacı","textChars":12,"textLines":1,"bbox":[126,392,304,24]}
+{"kind":"textbox","id":"sh/at47y1kr","slide":7,"text":"İhlal girişte değil, tam ekrandan çıkışta sayılır. 1/3, 2/3, 3/3 popup akışı vardır.","textPreview":"İhlal girişte değil, tam ekrandan çıkışta sayılır. 1/3, 2/3, 3/3 popup akışı vardır.","textChars":84,"textLines":1,"bbox":[442,392,1352,24]}
+{"kind":"shape","id":"sh/l87ed8ba","slide":7,"bbox":[108,428,1704,1]}
+{"kind":"textbox","id":"sh/sneloj2t","slide":7,"text":"Kamera / yüz","textPreview":"Kamera / yüz","textChars":12,"textLines":1,"bbox":[126,442,304,24]}
+{"kind":"textbox","id":"sh/32lszqtc","slide":7,"text":"Yüz onayı gelmeden sınav başlamaz; yüz kaybolursa devam kilitlenir.","textPreview":"Yüz onayı gelmeden sınav başlamaz; yüz kaybolursa devam kilitlenir.","textChars":67,"textLines":1,"bbox":[442,442,1352,24]}
+{"kind":"shape","id":"sh/ahoza1gv","slide":7,"bbox":[108,478,1704,1]}
+{"kind":"textbox","id":"sh/lwval87e","slide":7,"text":"Bitiş davranışı","textPreview":"Bitiş davranışı","textChars":15,"textLines":1,"bbox":[126,492,304,24]}
+{"kind":"textbox","id":"sh/wb2hwfyx","slide":7,"text":"Sınav bittiğinde logout yapılmaz; öğrenci ekranına geri dönülür.","textPreview":"Sınav bittiğinde logout yapılmaz; öğrenci ekranına geri dönülür.","textChars":64,"textLines":1,"bbox":[442,492,1352,24]}
+{"kind":"shape","id":"sh/sji5snel","slide":7,"bbox":[108,528,1704,1]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":7,"text":"Soru gezintisi","textPreview":"Soru gezintisi","textChars":14,"textLines":1,"bbox":[126,542,304,24]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":7,"text":"Önceki butonu ve soru seçimi cevapları kaybetmeden çalışır.","textPreview":"Önceki butonu ve soru seçimi cevapları kaybetmeden çalışır.","textChars":59,"textLines":1,"bbox":[442,542,1352,24]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":7,"bbox":[108,578,1704,1]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":7,"text":"Oturum dayanıklılığı","textPreview":"Oturum dayanıklılığı","textChars":20,"textLines":1,"bbox":[126,592,304,24]}
+{"kind":"textbox","id":"sh/lszqtcj6","slide":7,"text":"JWT süresi uzatıldı; şifremi unuttum ve yardım akışları iyileştirildi.","textPreview":"JWT süresi uzatıldı; şifremi unuttum ve yardım akışları iyileştirildi.","textChars":70,"textLines":1,"bbox":[442,592,1352,24]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":7,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[82,974,228,44]}
+{"kind":"textbox","id":"sh/3m94fu18","slide":7,"name":"footer-slide","text":"V1 Demo  |  07/10","textPreview":"V1 Demo  |  07/10","textChars":17,"textLines":1,"bbox":[1702,986,136,20]}
+{"kind":"notes","id":"nt/a69lw4","slide":7,"text":""}
+{"kind":"slide","id":"sl/sqjr9b","slide":8,"title":"Rapor artık yalnız skor değil, olay kanıtı taşıyor","textShapes":33}
+{"kind":"shape","id":"sh/jqh0fepk","slide":8,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":8,"name":"slide-title","text":"Rapor artık yalnız skor değil, olay kanıtı taşıyor","textPreview":"Rapor artık yalnız skor değil, olay kanıtı taşıyor","textChars":50,"textLines":1,"bbox":[82,64,1756,68]}
+{"kind":"shape","id":"sh/1w7mp0bi","slide":8,"name":"title-rule","bbox":[82,146,190,5]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":8,"name":"slide-subtitle","text":"Eğitmen sınav sonrası riskin neden oluştuğunu zaman çizelgesiyle görebilmeli.","textPreview":"Eğitmen sınav sonrası riskin neden oluştuğunu zaman çizelgesiyle görebilmeli.","textChars":77,"textLines":1,"bbox":[82,164,880,34]}
+{"kind":"shape","id":"sh/j2t83itg","slide":8,"bbox":[82,227.8,599.9,715]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":8,"text":"Risk skoru","textPreview":"Risk skoru","textChars":10,"textLines":1,"bbox":[118,296,528,38]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":8,"text":"72","textPreview":"72","textChars":2,"textLines":1,"bbox":[118,360,132,312]}
+{"kind":"textbox","id":"sh/ulwval87","slide":8,"text":"Orta-yüksek risk","textPreview":"Orta-yüksek risk","textChars":16,"textLines":1,"bbox":[118,698,528,42]}
+{"kind":"shape","id":"sh/j6tovaho","slide":8,"bbox":[118,764,528,2]}
+{"kind":"shape","id":"sh/j2t83itg","slide":8,"bbox":[118,792,12,12]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":8,"text":"Yüz ve tam ekran olayları daha ağır.","textPreview":"Yüz ve tam ekran olayları daha ağır.","textChars":36,"textLines":1,"bbox":[144,792,502,28]}
+{"kind":"shape","id":"sh/18jqh0fe","slide":8,"bbox":[118,846,12,12]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":8,"text":"Bakış ve ses küçük katkılarla eklenir.","textPreview":"Bakış ve ses küçük katkılarla eklenir.","textChars":38,"textLines":1,"bbox":[144,846,502,28]}
+{"kind":"shape","id":"sh/jqh0fepk","slide":8,"bbox":[723.9,227.8,1114.1,715]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":8,"text":"Zaman","textPreview":"Zaman","textChars":5,"textLines":1,"bbox":[770,266,178,24]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":8,"text":"Olay","textPreview":"Olay","textChars":4,"textLines":1,"bbox":[960,266,398,24]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":8,"text":"Risk","textPreview":"Risk","textChars":4,"textLines":1,"bbox":[1370,266,146,24]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":8,"text":"Aksiyon","textPreview":"Aksiyon","textChars":7,"textLines":1,"bbox":[1530,266,262,24]}
+{"kind":"shape","id":"sh/uxc3ylc7","slide":8,"bbox":[752,306,1058,2]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":8,"text":"00:34","textPreview":"00:34","textChars":5,"textLines":1,"bbox":[770,320,178,24]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":8,"text":"Yüz algılanmadı","textPreview":"Yüz algılanmadı","textChars":15,"textLines":1,"bbox":[960,320,398,24]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":8,"text":"+18","textPreview":"+18","textChars":3,"textLines":1,"bbox":[1370,320,146,24]}
+{"kind":"textbox","id":"sh/9knih4by","slide":8,"text":"Ekran bekletildi","textPreview":"Ekran bekletildi","textChars":16,"textLines":1,"bbox":[1530,320,262,24]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":8,"bbox":[752,356,1058,1]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":8,"text":"01:12","textPreview":"01:12","textChars":5,"textLines":1,"bbox":[770,370,178,24]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":8,"text":"Bakış ekran dışında","textPreview":"Bakış ekran dışında","textChars":19,"textLines":1,"bbox":[960,370,398,24]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":8,"text":"+6","textPreview":"+6","textChars":2,"textLines":1,"bbox":[1370,370,146,24]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":8,"text":"Rapora işlendi","textPreview":"Rapora işlendi","textChars":14,"textLines":1,"bbox":[1530,370,262,24]}
+{"kind":"shape","id":"sh/r2p8nqxs","slide":8,"bbox":[752,406,1058,1]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":8,"text":"02:05","textPreview":"02:05","textChars":5,"textLines":1,"bbox":[770,420,178,24]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":8,"text":"Yüksek ses 3 sn","textPreview":"Yüksek ses 3 sn","textChars":15,"textLines":1,"bbox":[960,420,398,24]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":8,"text":"+8","textPreview":"+8","textChars":2,"textLines":1,"bbox":[1370,420,146,24]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":8,"text":"Ses riski","textPreview":"Ses riski","textChars":9,"textLines":1,"bbox":[1530,420,262,24]}
+{"kind":"shape","id":"sh/xs72x4na","slide":8,"bbox":[752,456,1058,1]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":8,"text":"04:22","textPreview":"04:22","textChars":5,"textLines":1,"bbox":[770,470,178,24]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":8,"text":"Tam ekran çıkışı","textPreview":"Tam ekran çıkışı","textChars":16,"textLines":1,"bbox":[960,470,398,24]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":8,"text":"1/3","textPreview":"1/3","textChars":3,"textLines":1,"bbox":[1370,470,146,24]}
+{"kind":"textbox","id":"sh/x4nap4r6","slide":8,"text":"Popup gösterildi","textPreview":"Popup gösterildi","textChars":16,"textLines":1,"bbox":[1530,470,262,24]}
+{"kind":"shape","id":"sh/8jqh0fep","slide":8,"bbox":[752,506,1058,1]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":8,"text":"06:40","textPreview":"06:40","textChars":5,"textLines":1,"bbox":[770,520,178,24]}
+{"kind":"textbox","id":"sh/58z25kb6","slide":8,"text":"Sınav sonlandırıldı","textPreview":"Sınav sonlandırıldı","textChars":19,"textLines":1,"bbox":[960,520,398,24]}
+{"kind":"textbox","id":"sh/yhgn29gr","slide":8,"text":"3/3","textPreview":"3/3","textChars":3,"textLines":1,"bbox":[1370,520,146,24]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":8,"text":"Oturum kapandı","textPreview":"Oturum kapandı","textChars":14,"textLines":1,"bbox":[1530,520,262,24]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":8,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[82,972,228,44]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":8,"name":"footer-slide","text":"V1 Demo  |  08/10","textPreview":"V1 Demo  |  08/10","textChars":17,"textLines":1,"bbox":[1702,984,136,20]}
+{"kind":"notes","id":"nt/sqjr9b","slide":8,"text":""}
+{"kind":"slide","id":"sl/7csafy","slide":9,"title":"Canlı anlatımı bu sırayla yap","textShapes":22}
+{"kind":"shape","id":"sh/nap4r65w","slide":9,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/cvixczed","slide":9,"name":"slide-title","text":"Canlı anlatımı bu sırayla yap","textPreview":"Canlı anlatımı bu sırayla yap","textChars":29,"textLines":1,"bbox":[82,64,1008,68]}
+{"kind":"shape","id":"sh/5gbq1ory","slide":9,"name":"title-rule","bbox":[82,146,190,5]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":9,"name":"slide-subtitle","text":"Tıklama sayısı az, ürün kararı net, riskli alanların yedeği hazır.","textPreview":"Tıklama sayısı az, ürün kararı net, riskli alanların yedeği hazır.","textChars":66,"textLines":1,"bbox":[82,164,684,34]}
+{"kind":"textbox","id":"sh/nyd0z610","slide":9,"text":"1.","textPreview":"1.","textChars":2,"textLines":1,"bbox":[82,228,46,34]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":9,"text":"Öğrenci hesabıyla gir: ana ekran, kod alanı ve yardım bağlantılarını göster.","textPreview":"Öğrenci hesabıyla gir: ana ekran, kod alanı ve yardım bağlantılarını göster.","textChars":76,"textLines":1,"bbox":[146,228,944,30]}
+{"kind":"textbox","id":"sh/54zidony","slide":9,"text":"2.","textPreview":"2.","textChars":2,"textLines":1,"bbox":[82,276,46,34]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":9,"text":"Kod gir: ön kontrol sayfasında kamera ve yüz onayı gelmeden başlatma butonunu beklet.","textPreview":"Kod gir: ön kontrol sayfasında kamera ve yüz onayı gelmeden başlatma butonunu beklet.","textChars":85,"textLines":1,"bbox":[146,276,944,30]}
+{"kind":"textbox","id":"sh/judg7ads","slide":9,"text":"3.","textPreview":"3.","textChars":2,"textLines":1,"bbox":[82,322,46,34]}
+{"kind":"textbox","id":"sh/nyd0z610","slide":9,"text":"Sınavı başlat: soru değiştir, önceki butonuna bas, cevap seçimini koruduğunu göster.","textPreview":"Sınavı başlat: soru değiştir, önceki butonuna bas, cevap seçimini koruduğunu göster.","textChars":84,"textLines":1,"bbox":[146,322,944,30]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":9,"text":"4.","textPreview":"4.","textChars":2,"textLines":1,"bbox":[82,370,46,34]}
+{"kind":"textbox","id":"sh/54zidony","slide":9,"text":"Tam ekrandan çık: 1/3 popup göster; ikinci denemede 2/3 akışını anlat.","textPreview":"Tam ekrandan çık: 1/3 popup göster; ikinci denemede 2/3 akışını anlat.","textChars":70,"textLines":1,"bbox":[146,370,944,30]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":9,"text":"5.","textPreview":"5.","textChars":2,"textLines":1,"bbox":[82,418,46,34]}
+{"kind":"textbox","id":"sh/nap4r65w","slide":9,"text":"Sayfayı yenile: aktif sınavın kaldığı yerden açıldığını göster.","textPreview":"Sayfayı yenile: aktif sınavın kaldığı yerden açıldığını göster.","textChars":63,"textLines":1,"bbox":[146,418,944,30]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":9,"text":"6.","textPreview":"6.","textChars":2,"textLines":1,"bbox":[82,464,46,34]}
+{"kind":"textbox","id":"sh/5gbq1ory","slide":9,"text":"3/3 ihlal veya bitir: öğrenci ekranına dönüşü ve eğitmen raporunu aç.","textPreview":"3/3 ihlal veya bitir: öğrenci ekranına dönüşü ve eğitmen raporunu aç.","textChars":69,"textLines":1,"bbox":[146,464,944,30]}
+{"kind":"textbox","id":"sh/cvixczed","slide":9,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[82,972,228,44]}
+{"kind":"textbox","id":"sh/jm1cfa9w","slide":9,"name":"footer-slide","text":"V1 Demo  |  09/10","textPreview":"V1 Demo  |  09/10","textChars":17,"textLines":1,"bbox":[954,984,136,20]}
+{"kind":"shape","id":"sh/u18jqh0f","slide":9,"bbox":[1137.72,64,700.28,952]}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":9,"text":"Yedek plan","textPreview":"Yedek plan","textChars":10,"textLines":1,"bbox":[1172,98,632,42]}
+{"kind":"shape","id":"sh/rqd4vmtw","slide":9,"bbox":[1172,160,12,12]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":9,"text":"AI servisleri çalışmazsa kamera/yüz bekleme ekranını ve rapor mock verisini göster.","textPreview":"AI servisleri çalışmazsa kamera/yüz bekleme ekranını ve rapor mock verisini göster.","textChars":83,"textLines":1,"bbox":[1198,160,606,58]}
+{"kind":"shape","id":"sh/9w3m94fu","slide":9,"bbox":[1172,240,12,12]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":9,"text":"Tam ekran API tarayıcıda izin istemezse önce manuel tam ekrana alıp sonra ihlal akışını tetikle.","textPreview":"Tam ekran API tarayıcıda izin istemezse önce manuel tam ekrana alıp sonra ihlal akışını tetikle.","textChars":96,"textLines":1,"bbox":[1198,240,606,58]}
+{"kind":"shape","id":"sh/re1w7mp0","slide":9,"bbox":[1172,320,12,12]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":9,"text":"Ağ kopması için sayfa yenileme demosu yeterli; gerçek offline senaryoyu açıklama olarak geç.","textPreview":"Ağ kopması için sayfa yenileme demosu yeterli; gerçek offline senaryoyu açıklama olarak geç.","textChars":92,"textLines":1,"bbox":[1198,320,606,58]}
+{"kind":"shape","id":"sh/9knih4by","slide":9,"bbox":[1172,400,632,2]}
+{"kind":"textbox","id":"sh/2p8nqxs7","slide":9,"text":"Kapanış cümlesi","textPreview":"Kapanış cümlesi","textChars":15,"textLines":1,"bbox":[1172,424,632,34]}
+{"kind":"textbox","id":"sh/ra5gbq1o","slide":9,"text":"V1, sınavı sadece başlatan değil; gözeten, karar veren ve kanıtlı raporlayan bir akışa geldi.","textPreview":"V1, sınavı sadece başlatan değil; gözeten, karar veren ve kanıtlı raporlayan bir akışa geldi.","textChars":93,"textLines":1,"bbox":[1172,478,632,64]}
+{"kind":"notes","id":"nt/7csafy","slide":9,"text":""}
+{"kind":"slide","id":"sl/rqpqb4","slide":10,"title":"V1 demo mesajı","textShapes":11}
+{"kind":"shape","id":"sh/6dcbulwv","slide":10,"name":"background","bbox":[0,0,1920,1080]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":10,"text":"V1 demo mesajı","textPreview":"V1 demo mesajı","textChars":14,"textLines":1,"bbox":[82,64,896,36]}
+{"kind":"textbox","id":"sh/oj2t83it","slide":10,"text":"Uçtan uca sınav gözetimi artık gösterilebilir durumda.","textPreview":"Uçtan uca sınav gözetimi artık gösterilebilir durumda.","textChars":54,"textLines":1,"bbox":[82,124,814,160]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":10,"text":"Başlatma, sınav içi ihlal yönetimi, devam etme ve raporlama zinciri tek canlı akışta anlatılacak.","textPreview":"Başlatma, sınav içi ihlal yönetimi, devam etme ve raporlama zinciri tek canlı akışta anlatılacak.","textChars":97,"textLines":1,"bbox":[82,306,806,72]}
+{"kind":"textbox","id":"sh/61032lsz","slide":10,"name":"footer-title","text":"AI Destekli Online Sınav Sistemi","textPreview":"AI Destekli Online Sınav Sistemi","textChars":32,"textLines":1,"bbox":[82,972,228,44]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":10,"name":"footer-slide","text":"V1 Demo  |  10/10","textPreview":"V1 Demo  |  10/10","textChars":17,"textLines":1,"bbox":[844,984,136,20]}
+{"kind":"shape","id":"sh/o7qpg3ex","slide":10,"bbox":[1026.7,294.8,811.3,148.8]}
+{"kind":"shape","id":"sh/vahoza1g","slide":10,"bbox":[1056,320,8,38]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":10,"text":"Demo için hazır","textPreview":"Demo için hazır","textChars":15,"textLines":1,"bbox":[1074,322,736,32]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":10,"text":"Öğrenci sınav akışı, ihlal popup'ları, yüz/kamera bekleme ve bitiş sonrası öğrenci ekranına dönüş.","textPreview":"Öğrenci sınav akışı, ihlal popup'ları, yüz/kamera bekleme ve bitiş sonrası öğrenci ekranına dönüş.","textChars":98,"textLines":1,"bbox":[1054,366,756,54]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":10,"bbox":[1026.7,465.6,811.3,148.8]}
+{"kind":"shape","id":"sh/uxc3ylc7","slide":10,"bbox":[1056,492,8,38]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":10,"text":"Rapor için hazır","textPreview":"Rapor için hazır","textChars":16,"textLines":1,"bbox":[1074,492,736,32]}
+{"kind":"textbox","id":"sh/crmhk3q5","slide":10,"text":"Yüksek ses, bakış dışarıda, yüz kaybı ve tam ekran olayları risk satırı olarak gösterilebilir.","textPreview":"Yüksek ses, bakış dışarıda, yüz kaybı ve tam ekran olayları risk satırı olarak gösterilebilir.","textChars":94,"textLines":1,"bbox":[1054,538,756,54]}
+{"kind":"shape","id":"sh/1cfa9w3m","slide":10,"bbox":[1026.7,636.4,811.3,148.8]}
+{"kind":"shape","id":"sh/ulwval87","slide":10,"bbox":[1056,660,8,38]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":10,"text":"V1 sonrası kararlar","textPreview":"V1 sonrası kararlar","textChars":19,"textLines":1,"bbox":[1074,664,736,32]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":10,"text":"Audio taşıma yolu, risk eşik kalibrasyonu, prod deploy profili ve daha geniş test matrisi.","textPreview":"Audio taşıma yolu, risk eşik kalibrasyonu, prod deploy profili ve daha geniş test matrisi.","textChars":90,"textLines":1,"bbox":[1054,708,756,54]}
+{"kind":"notes","id":"nt/rqpqb4","slide":10,"text":""}

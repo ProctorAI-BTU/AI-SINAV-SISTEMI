@@ -1,0 +1,254 @@
+.student-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #152033;
+}
+
+.student-topbar {
+  height: 64px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.student-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.student-brand span {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #4b35f2;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.student-logout {
+  height: 38px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #1f2937;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.student-main {
+  max-width: 920px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+
+.student-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+}
+
+.student-panel h1 {
+  margin: 0 0 12px;
+  font-size: 28px;
+}
+
+.student-panel p {
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.student-code-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.student-code-form label {
+  font-weight: 700;
+}
+
+.student-code-row {
+  display: flex;
+  gap: 12px;
+}
+
+.student-start-btn {
+  min-width: 130px;
+  border: none;
+  border-radius: 5px;
+  background: #1976d2;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-error {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .student-topbar {
+    padding: 0 18px;
+  }
+
+  .student-panel {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .student-code-row {
+    flex-direction: column;
+  }
+
+  .student-start-btn {
+    height: 44px;
+  }
+}
+
+/* Öğrenci profil butonu */
+.student-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.student-profile-btn {
+  height: 38px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1f2937;
+  padding: 0 14px 0 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-profile-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #4b35f2;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  overflow: hidden;
+}
+
+@media (max-width: 760px) {
+  .student-topbar-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* Öğrenci girilmiş sınavlar butonu ve modal listesi */
+.student-history-btn {
+  height: 38px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #1f2937;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-history-btn:hover,
+.student-profile-btn:hover,
+.student-logout:hover {
+  border-color: #4b35f2;
+  color: #4b35f2;
+}
+
+.student-history-desc {
+  margin: 0 0 16px;
+  color: #64748b;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.student-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.student-history-card {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 80px;
+  gap: 14px;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #f8fafc;
+}
+
+.student-history-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.student-history-card span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.student-history-card strong {
+  color: #152033;
+  font-size: 14px;
+}
+
+.student-history-empty {
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 18px;
+  text-align: center;
+  color: #64748b;
+}
+
+@media (max-width: 760px) {
+  .student-topbar {
+    height: auto;
+    min-height: 64px;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 18px;
+  }
+
+  .student-topbar-actions {
+    flex-wrap: wrap;
+  }
+
+  .student-history-card {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,222 @@
+# ================================================================
+# docker-compose.b2b.yml — On-Premise B2B Kurulum
+#
+# Kullanım:
+#   docker compose -f docker-compose.b2b.yml up -d --build
+#
+# Dışarıya sadece 2 port açılır:
+#   - ${GATEWAY_PORT:-3000} → API Gateway (B2B API erişimi)
+#   - ${FRONTEND_PORT:-80}  → Frontend
+#
+# Tüm iç servisler "proctoring-net" ağında izole çalışır.
+# ================================================================
+
+networks:
+  proctoring-net:
+    driver: bridge
+    internal: false  # Gateway dış erişim için false; internal servisler zaten ağ içi
+
+volumes:
+  mongo_data:
+  mongo_config:
+
+services:
+
+  # ── Veritabanı ─────────────────────────────────────────────
+  mongodb:
+    image: mongo:7
+    container_name: ai_sinav_mongo
+    restart: unless-stopped
+    networks:
+      - proctoring-net
+    volumes:
+      - mongo_data:/data/db
+      - mongo_config:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS:-changeme}
+      MONGO_INITDB_DATABASE: ${MONGO_DB:-ai_sinav_db}
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    # NOT: Dışarıya port açılmıyor (güvenlik)
+
+  # ── API Gateway ────────────────────────────────────────────
+  gateway-service:
+    build: ./services/gateway-service
+    container_name: ai_sinav_gateway
+    restart: unless-stopped
+    networks:
+      - proctoring-net
+    ports:
+      - "${GATEWAY_PORT:-3000}:3000"
+    environment:
+      PORT: 3000
+      NODE_ENV: ${NODE_ENV:-production}
+      MONGO_URI: ${MONGO_URI:-mongodb://admin:changeme@mongodb:27017/ai_sinav_db}
+      ADMIN_API_KEY: ${ADMIN_API_KEY}
+      AUTH_SERVICE_URL: http://auth-service:3001
+      EXAM_SERVICE_URL: http://exam-service:3002
+      REPORTING_SERVICE_URL: http://reporting-service:3003
+      PROCTORING_SERVICE_URL: http://proctoring-service:3004
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ── Auth Service ───────────────────────────────────────────
+  auth-service:
+    build: ./services/auth-service
+    container_name: ai_sinav_auth
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    networks:
+      - proctoring-net
+    environment:
+      PORT: 3001
+      NODE_ENV: ${NODE_ENV:-production}
+      MONGO_URI: ${MONGO_URI:-mongodb://admin:changeme@mongodb:27017/ai_sinav_db}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN:-30d}
+      INSTRUCTOR_SECRET_CODE: ${INSTRUCTOR_SECRET_CODE:-EGITMEN-AI-2024}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  # ── Exam Service ───────────────────────────────────────────
+  exam-service:
+    build: ./services/exam-service
+    container_name: ai_sinav_exam
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    networks:
+      - proctoring-net
+    environment:
+      PORT: 3002
+      NODE_ENV: ${NODE_ENV:-production}
+      MONGO_URI: ${MONGO_URI:-mongodb://admin:changeme@mongodb:27017/ai_sinav_db}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  # ── Reporting Service ──────────────────────────────────────
+  reporting-service:
+    build: ./services/reporting-service
+    container_name: ai_sinav_reporting
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    networks:
+      - proctoring-net
+    environment:
+      PORT: 3003
+      NODE_ENV: ${NODE_ENV:-production}
+      MONGO_URI: ${MONGO_URI:-mongodb://admin:changeme@mongodb:27017/ai_sinav_db}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  # ── Proctoring Service (WebSocket) ─────────────────────────
+  proctoring-service:
+    build: ./services/proctoring-service
+    container_name: ai_sinav_proctoring
+    restart: unless-stopped
+    ports:
+      - "3004:3004"
+    networks:
+      - proctoring-net
+    environment:
+      PORT: 3004
+      NODE_ENV: ${NODE_ENV:-production}
+      MONGO_URI: ${MONGO_URI:-mongodb://admin:changeme@mongodb:27017/ai_sinav_db}
+      FACE_SERVICE_URL: ${FACE_SERVICE_URL:-http://face-detection:8091}
+      EYE_SERVICE_URL: ${EYE_SERVICE_URL:-http://eye-tracking:8092}
+      AUDIO_SERVICE_URL: ${AUDIO_SERVICE_URL:-http://audio-analysis:8093}
+      RISK_SERVICE_URL: ${RISK_SERVICE_URL:-http://risk-scoring:8094}
+      WEBHOOK_SERVICE_URL: ${WEBHOOK_SERVICE_URL:-http://webhook-service:3005}
+      AI_REQUEST_TIMEOUT_MS: ${AI_REQUEST_TIMEOUT_MS:-6000}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  # ── Webhook Service (YENİ) ─────────────────────────────────
+  webhook-service:
+    build: ./services/webhook-service
+    container_name: ai_sinav_webhook
+    restart: unless-stopped
+    ports:
+      - "3005:3005"
+    networks:
+      - proctoring-net
+    environment:
+      PORT: 3005
+      NODE_ENV: ${NODE_ENV:-production}
+      MONGO_URI: ${MONGO_URI:-mongodb://admin:changeme@mongodb:27017/ai_sinav_db}
+      WEBHOOK_TIMEOUT_MS: ${WEBHOOK_TIMEOUT_MS:-8000}
+      WEBHOOK_RETRY_ATTEMPTS: ${WEBHOOK_RETRY_ATTEMPTS:-3}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  # ── AI Servisleri ──────────────────────────────────────────
+  face-detection:
+    build: ./ai-services/face-detection-service
+    container_name: ai_sinav_face
+    restart: unless-stopped
+    ports:
+      - "8091:8091"
+    networks:
+      - proctoring-net
+    environment:
+      ENABLE_GPU: ${ENABLE_GPU:-false}
+
+  eye-tracking:
+    build: ./ai-services/eye-tracking-service
+    container_name: ai_sinav_eye
+    restart: unless-stopped
+    ports:
+      - "8092:8092"
+    networks:
+      - proctoring-net
+    environment:
+      ENABLE_GPU: ${ENABLE_GPU:-false}
+
+  audio-analysis:
+    build: ./ai-services/audio-analysis-service
+    container_name: ai_sinav_audio
+    restart: unless-stopped
+    ports:
+      - "8093:8093"
+    networks:
+      - proctoring-net
+
+  risk-scoring:
+    build: ./ai-services/risk-scoring-service
+    container_name: ai_sinav_risk
+    restart: unless-stopped
+    ports:
+      - "8094:8094"
+    networks:
+      - proctoring-net
+
+  # ── Frontend ───────────────────────────────────────────────
+  frontend:
+    build: ./frontend
+    container_name: ai_sinav_frontend
+    restart: unless-stopped
+    networks:
+      - proctoring-net
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      - gateway-service

@@ -1,0 +1,181 @@
+.pre-check-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #152033;
+  padding: 32px;
+}
+
+.pre-check-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.pre-check-header {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.pre-check-header h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+}
+
+.pre-check-header p {
+  margin: 0;
+  color: #64748b;
+}
+
+.pre-check-link {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1f2937;
+  border-radius: 5px;
+  height: 38px;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.pre-check-content {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) 420px;
+  gap: 24px;
+}
+
+.pre-check-video {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #0f172a;
+  border-radius: 8px;
+  object-fit: cover;
+  transform: scaleX(-1);
+  border: 1px solid #1e293b;
+}
+
+.pre-check-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.pre-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pre-check-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 4px 12px;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.pre-check-icon {
+  grid-row: span 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pre-check-status {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.pre-check-item--success {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.pre-check-item--success .pre-check-icon {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.pre-check-item--failed {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.pre-check-item--failed .pre-check-icon {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.pre-check-item--checking .pre-check-icon {
+  background: #1976d2;
+  color: #ffffff;
+}
+
+.pre-check-message {
+  margin: 18px 0;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e3a8a;
+  padding: 12px;
+  line-height: 1.5;
+}
+
+.pre-check-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pre-check-btn {
+  height: 42px;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pre-check-btn--outline {
+  border: 1px solid #1976d2;
+  color: #1976d2;
+  background: #ffffff;
+}
+
+.pre-check-btn--primary {
+  border: 1px solid #1976d2;
+  color: #ffffff;
+  background: #1976d2;
+}
+
+.pre-check-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 860px) {
+  .pre-check-page {
+    padding: 18px;
+  }
+
+  .pre-check-header {
+    align-items: flex-start;
+    gap: 16px;
+    flex-direction: column;
+  }
+
+  .pre-check-content {
+    grid-template-columns: 1fr;
+  }
+}

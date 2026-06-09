@@ -1,0 +1,24 @@
+{
+  "name": "ai-mulakat-sistemi",
+  "version": "1.0.0",
+  "description": "AI Destekli Online Sınav ve Gözetim Sistemi",
+  "scripts": {
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd services/auth-service && npm install && cd ../exam-service && npm install && cd ../reporting-service && npm install && cd ../proctoring-service && npm install",
+    "install:all": "npm run install:frontend && npm run install:backend",
+    "start:frontend": "cd frontend && npm run dev",
+    "start:auth": "cd services/auth-service && npm run dev",
+    "start:exam": "cd services/exam-service && npm run dev",
+    "start:reporting": "cd services/reporting-service && npm run dev",
+    "start:proctoring": "cd services/proctoring-service && npm run dev",
+    "start:ai:face": "cd ai-services/face-detection-service && python -m uvicorn app.main:app --port 8091",
+    "start:ai:eye": "cd ai-services/eye-tracking-service && python -m uvicorn app.main:app --port 8092",
+    "start:ai:audio": "cd ai-services/audio-analysis-service && python -m uvicorn app.main:app --port 8093",
+    "start:ai:risk": "cd ai-services/risk-scoring-service && python -m uvicorn app.main:app --port 8094",
+    "start:all": "concurrently \"npm run start:frontend\" \"npm run start:auth\" \"npm run start:exam\" \"npm run start:reporting\" \"npm run start:proctoring\" \"npm run start:ai:face\" \"npm run start:ai:eye\" \"npm run start:ai:audio\" \"npm run start:ai:risk\"",
+    "test:frontend": "cd frontend && npm run test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,0 +1,222 @@
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  width: 365px;
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 24px 26px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.modal-warn-icon {
+  font-size: 24px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.modal-body {
+  margin-bottom: 22px;
+}
+
+.modal-line {
+  margin: 0 0 14px;
+  font-size: 15px;
+  color: #111827;
+  line-height: 1.5;
+}
+
+.modal-violation {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ff4d00;
+}
+
+
+.btn-primary {
+  width: 100%;
+  border: none;
+  background: #1976d2;
+  color: white;
+  padding: 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.3);
+}
+
+.btn-primary:hover {
+  background: #1565c0;
+}
+
+/* Profil modalı - öğrenci ve eğitmen ekranlarında ortak kullanılır */
+.profile-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.profile-modal-box {
+  width: min(430px, 100%);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32);
+  color: #152033;
+}
+
+.profile-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.profile-modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #152033;
+}
+
+.profile-modal-close {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.profile-avatar-large {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  background: #4b35f2;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  font-weight: 800;
+  overflow: hidden;
+}
+
+.profile-avatar-large img,
+.student-profile-avatar img,
+.navbar-profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-file-label {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-file-label input {
+  display: none;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.profile-form input {
+  height: 42px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 12px;
+  color: #1f2937;
+  background: #ffffff;
+}
+
+.profile-form input:disabled {
+  background: #f8fafc;
+  color: #64748b;
+}
+
+.profile-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.profile-primary-btn,
+.profile-secondary-btn {
+  min-width: 100px;
+  height: 40px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-primary-btn {
+  border: 1px solid #1976d2;
+  background: #1976d2;
+  color: #ffffff;
+}
+
+.profile-secondary-btn {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+}
+
+.profile-modal-box--wide {
+  width: min(720px, calc(100vw - 32px));
+}

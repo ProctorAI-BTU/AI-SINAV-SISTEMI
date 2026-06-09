@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Proctoring Live Test</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        display: grid;
+        place-items: center;
+      }
+
+      main {
+        width: min(960px, 100vw);
+        padding: 20px;
+      }
+
+      .stage {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #334155;
+        background: #020617;
+        aspect-ratio: 16 / 10;
+      }
+
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scaleX(-1);
+        display: block;
+      }
+
+      .panel {
+        position: absolute;
+        left: 16px;
+        top: 16px;
+        width: min(560px, calc(100% - 32px));
+        background: rgba(15, 23, 42, 0.86);
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        padding: 14px 16px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 6px 0;
+        font-size: 15px;
+      }
+
+      .label {
+        color: #94a3b8;
+      }
+
+      .ok {
+        color: #22c55e;
+        font-weight: 700;
+      }
+
+      .warn {
+        color: #f59e0b;
+        font-weight: 700;
+      }
+
+      .error {
+        color: #ef4444;
+        font-weight: 700;
+      }
+
+      .footer {
+        margin-top: 12px;
+        color: #94a3b8;
+        font-size: 14px;
+      }
+
+      button {
+        margin-top: 14px;
+        border: 0;
+        background: #2563eb;
+        color: white;
+        padding: 10px 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="stage">
+        <video id="video" autoplay muted playsinline></video>
+        <div class="panel">
+          <div class="row">
+            <span class="label">Face event</span>
+            <span id="faceEvent">Bekleniyor</span>
+          </div>
+          <div class="row">
+            <span class="label">Face count</span>
+            <span id="faceCount">-</span>
+          </div>
+          <div class="row">
+            <span class="label">Face confidence</span>
+            <span id="faceConfidence">-</span>
+          </div>
+          <div class="row">
+            <span class="label">Gaze event</span>
+            <span id="gazeEvent">Bekleniyor</span>
+          </div>
+          <div class="row">
+            <span class="label">Gaze direction</span>
+            <span id="gazeDirection">-</span>
+          </div>
+          <div class="row">
+            <span class="label">Away duration</span>
+            <span id="awayDuration">-</span>
+          </div>
+          <div class="row">
+            <span class="label">Audio event</span>
+            <span id="audioEvent">Bekleniyor</span>
+          </div>
+          <div class="row">
+            <span class="label">Audio level</span>
+            <span id="audioLevel">-</span>
+          </div>
+          <div class="row">
+            <span class="label">Audio device</span>
+            <span id="audioDevice">-</span>
+          </div>
+          <div class="footer" id="status">Kamera izni bekleniyor.</div>
+          <button id="startButton">Kamerayi Baslat</button>
+          <button id="audioButton">Mikrofonu Baslat</button>
+        </div>
+      </div>
+      <canvas id="canvas" hidden></canvas>
+    </main>
+
+    <script>
+      const FACE_URL = "http://127.0.0.1:8091/detect";
+      const EYE_URL = "http://127.0.0.1:8092/track";
+      const AUDIO_URL = "http://127.0.0.1:8093/analyze";
+      const SESSION_ID = "browser-live-test-session";
+      const VIDEO_ANALYSIS_INTERVAL_MS = 2000;
+      const JPEG_QUALITY = 0.65;
+
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      const statusEl = document.getElementById("status");
+      const startButton = document.getElementById("startButton");
+      const audioButton = document.getElementById("audioButton");
+
+      const els = {
+        faceEvent: document.getElementById("faceEvent"),
+        faceCount: document.getElementById("faceCount"),
+        faceConfidence: document.getElementById("faceConfidence"),
+        gazeEvent: document.getElementById("gazeEvent"),
+        gazeDirection: document.getElementById("gazeDirection"),
+        awayDuration: document.getElementById("awayDuration"),
+        audioEvent: document.getElementById("audioEvent"),
+        audioLevel: document.getElementById("audioLevel"),
+        audioDevice: document.getElementById("audioDevice"),
+      };
+
+      function setClass(el, eventType, okEvent) {
+        el.className = eventType === okEvent ? "ok" : "warn";
+      }
+
+      async function postFrame(url, imageBase64) {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: SESSION_ID,
+            image_base64: imageBase64,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`${url} ${response.status}`);
+        }
+
+        return response.json();
+      }
+
+      async function postAudio(audioBase64, sampleRate) {
+        const response = await fetch(AUDIO_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: SESSION_ID,
+            audio_base64: audioBase64,
+            sample_rate: sampleRate,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`${AUDIO_URL} ${response.status}`);
+        }
+
+        return response.json();
+      }
+
+      async function analyze() {
+        if (video.readyState < 2) return;
+
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageBase64 = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
+
+        try {
+          const [face, gaze] = await Promise.all([
+            postFrame(FACE_URL, imageBase64),
+            postFrame(EYE_URL, imageBase64),
+          ]);
+
+          els.faceEvent.textContent = face.event_type;
+          els.faceCount.textContent = face.face_count;
+          els.faceConfidence.textContent = Number(face.confidence || 0).toFixed(2);
+          els.gazeEvent.textContent = gaze.event_type;
+          els.gazeDirection.textContent = gaze.gaze;
+          els.awayDuration.textContent = `${gaze.duration_away_seconds || 0}s`;
+
+          setClass(els.faceEvent, face.event_type, "FACE_OK");
+          setClass(els.gazeEvent, gaze.event_type, "GAZE_OK");
+          statusEl.textContent = "Canli analiz calisiyor. Her saniye guncellenir.";
+          statusEl.className = "footer";
+        } catch (error) {
+          statusEl.textContent = `Istek hatasi: ${error.message}`;
+          statusEl.className = "footer error";
+        }
+      }
+
+      async function start() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { width: 640, height: 480, facingMode: "user" },
+            audio: false,
+          });
+
+          video.srcObject = stream;
+          await video.play();
+          startButton.style.display = "none";
+          statusEl.textContent = "Kamera acildi. Analiz baslatiliyor.";
+          setInterval(analyze, VIDEO_ANALYSIS_INTERVAL_MS);
+          analyze();
+        } catch (error) {
+          statusEl.textContent = `Kamera acilamadi: ${error.message}`;
+          statusEl.className = "footer error";
+        }
+      }
+
+      async function startAudio() {
+        try {
+          if (!navigator.mediaDevices?.getUserMedia) {
+            throw new Error("getUserMedia is not available in this browser");
+          }
+
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: false,
+            audio: {
+              echoCancellation: false,
+              noiseSuppression: false,
+              autoGainControl: false,
+            },
+          });
+
+          const audioTrack = stream.getAudioTracks()[0];
+          els.audioDevice.textContent = audioTrack?.label || "Mikrofon acildi";
+          audioButton.style.display = "none";
+          statusEl.textContent = "Mikrofon acildi. Ses analizi baslatiliyor.";
+          statusEl.className = "footer";
+          startAudioAnalysis(stream);
+        } catch (error) {
+          els.audioEvent.textContent = "AUDIO_PERMISSION_DENIED";
+          els.audioEvent.className = "error";
+          els.audioLevel.textContent = "-";
+          els.audioDevice.textContent = error.name || "Error";
+          statusEl.textContent = `Mikrofon acilamadi: ${error.name || "Error"} - ${error.message}`;
+          statusEl.className = "footer error";
+        }
+      }
+
+      function floatToPcm16Base64(floatSamples) {
+        const pcm = new Int16Array(floatSamples.length);
+        for (let i = 0; i < floatSamples.length; i += 1) {
+          const sample = Math.max(-1, Math.min(1, floatSamples[i]));
+          pcm[i] = sample < 0 ? sample * 32768 : sample * 32767;
+        }
+
+        const bytes = new Uint8Array(pcm.buffer);
+        let binary = "";
+        const chunkSize = 8192;
+        for (let i = 0; i < bytes.length; i += chunkSize) {
+          const chunk = bytes.subarray(i, i + chunkSize);
+          binary += String.fromCharCode(...chunk);
+        }
+        return `data:audio/pcm;base64,${btoa(binary)}`;
+      }
+
+      function startAudioAnalysis(stream) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+        const source = audioContext.createMediaStreamSource(stream);
+        const processor = audioContext.createScriptProcessor(4096, 1, 1);
+        const buffer = [];
+        const targetSeconds = 2;
+
+        source.connect(processor);
+        processor.connect(audioContext.destination);
+
+        processor.onaudioprocess = async (event) => {
+          const input = event.inputBuffer.getChannelData(0);
+          buffer.push(new Float32Array(input));
+
+          const totalLength = buffer.reduce((sum, item) => sum + item.length, 0);
+          const targetLength = Math.floor(audioContext.sampleRate * targetSeconds);
+          if (totalLength < targetLength) return;
+
+          const merged = new Float32Array(totalLength);
+          let offset = 0;
+          for (const item of buffer.splice(0, buffer.length)) {
+            merged.set(item, offset);
+            offset += item.length;
+          }
+
+          try {
+            const audio = await postAudio(floatToPcm16Base64(merged), audioContext.sampleRate);
+            els.audioEvent.textContent = audio.event_type;
+            els.audioLevel.textContent = `avg=${Number(audio.avg_db || 0).toFixed(1)} peak=${Number(audio.peak_db || 0).toFixed(1)}`;
+            setClass(els.audioEvent, audio.event_type, "AUDIO_OK");
+          } catch (error) {
+            els.audioEvent.textContent = "AUDIO_ERROR";
+            els.audioEvent.className = "error";
+            els.audioLevel.textContent = error.message;
+          }
+        };
+      }
+
+      startButton.addEventListener("click", start);
+      audioButton.addEventListener("click", startAudio);
+    </script>
+  </body>
+</html>

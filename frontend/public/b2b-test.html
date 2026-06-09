@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B2B Embed Test — AI Sınav Sistemi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080812;
+      --surface: #0f0f1a;
+      --surface2: #161628;
+      --border: rgba(99,102,241,0.2);
+      --primary: #6366f1;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --success: #4ade80;
+      --warning: #facc15;
+      --error: #f43f5e;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* ── Header ── */
+    .test-header {
+      background: linear-gradient(135deg, #080812 0%, #0d0d22 50%, #080812 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 40px;
+      text-align: center;
+    }
+
+    .test-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #4ade80;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .test-header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e2e8f0 0%, #a5b4fc 50%, #6366f1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .test-header p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ── Container ── */
+    .container { max-width: 1400px; margin: 0 auto; padding: 32px 24px; }
+
+    /* ── Layout Seçenekleri ── */
+    .layout-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .layout-tab {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .layout-tab:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .layout-tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* ── Demo Panels ── */
+    .demo-panel {
+      display: none;
+    }
+
+    .demo-panel.active {
+      display: block;
+    }
+
+    /* ── Simülasyon LMS Sayfası ── */
+    .lms-simulation {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .lms-topbar {
+      background: #1e40af;
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .lms-topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lms-topbar-logo span { font-size: 20px; }
+
+    .lms-body {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 600px;
+    }
+
+    .lms-sidebar {
+      background: #f1f5f9;
+      padding: 20px 0;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    .lms-sidebar-item {
+      display: block;
+      padding: 10px 24px;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .lms-sidebar-item:hover { background: #e2e8f0; color: #1e293b; }
+
+    .lms-sidebar-item.active {
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 600;
+      border-right: 3px solid #1e40af;
+    }
+
+    .lms-content {
+      padding: 32px;
+      background: #f8fafc;
+      position: relative;
+    }
+
+    .lms-content h2 {
+      color: #1e293b;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .lms-content p {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .lms-exam-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lms-exam-info h3 { color: #1e293b; font-size: 16px; margin-bottom: 4px; }
+    .lms-exam-info span { color: #64748b; font-size: 13px; }
+
+    .lms-exam-btn {
+      background: #1e40af;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lms-exam-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(30,64,175,0.3);
+    }
+
+    /* ── Floating Widget (iframe) ── */
+    .embed-frame-floating {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    /* ── Full-Page Embed ── */
+    .full-embed-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .full-embed-wrapper iframe {
+      width: 100%;
+      height: 700px;
+      border: none;
+    }
+
+    /* ── Config Panel ── */
+    .config-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .config-panel h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .config-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .config-field input, .config-field select {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .config-field input:focus, .config-field select:focus {
+      border-color: var(--primary);
+    }
+
+    .config-actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .config-btn {
+      padding: 12px 28px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .config-btn-primary {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+    }
+
+    .config-btn-primary:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+    }
+
+    .config-btn-secondary {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .config-btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ── Event Log ── */
+    .event-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 24px;
+    }
+
+    .event-panel h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #event-log {
+      background: #0a0a14;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      height: 200px;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .log-entry { margin-bottom: 4px; }
+    .log-entry.info { color: #94a3b8; }
+    .log-entry.success { color: #4ade80; }
+    .log-entry.warning { color: #f59e0b; }
+    .log-entry.error { color: #f43f5e; }
+    .log-entry.message { color: #a5b4fc; }
+
+    /* ── Status Indicator ── */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-bottom: 24px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ef4444;
+      flex-shrink: 0;
+    }
+
+    .status-dot.connected { background: #4ade80; animation: pulse-green 1.5s infinite; }
+
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+    }
+
+    .status-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* ── Code Snippet ── */
+    .snippet-box {
+      background: #0a0a14;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.8;
+      overflow-x: auto;
+      margin-top: 24px;
+      position: relative;
+    }
+
+    .snippet-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .snippet-copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .snippet-copy-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .lms-body { grid-template-columns: 1fr; }
+      .lms-sidebar { display: none; }
+      .config-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="test-header">
+    <div class="test-badge">🧪 B2B EMBED TEST ORTAMI</div>
+    <h1>AI Sınav Sistemi — B2B Entegrasyon Test</h1>
+    <p>Sistemi iframe olarak başka bir sayfaya gömerek çalışmasını test edin.</p>
+  </div>
+
+  <div class="container">
+    <!-- Layout Seçenekleri -->
+    <div class="layout-tabs">
+      <button class="layout-tab active" onclick="switchPanel('fullpage')">📄 Tam Sayfa Embed</button>
+      <button class="layout-tab" onclick="switchPanel('lms')">🏫 LMS Simülasyonu (Floating Widget)</button>
+      <button class="layout-tab" onclick="switchPanel('snippet')">📋 Embed Kodu</button>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-dot" id="status-dot"></div>
+      <span class="status-text" id="status-text">iframe yüklenmedi</span>
+    </div>
+
+    <!-- ═══ TAM SAYFA EMBED ═══ -->
+    <div class="demo-panel active" id="panel-fullpage">
+      <div class="config-panel">
+        <h3>⚙️ Embed Yapılandırması</h3>
+        <div class="config-grid">
+          <div class="config-field">
+            <label>Frontend URL</label>
+            <input id="cfg-url" value="http://localhost:5173" />
+          </div>
+          <div class="config-field">
+            <label>Genişlik</label>
+            <input id="cfg-width" value="100%" />
+          </div>
+          <div class="config-field">
+            <label>Yükseklik</label>
+            <input id="cfg-height" value="700px" />
+          </div>
+          <div class="config-field">
+            <label>Başlangıç Sayfası</label>
+            <select id="cfg-page">
+              <option value="">Ana Sayfa (Login)</option>
+              <option value="?examCode=TEST01">Öğrenci — Sınav Kodu ile</option>
+              <option value="?instructorCode=DEMO">Eğitmen — Davet Kodu ile</option>
+            </select>
+          </div>
+        </div>
+        <div class="config-actions">
+          <button class="config-btn config-btn-primary" onclick="loadFullEmbed()">🚀 iframe Yükle</button>
+          <button class="config-btn config-btn-secondary" onclick="reloadFullEmbed()">🔄 Yenile</button>
+          <button class="config-btn config-btn-secondary" onclick="destroyFullEmbed()">🗑️ Kaldır</button>
+        </div>
+      </div>
+
+      <div class="full-embed-wrapper" id="full-embed-wrapper">
+        <div style="display: flex; align-items: center; justify-content: center; height: 400px; color: #64748b; font-size: 15px;">
+          iframe yüklemek için "iframe Yükle" butonuna tıklayın
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LMS SİMÜLASYONU ═══ -->
+    <div class="demo-panel" id="panel-lms">
+      <div class="lms-simulation">
+        <div class="lms-topbar">
+          <div class="lms-topbar-logo">
+            <span>🎓</span> Demo Üniversite LMS
+          </div>
+          <span>Hoşgeldiniz, Ahmet Yılmaz</span>
+        </div>
+        <div class="lms-body">
+          <div class="lms-sidebar">
+            <button class="lms-sidebar-item active">📊 Dashboard</button>
+            <button class="lms-sidebar-item">📚 Derslerim</button>
+            <button class="lms-sidebar-item">📝 Sınavlarım</button>
+            <button class="lms-sidebar-item">📄 Ödevlerim</button>
+            <button class="lms-sidebar-item">💬 Mesajlar</button>
+            <button class="lms-sidebar-item">⚙️ Ayarlar</button>
+          </div>
+          <div class="lms-content" id="lms-content">
+            <h2>Aktif Sınavlar</h2>
+            <p>Aşağıdaki sınavlara katılabilirsiniz. "Sınava Başla" butonuna tıkladığınızda AI gözetim widget'ı açılacaktır.</p>
+
+            <div class="lms-exam-card">
+              <div class="lms-exam-info">
+                <h3>📝 Veri Yapıları Vize Sınavı</h3>
+                <span>60 dakika • Prof. Dr. Ayşe Kaya • 10.06.2026</span>
+              </div>
+              <button class="lms-exam-btn" onclick="startLMSExam('Veri Yapıları Vize')">Sınava Başla →</button>
+            </div>
+
+            <div class="lms-exam-card">
+              <div class="lms-exam-info">
+                <h3>📝 İngilizce Final Sınavı</h3>
+                <span>45 dakika • Dr. Mehmet Demir • 12.06.2026</span>
+              </div>
+              <button class="lms-exam-btn" onclick="startLMSExam('İngilizce Final')">Sınava Başla →</button>
+            </div>
+
+            <div class="lms-exam-card">
+              <div class="lms-exam-info">
+                <h3>📝 Algoritma Analizi Quiz</h3>
+                <span>30 dakika • Doç. Dr. Fatma Yıldız • 15.06.2026</span>
+              </div>
+              <button class="lms-exam-btn" onclick="startLMSExam('Algoritma Quiz')">Sınava Başla →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ EMBED KODU ═══ -->
+    <div class="demo-panel" id="panel-snippet">
+      <div class="config-panel">
+        <h3>📋 Hazır Embed Kodları</h3>
+        <p style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">
+          Bu kodları kendi web sitenize kopyalayarak AI Sınav Sistemi'ni gömebilirsiniz.
+        </p>
+      </div>
+
+      <div class="snippet-label">Yöntem 1 — Basit iframe Embed</div>
+      <div class="snippet-box">
+        <button class="snippet-copy-btn" onclick="copySnippet('snippet1')">Kopyala</button>
+        <pre id="snippet1" style="margin:0;padding:0;border:none;background:transparent;"><span style="color:#c4b5fd">&lt;iframe</span>
+  <span style="color:#93c5fd">src</span>=<span style="color:#86efac">"http://localhost:5173"</span>
+  <span style="color:#93c5fd">width</span>=<span style="color:#86efac">"100%"</span>
+  <span style="color:#93c5fd">height</span>=<span style="color:#86efac">"700"</span>
+  <span style="color:#93c5fd">allow</span>=<span style="color:#86efac">"camera; microphone; display-capture"</span>
+  <span style="color:#93c5fd">style</span>=<span style="color:#86efac">"border: none; border-radius: 12px;"</span>
+<span style="color:#c4b5fd">&gt;&lt;/iframe&gt;</span></pre>
+      </div>
+
+      <div class="snippet-label" style="margin-top: 32px;">Yöntem 2 — Floating Widget (Sabit Köşe)</div>
+      <div class="snippet-box">
+        <button class="snippet-copy-btn" onclick="copySnippet('snippet2')">Kopyala</button>
+        <pre id="snippet2" style="margin:0;padding:0;border:none;background:transparent;"><span style="color:#c4b5fd">&lt;iframe</span>
+  <span style="color:#93c5fd">src</span>=<span style="color:#86efac">"http://localhost:5173/?examCode=YOUR_CODE"</span>
+  <span style="color:#93c5fd">width</span>=<span style="color:#86efac">"400"</span>
+  <span style="color:#93c5fd">height</span>=<span style="color:#86efac">"600"</span>
+  <span style="color:#93c5fd">allow</span>=<span style="color:#86efac">"camera; microphone; display-capture"</span>
+  <span style="color:#93c5fd">style</span>=<span style="color:#86efac">"border: none; position: fixed; bottom: 20px;
+    right: 20px; z-index: 9999; border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);"</span>
+<span style="color:#c4b5fd">&gt;&lt;/iframe&gt;</span></pre>
+      </div>
+
+      <div class="snippet-label" style="margin-top: 32px;">Yöntem 3 — postMessage ile Haberleşme</div>
+      <div class="snippet-box">
+        <button class="snippet-copy-btn" onclick="copySnippet('snippet3')">Kopyala</button>
+        <pre id="snippet3" style="margin:0;padding:0;border:none;background:transparent;"><span style="color:#4b5563">// Parent sayfa: iframe'den gelen mesajları dinle</span>
+<span style="color:#c4b5fd">window</span>.<span style="color:#67e8f9">addEventListener</span>(<span style="color:#86efac">'message'</span>, (event) => {
+  <span style="color:#c4b5fd">if</span> (event.data?.type === <span style="color:#86efac">'PROCTOR_EVENT'</span>) {
+    <span style="color:#67e8f9">console</span>.log(<span style="color:#86efac">'Sınav olayı:'</span>, event.data);
+    <span style="color:#4b5563">// { type: 'PROCTOR_EVENT', event: 'exam-started' | 'violation' | 'exam-completed', data: {...} }</span>
+  }
+});
+
+<span style="color:#4b5563">// iframe'e komut gönder</span>
+<span style="color:#c4b5fd">const</span> iframe = <span style="color:#67e8f9">document</span>.getElementById(<span style="color:#86efac">'proctor-frame'</span>);
+iframe.contentWindow.<span style="color:#67e8f9">postMessage</span>({
+  type: <span style="color:#86efac">'PROCTOR_COMMAND'</span>,
+  command: <span style="color:#86efac">'set-exam-code'</span>,
+  data: { examCode: <span style="color:#86efac">'ABC123'</span> }
+}, <span style="color:#86efac">'*'</span>);</pre>
+      </div>
+    </div>
+
+    <!-- Event Log -->
+    <div class="event-panel">
+      <h3>📡 iframe Haberleşme Logları</h3>
+      <div id="event-log">
+        <div class="log-entry info">Henüz olay yok. iframe yüklendikten sonra olaylar burada görünecektir.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating iframe (LMS modu için, başlangıçta gizli) -->
+  <iframe id="floating-frame" class="embed-frame-floating" style="display: none;"
+    allow="camera; microphone; display-capture"
+    width="420" height="650"></iframe>
+
+  <script>
+    // ─── Log Yardımcısı ─────────────────────────────────
+    function log(msg, type = 'info') {
+      const div = document.getElementById('event-log');
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString('tr-TR')}] ${msg}`;
+      div.insertBefore(entry, div.firstChild);
+    }
+
+    // ─── Panel Geçişi ───────────────────────────────────
+    function switchPanel(panelName) {
+      document.querySelectorAll('.demo-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.layout-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(`panel-${panelName}`).classList.add('active');
+      event.currentTarget.classList.add('active');
+
+      // LMS modundan çıkılırsa floating frame kapat
+      if (panelName !== 'lms') {
+        const ff = document.getElementById('floating-frame');
+        ff.style.display = 'none';
+        ff.src = '';
+      }
+    }
+
+    // ─── Tam Sayfa Embed ────────────────────────────────
+    function loadFullEmbed() {
+      const url = document.getElementById('cfg-url').value;
+      const width = document.getElementById('cfg-width').value;
+      const height = document.getElementById('cfg-height').value;
+      const page = document.getElementById('cfg-page').value;
+
+      const fullUrl = url + (page ? page : '');
+      const wrapper = document.getElementById('full-embed-wrapper');
+
+      wrapper.innerHTML = '';
+      const iframe = document.createElement('iframe');
+      iframe.src = fullUrl;
+      iframe.style.width = width;
+      iframe.style.height = height;
+      iframe.style.border = 'none';
+      iframe.allow = 'camera; microphone; display-capture';
+      iframe.id = 'full-embed-frame';
+
+      iframe.onload = () => {
+        updateStatus(true, `iframe yüklendi: ${fullUrl}`);
+        log(`✅ iframe başarıyla yüklendi: ${fullUrl}`, 'success');
+      };
+
+      iframe.onerror = () => {
+        updateStatus(false, 'iframe yüklenirken hata oluştu');
+        log(`❌ iframe yükleme hatası: ${fullUrl}`, 'error');
+      };
+
+      wrapper.appendChild(iframe);
+      log(`📄 iframe oluşturuldu: ${fullUrl}`, 'info');
+    }
+
+    function reloadFullEmbed() {
+      const iframe = document.getElementById('full-embed-frame');
+      if (iframe) {
+        iframe.contentWindow.location.reload();
+        log('🔄 iframe yenilendi', 'info');
+      }
+    }
+
+    function destroyFullEmbed() {
+      const wrapper = document.getElementById('full-embed-wrapper');
+      wrapper.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:400px;color:#64748b;font-size:15px;">iframe kaldırıldı</div>';
+      updateStatus(false, 'iframe kaldırıldı');
+      log('🗑️ iframe kaldırıldı', 'warning');
+    }
+
+    // ─── LMS Simülasyonu ────────────────────────────────
+    function startLMSExam(examName) {
+      const url = document.getElementById('cfg-url')?.value || 'http://localhost:5173';
+      const ff = document.getElementById('floating-frame');
+      ff.src = url;
+      ff.style.display = 'block';
+      updateStatus(true, `LMS Widget aktif — ${examName}`);
+      log(`🏫 LMS sınavı başlatıldı: ${examName}`, 'success');
+      log(`📦 Floating iframe açıldı: ${url}`, 'info');
+    }
+
+    // ─── Status Güncelle ────────────────────────────────
+    function updateStatus(connected, text) {
+      const dot = document.getElementById('status-dot');
+      const txt = document.getElementById('status-text');
+      dot.className = connected ? 'status-dot connected' : 'status-dot';
+      txt.textContent = text;
+    }
+
+    // ─── postMessage Dinleyici ──────────────────────────
+    window.addEventListener('message', (event) => {
+      // Güvenlik: sadece kendi origin'imizi kabul et
+      const allowedOrigins = [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'http://127.0.0.1:5173',
+        window.location.origin,
+      ];
+
+      if (event.data && typeof event.data === 'object') {
+        if (event.data.type === 'PROCTOR_EVENT') {
+          log(`📨 Proctoring Event: ${event.data.event} — ${JSON.stringify(event.data.data || {})}`, 'message');
+        } else if (event.data.type === 'PROCTOR_READY') {
+          log(`✅ Proctoring Widget hazır`, 'success');
+        } else if (event.data.type === 'PROCTOR_ERROR') {
+          log(`❌ Hata: ${event.data.message}`, 'error');
+        } else if (event.data.type) {
+          log(`📩 Mesaj: ${event.data.type} — ${JSON.stringify(event.data)}`, 'info');
+        }
+      }
+    });
+
+    // ─── Snippet Kopyala ────────────────────────────────
+    function copySnippet(id) {
+      const el = document.getElementById(id);
+      const text = el.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = el.parentElement.querySelector('.snippet-copy-btn');
+        btn.textContent = '✓ Kopyalandı';
+        setTimeout(() => btn.textContent = 'Kopyala', 2000);
+        log('📋 Embed kodu panoya kopyalandı', 'success');
+      });
+    }
+
+    // ─── Floating iframe event ──────────────────────────
+    document.getElementById('floating-frame').addEventListener('load', function() {
+      if (this.src) {
+        log(`📦 Floating iframe yüklendi`, 'success');
+      }
+    });
+  </script>
+</body>
+</html>

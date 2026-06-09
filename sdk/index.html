@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProctorSDK — Embeddable Widget Demo & Docs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080812;
+      --surface: #0f0f1a;
+      --surface2: #161628;
+      --border: rgba(99,102,241,0.2);
+      --primary: #6366f1;
+      --primary-glow: rgba(99,102,241,0.3);
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --success: #4ade80;
+      --warning: #facc15;
+      --error: #f43f5e;
+      --code-bg: #0a0a14;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #080812 0%, #0d0d22 50%, #080812 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 40px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #a5b4fc;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #e2e8f0 0%, #a5b4fc 50%, #6366f1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 40px;
+    }
+
+    .hero-tags {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #f1f5f9;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    /* ── Grid ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ── Code Blocks ── */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    pre .comment { color: #4b5563; }
+    pre .string  { color: #86efac; }
+    pre .key     { color: #93c5fd; }
+    pre .value   { color: #fde68a; }
+    pre .kw      { color: #c4b5fd; }
+    pre .fn      { color: #67e8f9; }
+
+    .code-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ── Demo ── */
+    .demo-area {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .demo-config { margin-bottom: 24px; }
+
+    .demo-config label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+
+    .demo-config input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .demo-config input:focus { border-color: var(--primary); }
+
+    .demo-btn {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .demo-btn:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+    }
+
+    /* ── Feature Grid ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(99,102,241,0.5);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon { font-size: 28px; margin-bottom: 12px; }
+    .feature-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: #f1f5f9; }
+    .feature-card p  { font-size: 13px; color: var(--muted); }
+
+    /* ── Events log ── */
+    #event-log {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      height: 180px;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .log-entry { color: #94a3b8; margin-bottom: 4px; }
+    .log-entry.violation { color: #f97316; }
+    .log-entry.complete { color: #4ade80; }
+    .log-entry.error { color: #f43f5e; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    footer a { color: #6366f1; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">📦 v1.0.0 · Embeddable Widget SDK</div>
+    <h1>ProctorSDK</h1>
+    <p>Tek satır kod ile gerçek zamanlı AI sınav gözetimini kendi platformunuza entegre edin.</p>
+    <div class="hero-tags">
+      <span class="tag">🔑 API Key Auth</span>
+      <span class="tag">📡 WebSocket</span>
+      <span class="tag">🤖 AI Analysis</span>
+      <span class="tag">🪝 Webhook</span>
+      <span class="tag">🎨 Özelleştirilebilir</span>
+      <span class="tag">🌍 TR / EN</span>
+    </div>
+  </div>
+
+  <!-- Kurulum -->
+  <div class="container">
+    <div class="section">
+      <h2 class="section-title">⚡ 2 Adımda Entegrasyon</h2>
+      <p class="section-sub">Kendi web sitenize 2 dakikada ekleyin.</p>
+
+      <div class="grid-2">
+        <div>
+          <div class="code-label">Adım 1 — Script'i Ekle</div>
+          <pre><span class="comment">&lt;!-- HTML &lt;head&gt; veya &lt;body&gt; sonuna ekleyin --&gt;</span>
+<span class="kw">&lt;script</span> <span class="key">src</span>=<span class="string">"https://platform.com/sdk/proctoring-widget.js"</span><span class="kw">&gt;&lt;/script&gt;</span>
+
+<span class="comment">&lt;!-- İsteğe bağlı: Widget'ı belirli bir div'e yerleştir --&gt;</span>
+<span class="kw">&lt;div</span> <span class="key">id</span>=<span class="string">"proctor-container"</span><span class="kw">&gt;&lt;/div&gt;</span></pre>
+
+          <div class="code-label" style="margin-top:20px;">Adım 2 — Widget'ı Başlat</div>
+          <pre><span class="kw">ProctorSDK</span>.<span class="fn">init</span>({
+  <span class="key">apiKey</span>:     <span class="string">'pk_live_xxxxxxxxxxxx'</span>,
+  <span class="key">gatewayUrl</span>: <span class="string">'https://platform.com'</span>,
+  <span class="key">examId</span>:     <span class="string">'EXAM-2026-001'</span>,
+  <span class="key">studentId</span>:  <span class="string">'STU-12345'</span>,
+
+  <span class="key">onReady</span>: (<span class="fn">session</span>) => {
+    <span class="fn">console</span>.log(<span class="string">'Sınav başladı:'</span>, session.sessionId);
+  },
+  <span class="key">onComplete</span>: (<span class="fn">report</span>) => {
+    <span class="comment">// Kendi API'nize gönderin</span>
+    <span class="fn">fetch</span>(<span class="string">'/api/submit'</span>, {
+      method: <span class="string">'POST'</span>,
+      body: <span class="fn">JSON</span>.stringify(report)
+    });
+  },
+  <span class="key">onViolation</span>: (<span class="fn">event</span>) => {
+    <span class="fn">console</span>.warn(<span class="string">'İhlal:'</span>, event.eventType);
+  },
+
+  <span class="key">options</span>: {
+    <span class="key">primaryColor</span>: <span class="string">'#6366f1'</span>,
+    <span class="key">language</span>:     <span class="string">'tr'</span>,
+    <span class="key">showOverlay</span>:  <span class="value">true</span>,
+    <span class="key">containerId</span>:  <span class="string">'proctor-container'</span>,
+  }
+});</pre>
+        </div>
+
+        <!-- Live Demo -->
+        <div class="demo-area">
+          <h3 style="font-size:18px;font-weight:700;margin-bottom:20px;color:#f1f5f9;">🎮 Canlı Demo</h3>
+
+          <div class="demo-config">
+            <label>Gateway URL</label>
+            <input id="demo-gateway" value="http://localhost:3000" placeholder="https://platform.com" />
+
+            <label>API Key</label>
+            <input id="demo-apikey" value="pk_live_demo12345678901" placeholder="pk_live_xxxx" />
+
+            <label>Exam ID</label>
+            <input id="demo-examid" value="DEMO-EXAM-001" />
+
+            <label>Student ID</label>
+            <input id="demo-studentid" value="DEMO-STU-001" />
+          </div>
+
+          <button class="demo-btn" onclick="startDemo()">🚀 Widget'ı Başlat</button>
+
+          <div id="proctor-container" style="margin-top:20px;"></div>
+
+          <div style="margin-top:16px;">
+            <div class="code-label">Event Logları</div>
+            <div id="event-log"><span style="color:#2d3748;">Widget başlatıldığında olaylar burada görünür...</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="section">
+      <h2 class="section-title">🚀 Özellikler</h2>
+      <p class="section-sub">Tek bir JavaScript dosyasıyla eksiksiz proctoring deneyimi.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h4>AI Analiz</h4>
+          <p>Yüz tespiti, göz takibi ve ses analizi gerçek zamanlı çalışır.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h4>Risk Skoru</h4>
+          <p>0-100 arası dinamik risk skoru ve görsel gösterge.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h4>Özelleştirme</h4>
+          <p>Kurumsal renk ve logo desteğiyle markanıza uyarlayın.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h4>Güvenli</h4>
+          <p>HMAC-SHA256 imzalı webhook'lar ve API key auth.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h4>WebSocket</h4>
+          <p>Gerçek zamanlı veri akışı ile anlık uyarılar.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h4>Çok Dil</h4>
+          <p>Türkçe ve İngilizce dil desteği.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Referansı -->
+    <div class="section">
+      <h2 class="section-title">📋 API Referansı</h2>
+      <p class="section-sub">Tüm yapılandırma seçenekleri ve metodlar.</p>
+
+      <div class="grid-2">
+        <div>
+          <div class="card">
+            <h3>⚙️ Yapılandırma Seçenekleri</h3>
+            <pre style="margin-top:12px;font-size:12px;"><span class="key">apiKey</span>:         <span class="string">string</span>   <span class="comment">// *Zorunlu</span>
+<span class="key">gatewayUrl</span>:     <span class="string">string</span>   <span class="comment">// *Zorunlu</span>
+<span class="key">examId</span>:         <span class="string">string</span>   <span class="comment">// *Zorunlu</span>
+<span class="key">studentId</span>:      <span class="string">string</span>   <span class="comment">// *Zorunlu</span>
+<span class="key">studentName</span>:    <span class="string">string</span>   <span class="comment">// Opsiyonel</span>
+<span class="key">onReady</span>:        <span class="fn">function</span> <span class="comment">// (session) => void</span>
+<span class="key">onComplete</span>:     <span class="fn">function</span> <span class="comment">// (report) => void</span>
+<span class="key">onViolation</span>:    <span class="fn">function</span> <span class="comment">// (event) => void</span>
+<span class="key">onError</span>:        <span class="fn">function</span> <span class="comment">// (message) => void</span>
+
+<span class="key">options.primaryColor</span>:   <span class="string">'#6366f1'</span>
+<span class="key">options.language</span>:       <span class="string">'tr' | 'en'</span>
+<span class="key">options.showOverlay</span>:    <span class="value">true</span>
+<span class="key">options.containerId</span>:    <span class="string">'proctor-container'</span>
+<span class="key">options.logoUrl</span>:        <span class="string">string | null</span>
+<span class="key">options.frameIntervalMs</span>:<span class="value"> 3000</span>
+<span class="key">options.audioIntervalMs</span>:<span class="value"> 5000</span></pre>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3>🔧 Metodlar</h3>
+            <pre style="margin-top:12px;font-size:12px;"><span class="comment">// Widget başlat</span>
+<span class="kw">ProctorSDK</span>.<span class="fn">init</span>(config) → <span class="fn">ProctorWidget</span>
+
+<span class="comment">// Sınavı programatik olarak bitir</span>
+<span class="kw">ProctorSDK</span>.<span class="fn">endExam</span>()
+
+<span class="comment">// Risk skorunu al</span>
+<span class="kw">ProctorSDK</span>.<span class="fn">getRiskScore</span>()
+<span class="comment">// → { score: 23, level: 'LOW' }</span>
+
+<span class="comment">// Widget'ı temizle</span>
+<span class="kw">ProctorSDK</span>.<span class="fn">destroy</span>()
+
+<span class="comment">// Versiyon</span>
+<span class="kw">ProctorSDK</span>.version <span class="comment">// '1.0.0'</span></pre>
+          </div>
+
+          <div class="card" style="margin-top:20px;">
+            <h3>🪝 Webhook Payload</h3>
+            <pre style="margin-top:12px;font-size:11px;">{
+  <span class="key">"event"</span>: <span class="string">"exam.completed"</span>,
+  <span class="key">"tenantId"</span>: <span class="string">"univ-istanbul"</span>,
+  <span class="key">"timestamp"</span>: <span class="string">"2026-06-07T15:00:00Z"</span>,
+  <span class="key">"data"</span>: {
+    <span class="key">"sessionId"</span>: <span class="string">"..."</span>,
+    <span class="key">"riskScore"</span>: <span class="value">23</span>,
+    <span class="key">"riskLevel"</span>: <span class="string">"LOW"</span>,
+    <span class="key">"violations"</span>: [...]
+  }
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>ProctorSDK v1.0.0 · AI Destekli Sınav Gözetim Platformu · <a href="mailto:support@proctoring.io">Destek</a></p>
+  </footer>
+
+  <script src="proctoring-widget.js"></script>
+  <script>
+    function log(msg, type = '') {
+      const div = document.getElementById('event-log');
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      div.insertBefore(entry, div.firstChild);
+    }
+
+    function startDemo() {
+      const gateway = document.getElementById('demo-gateway').value;
+      const apiKey  = document.getElementById('demo-apikey').value;
+      const examId  = document.getElementById('demo-examid').value;
+      const studentId = document.getElementById('demo-studentid').value;
+
+      document.getElementById('proctor-container').innerHTML = '';
+      log('Widget başlatılıyor...');
+
+      ProctorSDK.init({
+        apiKey,
+        gatewayUrl: gateway,
+        examId,
+        studentId,
+        studentName: 'Demo Kullanıcı',
+        onReady: (s) => log(`✅ Oturum başladı: ${s.sessionId}`),
+        onComplete: (r) => log(`🎓 Sınav tamamlandı | Risk: ${r?.riskScore ?? '?'}`, 'complete'),
+        onViolation: (e) => log(`⚠️ İhlal: ${e.eventType || JSON.stringify(e)}`, 'violation'),
+        onError: (err) => log(`❌ Hata: ${err}`, 'error'),
+        options: {
+          primaryColor: '#6366f1',
+          language: 'tr',
+          showOverlay: true,
+          containerId: 'proctor-container',
+        },
+      });
+    }
+  </script>
+</body>
+</html>

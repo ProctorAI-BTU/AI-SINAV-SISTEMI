@@ -1,0 +1,115 @@
+# ==========================================
+# GITHUB IGNORE FILE - AI Mulakat Sistemi
+# ==========================================
+
+# 1. Node.js & NPM (Recursive)
+**/node_modules/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Large archives (Prevent GitHub push block)
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# 2. Python & AI Services
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments (Python - Recursive)
+**/venv/
+**/.venv/
+**/ENV/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# 3. Environment Variables & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
+!.env.example
+
+# 4. OS / System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# 5. IDEs & Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vs/
+
+# 6. Build Outputs & Logs
+logs/
+*.log
+npm-debug.log*
+coverage/
+dist/
+build/
+.next/
+out/
+.nuxt
+.output
+
+# 7. Database / Docker Volumes
+mongo_data/
+docker_data/
+postgres_data/
+*.rdb
+*.db
+*.sqlite
+*.sqlite3
+
+# 8. Temporary Files
+tmp/
+temp/
+
+# 9. Legacy / Backup Directories (Excluded from GitHub to prevent clutter)
+frontend_updates/
+frontend_yeni/
+Proctor-Teslim/
+install/
+install_all/
+rebuild_debug.log
+*.log

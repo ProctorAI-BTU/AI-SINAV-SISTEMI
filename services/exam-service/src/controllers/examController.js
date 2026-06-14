@@ -331,7 +331,7 @@ exports.getExamByCode = async (req, res, next) => {
       if (!exam) {
         return res.status(404).json({
           success: false,
-          message: 'Kod ile eslesen sinav bulunamadi.',
+          message: 'Kod ile eşleşen sınav bulunamadı.',
         });
       }
 
@@ -349,7 +349,7 @@ exports.getExamByCode = async (req, res, next) => {
     if (!exam) {
       return res.status(404).json({
         success: false,
-        message: 'Kod ile eslesen sinav bulunamadi.',
+        message: 'Kod ile eşleşen sınav bulunamadı.',
       });
     }
 

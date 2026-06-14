@@ -445,7 +445,7 @@ export default function AdminPanel({ onNavigate, onLogout }) {
                     <input
                       type="text"
                       required
-                      placeholder="Örn: Ahmet Yılmaz"
+                      placeholder="Örn: Volkan Altuntaş"
                       value={createName}
                       onChange={(e) => setCreateName(e.target.value)}
                       style={{ width: "100%", padding: "0.7rem", borderRadius: "6px", border: "1px solid #d1d5db", fontSize: "0.95rem", backgroundColor: "#fff", color: "#111827" }}
@@ -456,7 +456,7 @@ export default function AdminPanel({ onNavigate, onLogout }) {
                     <input
                       type="email"
                       required
-                      placeholder="Örn: ahmet@egitmen.com"
+                      placeholder="Örn: volkanaltuntas@egitmen.com"
                       value={createEmail}
                       onChange={(e) => setCreateEmail(e.target.value)}
                       style={{ width: "100%", padding: "0.7rem", borderRadius: "6px", border: "1px solid #d1d5db", fontSize: "0.95rem", backgroundColor: "#fff", color: "#111827" }}

@@ -1,20 +1,29 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import useCamera from './useCamera.js';
-import useFrameCapture from './useFrameCapture.js';
-import useTabVisibility from './useTabVisibility.js';
-import proctoringService from '../services/proctoring.js';
+import { useState, useEffect, useCallback, useRef } from "react";
+import useCamera from "./useCamera.js";
+import useFrameCapture from "./useFrameCapture.js";
+import useTabVisibility from "./useTabVisibility.js";
+import proctoringService from "../services/proctoring.js";
 
 const ANALYSIS_INTERVAL_MS = 1000;
 
 export default function useProctoring(sessionId, sessionMeta = {}) {
-  const { videoRef, isActive: cameraActive, error: cameraError, startCamera, stopCamera, stream } = useCamera();
+  const {
+    videoRef,
+    isActive: cameraActive,
+    error: cameraError,
+    startCamera,
+    stopCamera,
+    stream,
+  } = useCamera();
+
   const { captureFrame } = useFrameCapture(videoRef);
 
   const [faceResult, setFaceResult] = useState(null);
   const [gazeResult, setGazeResult] = useState(null);
+
   const [riskData, setRiskData] = useState({
     risk_score: 0,
-    risk_level: 'LOW',
+    risk_level: "LOW",
     reasons: [],
     event_counts: {},
   });
@@ -22,69 +31,102 @@ export default function useProctoring(sessionId, sessionMeta = {}) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [aiHealth, setAiHealth] = useState([]);
   const [violationCount, setViolationCount] = useState(0);
-  const [aiError, setAiError] = useState('Bekleniyor...');
+  const [aiError, setAiError] = useState("Bekleniyor...");
+
+  // Sınav bittikten sonra sekme / fullscreen ihlali sayılmasın diye eklendi.
+  const [browserTrackingEnabled, setBrowserTrackingEnabled] = useState(false);
 
   const isAnalyzingRef = useRef(false);
   const intervalRef = useRef(null);
   const sessionIdRef = useRef(sessionId);
   const sessionMetaRef = useRef(sessionMeta);
   const cameraActiveRef = useRef(cameraActive);
+  const browserTrackingEnabledRef = useRef(false);
 
-  useEffect(() => { sessionIdRef.current = sessionId; }, [sessionId]);
-  useEffect(() => { sessionMetaRef.current = sessionMeta; }, [sessionMeta]);
-  useEffect(() => { cameraActiveRef.current = cameraActive; }, [cameraActive]);
+  useEffect(() => {
+    sessionIdRef.current = sessionId;
+  }, [sessionId]);
 
-  const buildEventPayload = useCallback((source, result = {}) => ({
-    ...sessionMetaRef.current,
-    source,
-    message: result.message || '',
-    result,
-  }), []);
+  useEffect(() => {
+    sessionMetaRef.current = sessionMeta;
+  }, [sessionMeta]);
 
-  const handleViolation = useCallback(async (type, violations) => {
-    const total = violations.tabSwitch + violations.fullscreenExit;
-    setViolationCount(total);
+  useEffect(() => {
+    cameraActiveRef.current = cameraActive;
+  }, [cameraActive]);
 
-    try {
-      const response = await proctoringService.sendEventSocket(
-        sessionIdRef.current,
-        type,
-        buildEventPayload('browser', { violations })
-      );
+  useEffect(() => {
+    browserTrackingEnabledRef.current = browserTrackingEnabled;
+  }, [browserTrackingEnabled]);
 
-      if (response?.risk) {
-        setRiskData(response.risk);
+  const buildEventPayload = useCallback((source, result = {}) => {
+    return {
+      ...sessionMetaRef.current,
+      source,
+      message: result.message || "",
+      result,
+    };
+  }, []);
+
+  const handleViolation = useCallback(
+    async (type, violations) => {
+      // Sınav başlamadıysa veya sınav bittiyse hiçbir ihlal sayma.
+      if (!browserTrackingEnabledRef.current) {
+        return;
       }
-    } catch (err) {
-      console.warn('[useProctoring] Ihlal event kaydi basarisiz:', err.message);
-    }
-  }, [buildEventPayload]);
 
-  const tabVisibility = useTabVisibility(handleViolation);
+      const total = violations.tabSwitch + violations.fullscreenExit;
+      setViolationCount(total);
+
+      try {
+        const response = await proctoringService.sendEventSocket(
+          sessionIdRef.current,
+          type,
+          buildEventPayload("browser", { violations })
+        );
+
+        if (response?.risk) {
+          setRiskData(response.risk);
+        }
+      } catch (err) {
+        console.warn(
+          "[useProctoring] İhlal event kaydı başarısız:",
+          err.message
+        );
+      }
+    },
+    [buildEventPayload]
+  );
+
+  const tabVisibility = useTabVisibility(
+    handleViolation,
+    browserTrackingEnabled
+  );
 
   const runAnalysis = useCallback(async () => {
     if (isAnalyzingRef.current) return;
 
     if (!sessionIdRef.current || !cameraActiveRef.current) {
-      setAiError('Session veya kamera aktif degil');
+      setAiError("Session veya kamera aktif değil");
       return;
     }
 
     const frame = await captureFrame(0.8);
+
     if (!frame) {
-      setAiError('Kamera baglantisi bekleniyor');
+      setAiError("Kamera bağlantısı bekleniyor");
       return;
     }
 
     isAnalyzingRef.current = true;
     setIsAnalyzing(true);
-    setAiError('Analiz ediliyor...');
+    setAiError("Analiz ediliyor...");
 
     try {
       const frameAnalysis = await proctoringService.analyzeFrameSocket(
         sessionIdRef.current,
         frame,
-        buildEventPayload('frame')
+        buildEventPayload("frame")
       );
 
       const faceRes = frameAnalysis?.face;
@@ -93,7 +135,7 @@ export default function useProctoring(sessionId, sessionMeta = {}) {
       if (faceRes) {
         setFaceResult(faceRes);
       } else {
-        setAiError('Yuz analizi alinamadi');
+        setAiError("Yüz analizi alınamadı");
       }
 
       if (gazeRes) {
@@ -103,45 +145,69 @@ export default function useProctoring(sessionId, sessionMeta = {}) {
       if (frameAnalysis?.risk) {
         setRiskData(frameAnalysis.risk);
       } else {
-        const score = await proctoringService.getRiskScore(sessionIdRef.current);
-        if (score) setRiskData(score);
+        const score = await proctoringService.getRiskScore(
+          sessionIdRef.current
+        );
+
+        if (score) {
+          setRiskData(score);
+        }
       }
 
-      if (faceRes && gazeRes) setAiError('Basarili');
+      if (faceRes && gazeRes) {
+        setAiError("Başarılı");
+      }
     } catch (err) {
-      setAiError(`Analiz hatasi: ${err.message}`);
-      console.warn('[useProctoring] Analiz hatasi:', err.message);
+      setAiError(`Analiz hatası: ${err.message}`);
+      console.warn("[useProctoring] Analiz hatası:", err.message);
     } finally {
       isAnalyzingRef.current = false;
       setIsAnalyzing(false);
     }
   }, [buildEventPayload, captureFrame]);
 
-  const startProctoring = useCallback(async (nextSessionId, nextSessionMeta) => {
-    if (nextSessionId) {
-      sessionIdRef.current = nextSessionId;
-    }
+  const startProctoring = useCallback(
+    async (nextSessionId, nextSessionMeta) => {
+      setViolationCount(0);
+      tabVisibility.resetViolations?.();
 
-    if (nextSessionMeta) {
-      sessionMetaRef.current = nextSessionMeta;
-    }
+      // Sınav başladığında browser ihlal takibini aç.
+      setBrowserTrackingEnabled(true);
+      browserTrackingEnabledRef.current = true;
 
-    const cameraStream = await startCamera();
+      if (nextSessionId) {
+        sessionIdRef.current = nextSessionId;
+      }
 
-    if (!cameraStream) {
-      throw new Error('Kamera veya mikrofon izni alinamadi.');
-    }
+      if (nextSessionMeta) {
+        sessionMetaRef.current = nextSessionMeta;
+      }
 
-    if (sessionIdRef.current) {
-      proctoringService.connectSocket(sessionIdRef.current);
-    }
+      const cameraStream = await startCamera();
 
-    const health = await proctoringService.checkHealth();
-    setAiHealth(health);
-    return cameraStream;
-  }, [startCamera]);
+      if (!cameraStream) {
+        setBrowserTrackingEnabled(false);
+        browserTrackingEnabledRef.current = false;
+        throw new Error("Kamera veya mikrofon izni alınamadı.");
+      }
+
+      if (sessionIdRef.current) {
+        proctoringService.connectSocket(sessionIdRef.current);
+      }
+
+      const health = await proctoringService.checkHealth();
+      setAiHealth(health);
+
+      return cameraStream;
+    },
+    [startCamera, tabVisibility]
+  );
 
   const stopProctoring = useCallback(() => {
+    // Sınav bittiğinde sekme / fullscreen ihlal takibini kapat.
+    setBrowserTrackingEnabled(false);
+    browserTrackingEnabledRef.current = false;
+
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -153,13 +219,22 @@ export default function useProctoring(sessionId, sessionMeta = {}) {
 
   useEffect(() => {
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+
+      setBrowserTrackingEnabled(false);
+      browserTrackingEnabledRef.current = false;
     };
   }, []);
 
   useEffect(() => {
     if (cameraActive) {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+
       intervalRef.current = setInterval(runAnalysis, ANALYSIS_INTERVAL_MS);
       runAnalysis();
     } else if (intervalRef.current) {
@@ -180,16 +255,19 @@ export default function useProctoring(sessionId, sessionMeta = {}) {
     cameraActive,
     cameraError,
     stream,
+
     faceResult,
     gazeResult,
     riskData,
     isAnalyzing,
     aiHealth,
     aiError,
+
     isTabVisible: tabVisibility.isTabVisible,
     isFullscreen: tabVisibility.isFullscreen,
     violations: tabVisibility.violations,
     violationCount,
+
     requestFullscreen: tabVisibility.requestFullscreen,
     startProctoring,
     stopProctoring,

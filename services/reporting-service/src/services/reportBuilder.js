@@ -2,23 +2,23 @@ const ProctoringSession = require('../models/ProctoringSession');
 const ProctoringEvent = require('../models/ProctoringEvent');
 
 const EVENT_LABELS = {
-  FACE_NOT_FOUND: 'Yuz algilanmadi',
-  MULTIPLE_FACE_DETECTED: 'Birden fazla yuz algilandi',
-  GAZE_WARNING: 'Kisa sureli bakis ekran disinda',
-  GAZE_AWAY: 'Bakis ekran disina kaydi',
+  FACE_NOT_FOUND: 'Yuz algılanmadı',
+  MULTIPLE_FACE_DETECTED: 'Birden fazla yüz algılandı',
+  GAZE_WARNING: 'Kısa süreli bakış ekran dışında',
+  GAZE_AWAY: 'Bakış ekran dışınakaydı',
   AUDIO_DETECTED: '2-3 saniye ses riski',
   SPEECH_DETECTED: '2-3 saniye konusma/ses riski',
   NOISE_DETECTED: '2-3 saniye yuksek ses riski',
-  PHONE_DETECTED: 'Telefon algilandi',
-  OBJECT_DETECTED: 'Yasakli/ilgili nesne algilandi',
-  PROHIBITED_OBJECT_DETECTED: 'Yasakli nesne algilandi',
-  TAB_SWITCH: 'Sekme degisimi',
-  FULLSCREEN_EXIT: 'Tam ekrandan cikildi',
-  SHORTCUT_ATTEMPT: 'Klavye kisayolu denemesi',
-  COPY_PASTE_ATTEMPT: 'Kopyala/yapistir denemesi',
-  RIGHT_CLICK_ATTEMPT: 'Sag tik denemesi',
-  SESSION_COMPLETED: 'Sinav tamamlandi',
-  SESSION_TERMINATED: 'Oturum sonlandirildi',
+  PHONE_DETECTED: 'Telefon algılandı',
+  OBJECT_DETECTED: 'Yasaklı/ilgili nesne algılandı',
+  PROHIBITED_OBJECT_DETECTED: 'Yasaklı nesne algilandı',
+  TAB_SWITCH: 'Sekme degişimi',
+  FULLSCREEN_EXIT: 'Tam ekrandan çıkıldı.',
+  SHORTCUT_ATTEMPT: 'Klavye kısayolu denemesi',
+  COPY_PASTE_ATTEMPT: 'Kopyala/yapıştır denemesi',
+  RIGHT_CLICK_ATTEMPT: 'Sağ tik denemesi',
+  SESSION_COMPLETED: 'Sınav tamamlandı',
+  SESSION_TERMINATED: 'Oturum sonlandırıldı',
 };
 
 function eventLabel(eventType) {

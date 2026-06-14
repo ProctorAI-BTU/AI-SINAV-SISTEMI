@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import authService from "../services/auth.js";
 import examService from "../services/exam.js";
-import reportingService from "../services/reporting.js";
 import "../styles/student.css";
 import "../styles/modal.css";
 
@@ -25,93 +24,198 @@ const getStoredProfile = (user) => {
 };
 
 const getStoredExamHistory = (user) => {
-  const storageKey = `studentExamHistory_${user?.id || user?.email || "demo"}`;
-  const savedHistory = localStorage.getItem(storageKey);
+  const possibleKeys = [
+    user?.id ? `studentExamHistory_${user.id}` : null,
+    user?.email ? `studentExamHistory_${user.email}` : null,
+    "studentExamHistory_student-1",
+    "studentExamHistory_demo",
+  ].filter(Boolean);
 
-  if (savedHistory) {
-    try {
-      const parsedHistory = JSON.parse(savedHistory);
-      if (Array.isArray(parsedHistory)) return parsedHistory;
-    } catch (error) {
-      console.warn("Girilmiş sınav bilgisi okunamadı:", error.message);
+  for (const key of possibleKeys) {
+    const savedHistory = localStorage.getItem(key);
+
+    if (savedHistory) {
+      try {
+        const parsedHistory = JSON.parse(savedHistory);
+        if (Array.isArray(parsedHistory)) return parsedHistory;
+      } catch (error) {
+        console.warn("Girilmiş sınav bilgisi okunamadı:", error.message);
+      }
     }
   }
 
-  return [
-    { id: "exam_hist_1", title: "Demo Sınav", code: "DEMO01", date: "Örnek kayıt", score: "-", status: "Tamamlandı" },
-    { id: "exam_hist_2", title: "Matematik Vize", code: "MAT101", date: "Örnek kayıt", score: "-", status: "Tamamlandı" },
-  ];
+  const allHistoryKeys = Object.keys(localStorage).filter((key) =>
+    key.startsWith("studentExamHistory_")
+  );
+
+  for (const key of allHistoryKeys) {
+    const savedHistory = localStorage.getItem(key);
+
+    if (savedHistory) {
+      try {
+        const parsedHistory = JSON.parse(savedHistory);
+        if (Array.isArray(parsedHistory)) return parsedHistory;
+      } catch (error) {
+        console.warn("Girilmiş sınav bilgisi okunamadı:", error.message);
+      }
+    }
+  }
+
+  return [];
+};
+
+const normalizeExamHistory = (response, fallbackHistory = []) => {
+  const rawList =
+    response?.items ||
+    response?.sessions ||
+    response?.history ||
+    response?.data?.items ||
+    response?.data?.sessions ||
+    response?.data?.history ||
+    response?.data ||
+    response;
+
+  const list = Array.isArray(rawList) ? rawList : fallbackHistory;
+
+  return list.map((item, index) => {
+    const exam = item.exam || item.examInfo || {};
+
+    return {
+      id: item.id || item._id || item.sessionId || `history_${index}`,
+      title: item.title || exam.title || item.examTitle || "Sınav",
+      code: item.code || exam.accessCode || item.examCode || "-",
+      date:
+        item.date ||
+        item.finishedAt ||
+        item.completedAt ||
+        item.createdAt ||
+        item.startedAt ||
+        "-",
+      score:
+        item.score ??
+        item.result?.score ??
+        item.totalScore ??
+        item.riskScore ??
+        "-",
+      status:
+        item.status === "terminated"
+          ? "Sonlandırıldı"
+          : item.status === "auto_submitted"
+            ? "Süre Doldu"
+            : item.status === "submitted" || item.status === "completed"
+              ? "Tamamlandı"
+              : item.status || "Tamamlandı",
+    };
+  });
+};
+
+const formatHistoryDate = (value) => {
+  if (!value || value === "-") return "-";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return date.toLocaleString("tr-TR");
 };
 
 export default function StudentHome({ onNavigate, onLogout }) {
   const [examCode, setExamCode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [historySearch, setHistorySearch] = useState("");
+  const [historyStartDate, setHistoryStartDate] = useState("");
+  const [historyEndDate, setHistoryEndDate] = useState("");
+  const [historyStatusFilter, setHistoryStatusFilter] = useState("all");
+
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
+
   const user = authService.getCurrentUser();
+
   const [profile, setProfile] = useState(() => getStoredProfile(user));
   const [profileForm, setProfileForm] = useState(() => getStoredProfile(user));
-  const [examHistory, setExamHistory] = useState(() => getStoredExamHistory(user));
 
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [profileMessage, setProfileMessage] = useState("");
-  const [profileError, setProfileError] = useState("");
+  const [examHistory, setExamHistory] = useState([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const [historyError, setHistoryError] = useState("");
+  const [historyPage, setHistoryPage] = useState(1);
+  const [historyTotalPages, setHistoryTotalPages] = useState(1);
 
-  const formatExamDate = (d) => {
-    if (!d) return "-";
-    return new Date(d).toLocaleDateString("tr-TR") + " " + new Date(d).toLocaleTimeString("tr-TR", { hour: '2-digit', minute: '2-digit' });
-  };
-
-  const loadExamHistory = async () => {
-    if (!user?.id) return;
-    try {
-      const reportsData = await reportingService.getReports({ studentId: user.id });
-      if (reportsData && reportsData.length > 0) {
-        const history = reportsData.map(session => ({
-          id: session.sessionId,
-          title: session.examTitle || "Sınav",
-          code: session.examCode || "-",
-          date: formatExamDate(session.startedAt || session.createdAt),
-          score: typeof session.riskScore === 'number' ? `${Math.round(session.riskScore)}/100 (Risk)` : "-",
-          status: session.status === "submitted" ? "Tamamlandı" : session.status === "active" ? "Aktif" : "Sonlandırıldı"
-        }));
-        setExamHistory(history);
-      } else {
-        setExamHistory(getStoredExamHistory(user));
-      }
-    } catch (err) {
-      console.warn("Dinamik sınav geçmişi alınamadı, yerel geçmiş yükleniyor:", err.message);
-      setExamHistory(getStoredExamHistory(user));
-    }
-  };
+  const historyPageSize = 5;
+  const profileStorageKey = `studentProfile_${user?.id || user?.email || "demo"}`;
 
   useEffect(() => {
     const nextProfile = getStoredProfile(user);
     setProfile(nextProfile);
     setProfileForm(nextProfile);
-    loadExamHistory();
   }, [user?.id, user?.email]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("examCode");
-    if (code) {
-      setExamCode(code.toUpperCase());
-    }
-  }, []);
+  const loadExamHistory = async (page = historyPage) => {
+    const studentId = user?.id || user?.email || "student-1";
+    const fallbackHistory = getStoredExamHistory(user);
 
-  const profileStorageKey = `studentProfile_${user?.id || user?.email || "demo"}`;
+    setHistoryLoading(true);
+    setHistoryError("");
+
+    try {
+      const response = await examService.getStudentExamHistory(
+        studentId,
+        page,
+        historyPageSize
+      );
+
+      const normalizedHistory = normalizeExamHistory(response, []);
+
+      const finalHistory =
+        normalizedHistory.length > 0 ? normalizedHistory : fallbackHistory;
+
+      const pagedHistory = finalHistory.slice(
+        (page - 1) * historyPageSize,
+        page * historyPageSize
+      );
+
+      setExamHistory(pagedHistory);
+      setHistoryTotalPages(
+        Math.max(1, Math.ceil(finalHistory.length / historyPageSize))
+      );
+    } catch (error) {
+      console.warn("Sınav geçmişi backend'den alınamadı:", error.message);
+
+      const fallbackPaged = fallbackHistory.slice(
+        (page - 1) * historyPageSize,
+        page * historyPageSize
+      );
+
+      setExamHistory(fallbackPaged);
+      setHistoryTotalPages(
+        Math.max(1, Math.ceil(fallbackHistory.length / historyPageSize))
+      );
+
+      setHistoryError("");
+    } finally {
+      setHistoryLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadExamHistory(historyPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id, user?.email, historyPage]);
+
+  const openHistoryModal = () => {
+    setHistoryPage(1);
+    setShowHistoryModal(true);
+    loadExamHistory(1);
+  };
 
   const openProfileModal = () => {
     setProfileForm(profile);
     setIsEditingProfile(false);
-    setProfileError("");
-    setProfileMessage("");
-    setCurrentPassword("");
-    setNewPassword("");
     setShowProfileModal(true);
   };
 
@@ -124,97 +228,33 @@ export default function StudentHome({ onNavigate, onLogout }) {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // SİBER GÜVENLİK KONTROLLERİ:
-    // 1. Dosya Boyutu Kontrolü (Max 1MB)
-    if (file.size > 1024 * 1024) {
-      setProfileError("Hata: Dosya boyutu 1MB'dan küçük olmalıdır!");
-      return;
-    }
-
-    // 2. MIME Tipi Kontrolü (Sadece güvenli resim tipleri)
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-    if (!allowedTypes.includes(file.type)) {
-      setProfileError("Hata: Sadece JPG, PNG, WEBP veya GIF resimleri yükleyebilirsiniz!");
-      return;
-    }
-
     const reader = new FileReader();
-    reader.onloadend = () => {
-      // 3. Base64 İçerik Güvenliği Kontrolü (Malicious script inject önleme)
-      const base64Str = reader.result;
-      const signature = base64Str.split(',')[0];
-      const expectedSignatures = [
-        'data:image/jpeg;base64',
-        'data:image/png;base64',
-        'data:image/webp;base64',
-        'data:image/gif;base64'
-      ];
-      
-      const isValidSignature = expectedSignatures.some(sig => signature.startsWith(sig));
-      if (!isValidSignature) {
-        setProfileError("Hata: Geçersiz veya güvenli olmayan resim formatı!");
-        return;
-      }
 
-      setProfileForm((current) => ({ ...current, avatar: base64Str }));
-      setProfileError("");
+    reader.onloadend = () => {
+      setProfileForm((current) => ({
+        ...current,
+        avatar: reader.result,
+      }));
     };
+
     reader.readAsDataURL(file);
   };
 
-  const saveProfile = async () => {
-    setProfileError("");
-    setProfileMessage("");
+  const saveProfile = () => {
+    const nextProfile = {
+      name: profileForm.name?.trim() || "Öğrenci",
+      email: profileForm.email?.trim() || "ogrenci@example.com",
+      avatar: profileForm.avatar || "",
+    };
 
-    try {
-      // 1. İsim Güncelleme (Backend API)
-      if (profileForm.name?.trim() !== profile.name) {
-        await authService.updateProfile({ name: profileForm.name?.trim() });
-        // LocalStorage'daki kullanıcı bilgisini güncelle
-        const user = authService.getCurrentUser();
-        if (user) {
-          user.name = profileForm.name?.trim();
-          localStorage.setItem("user", JSON.stringify(user));
-        }
-      }
-
-      // 2. Şifre Değiştirme (Eğer alanlar doldurulduysa)
-      if (currentPassword || newPassword) {
-        if (!currentPassword || !newPassword) {
-          setProfileError("Şifre değiştirmek için hem mevcut hem de yeni şifreyi girmelisiniz.");
-          return;
-        }
-        if (newPassword.length < 6) {
-          setProfileError("Yeni şifre en az 6 karakter olmalıdır.");
-          return;
-        }
-        await authService.changePassword({ currentPassword, newPassword });
-        setCurrentPassword("");
-        setNewPassword("");
-      }
-
-      const nextProfile = {
-        name: profileForm.name?.trim() || "Öğrenci",
-        email: profile.email || "ogrenci@example.com",
-        avatar: profileForm.avatar || "",
-      };
-
-      setProfile(nextProfile);
-      localStorage.setItem(profileStorageKey, JSON.stringify(nextProfile));
-      setProfileMessage("Profil başarıyla güncellendi.");
-      setIsEditingProfile(false);
-    } catch (err) {
-      setProfileError(err.message || "Profil güncellenirken hata oluştu.");
-    }
-  };
-
-  const handleOpenHistoryModal = () => {
-    loadExamHistory();
-    setShowHistoryModal(true);
+    setProfile(nextProfile);
+    localStorage.setItem(profileStorageKey, JSON.stringify(nextProfile));
+    setIsEditingProfile(false);
   };
 
   const startFlow = async (event) => {
     event.preventDefault();
+
     const code = examCode.trim().toUpperCase();
 
     if (!code) {
@@ -226,18 +266,20 @@ export default function StudentHome({ onNavigate, onLogout }) {
     setError("");
 
     try {
-      // Önce arka plana sor: Bu kod geçerli mi? Daha önce bu sınava girdim mi?
-      const res = await examService.joinByCode(code, {
-        studentId: user?.id,
-        studentName: profile?.name || user?.name
-      });
-      
+      const response = await examService.getExamByCode(code);
+
+      const exam =
+        response?.exam ||
+        response?.data?.exam ||
+        response?.data ||
+        response;
+
+      const examTitle = exam?.title || exam?.name || "Sınav";
+
       onNavigate("pre-exam-check", {
         examCode: code,
-        examTitle: res?.exam?.title || res?.examTitle || "Sınav",
-        exam: res?.exam,
-        session: res?.session,
-        questions: res?.questions,
+        examTitle,
+        exam,
       });
     } catch (err) {
       setError(err.message || "Sınav kodunu kontrol ederken bir hata oluştu.");
@@ -246,6 +288,41 @@ export default function StudentHome({ onNavigate, onLogout }) {
     }
   };
 
+  const filteredExamHistory = examHistory.filter((exam) => {
+    const searchText = historySearch.trim().toLowerCase();
+
+    const title = String(exam.title || "").toLowerCase();
+    const code = String(exam.code || "").toLowerCase();
+    const status = String(exam.status || "").toLowerCase();
+
+    const matchesSearch =
+      !searchText || title.includes(searchText) || code.includes(searchText);
+
+    const matchesStatus =
+      historyStatusFilter === "all" ||
+      status === historyStatusFilter.toLowerCase();
+
+    let matchesStartDate = true;
+    let matchesEndDate = true;
+
+    if (exam.date && exam.date !== "-") {
+      const examDate = new Date(exam.date);
+
+      if (historyStartDate) {
+        const startDate = new Date(historyStartDate);
+        matchesStartDate = examDate >= startDate;
+      }
+
+      if (historyEndDate) {
+        const endDate = new Date(historyEndDate);
+        endDate.setHours(23, 59, 59, 999);
+        matchesEndDate = examDate <= endDate;
+      }
+    }
+
+    return matchesSearch && matchesStatus && matchesStartDate && matchesEndDate;
+  });
+
   return (
     <div className="student-page">
       <header className="student-topbar">
@@ -253,17 +330,34 @@ export default function StudentHome({ onNavigate, onLogout }) {
           <span>AI</span>
           <strong>Öğrenci Ekranı</strong>
         </div>
+
         <div className="student-topbar-actions">
-          <button className="student-history-btn" onClick={handleOpenHistoryModal} type="button">
+          <button
+            className="student-history-btn"
+            onClick={openHistoryModal}
+            type="button"
+          >
             Girilmiş Sınavlar
           </button>
-          <button className="student-profile-btn" onClick={openProfileModal} type="button">
+
+          <button
+            className="student-profile-btn"
+            onClick={openProfileModal}
+            type="button"
+          >
             <span className="student-profile-avatar">
-              {profile.avatar ? <img src={profile.avatar} alt="Profil" /> : (profile.name || "Ö").charAt(0).toUpperCase()}
+              {profile.avatar ? (
+                <img src={profile.avatar} alt="Profil" />
+              ) : (
+                (profile.name || "Ö").charAt(0).toUpperCase()
+              )}
             </span>
             Profil
           </button>
-          <button className="student-logout" onClick={onLogout}>Çıkış Yap</button>
+
+          <button className="student-logout" onClick={onLogout}>
+            Çıkış Yap
+          </button>
         </div>
       </header>
 
@@ -271,11 +365,15 @@ export default function StudentHome({ onNavigate, onLogout }) {
         <section className="student-panel">
           <div>
             <h1>Merhaba, {profile?.name || user?.name || "Öğrenci"}</h1>
-            <p>Sınav kodunu girdikten sonra kamera, mikrofon, tam ekran ve yüz doğrulaması yapılır.</p>
+            <p>
+              Sınav kodunu girdikten sonra kamera, mikrofon, tam ekran ve yüz
+              doğrulaması yapılır.
+            </p>
           </div>
 
           <form className="student-code-form" onSubmit={startFlow}>
             <label htmlFor="student-exam-code">Sınav Kodu</label>
+
             <div className="student-code-row">
               <input
                 id="student-exam-code"
@@ -288,47 +386,189 @@ export default function StudentHome({ onNavigate, onLogout }) {
                 disabled={loading}
                 placeholder="Örn: ABC123"
               />
-              <button className="student-start-btn" type="submit" disabled={loading}>
+
+              <button
+                className="student-start-btn"
+                type="submit"
+                disabled={loading}
+              >
                 {loading ? "Kontrol Ediliyor..." : "Kontrole Geç"}
               </button>
             </div>
+
             {error && <div className="student-error">{error}</div>}
           </form>
         </section>
       </main>
-
 
       {showHistoryModal && (
         <div className="profile-modal-overlay">
           <div className="profile-modal-box profile-modal-box--wide">
             <div className="profile-modal-header">
               <h2>Girilmiş Sınavlar</h2>
-              <button className="profile-modal-close" onClick={() => setShowHistoryModal(false)} type="button">×</button>
+
+              <button
+                className="profile-modal-close"
+                onClick={() => setShowHistoryModal(false)}
+                type="button"
+              >
+                ×
+              </button>
             </div>
 
-            <p className="student-history-desc">
-              Öğrencinin daha önce katıldığı sınavlar bu alanda listelenir. Backend bağlantısı hazır olduğunda bu liste gerçek sınav kayıtlarıyla doldurulabilir.
-            </p>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "2fr 1fr 1fr 1fr auto",
+                gap: "10px",
+                marginBottom: "18px",
+                alignItems: "end",
+              }}
+            >
+              <label
+                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
+              >
+                <span>Sınav adı / kod ara</span>
+                <input
+                  className="form-input"
+                  value={historySearch}
+                  onChange={(event) => setHistorySearch(event.target.value)}
+                  placeholder="Örn: Matematik, DEMO01"
+                />
+              </label>
+
+              <label
+                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
+              >
+                <span>Başlangıç</span>
+                <input
+                  className="form-input"
+                  type="date"
+                  value={historyStartDate}
+                  onChange={(event) => setHistoryStartDate(event.target.value)}
+                />
+              </label>
+
+              <label
+                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
+              >
+                <span>Bitiş</span>
+                <input
+                  className="form-input"
+                  type="date"
+                  value={historyEndDate}
+                  onChange={(event) => setHistoryEndDate(event.target.value)}
+                />
+              </label>
+
+              <label
+                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
+              >
+                <span>Durum</span>
+                <select
+                  className="form-input"
+                  value={historyStatusFilter}
+                  onChange={(event) =>
+                    setHistoryStatusFilter(event.target.value)
+                  }
+                >
+                  <option value="all">Tümü</option>
+                  <option value="tamamlandı">Tamamlandı</option>
+                  <option value="süre doldu">Süre Doldu</option>
+                  <option value="sonlandırıldı">Sonlandırıldı</option>
+                </select>
+              </label>
+
+              <button
+                className="profile-secondary-btn"
+                type="button"
+                onClick={() => {
+                  setHistorySearch("");
+                  setHistoryStartDate("");
+                  setHistoryEndDate("");
+                  setHistoryStatusFilter("all");
+                }}
+              >
+                Temizle
+              </button>
+            </div>
 
             <div className="student-history-list">
-              {examHistory.length > 0 ? examHistory.map((exam) => (
-                <div className="student-history-card" key={exam.id || exam.code}>
-                  <div>
-                    <strong>{exam.title || "Sınav"}</strong>
-                    <span>Kod: {exam.code || "-"}</span>
-                  </div>
-                  <div>
-                    <span>{exam.date || "-"}</span>
-                    <strong>{exam.status || "Tamamlandı"}</strong>
-                  </div>
-                  <div>
-                    <span>Puan</span>
-                    <strong>{exam.score || "-"}</strong>
-                  </div>
+              {historyLoading ? (
+                <div className="student-history-empty">
+                  Sınav geçmişi yükleniyor...
                 </div>
-              )) : (
-                <div className="student-history-empty">Henüz girilmiş sınav kaydı bulunmuyor.</div>
+              ) : filteredExamHistory.length > 0 ? (
+                filteredExamHistory.map((exam) => (
+                  <div
+                    className="student-history-card"
+                    key={exam.id || exam.code}
+                  >
+                    <div>
+                      <strong>{exam.title || "Sınav"}</strong>
+                      <span>Kod: {exam.code || "-"}</span>
+                    </div>
+
+                    <div>
+                      <span>{formatHistoryDate(exam.date)}</span>
+                      <strong>{exam.status || "Tamamlandı"}</strong>
+                    </div>
+
+                    <div>
+                      <span>Puan</span>
+                      <strong>{exam.score || "-"}</strong>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="student-history-empty">
+                  Filtrelere uygun sınav kaydı bulunmuyor.
+                </div>
               )}
+            </div>
+
+            {historyError && (
+              <p className="student-history-desc" style={{ color: "#f59e0b" }}>
+                {historyError}
+              </p>
+            )}
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "12px",
+                marginTop: "18px",
+              }}
+            >
+              <button
+                className="profile-secondary-btn"
+                type="button"
+                disabled={historyPage <= 1}
+                onClick={() =>
+                  setHistoryPage((page) => Math.max(1, page - 1))
+                }
+              >
+                Önceki
+              </button>
+
+              <span>
+                Sayfa {historyPage} / {historyTotalPages}
+              </span>
+
+              <button
+                className="profile-secondary-btn"
+                type="button"
+                disabled={historyPage >= historyTotalPages}
+                onClick={() =>
+                  setHistoryPage((page) =>
+                    Math.min(historyTotalPages, page + 1)
+                  )
+                }
+              >
+                Sonraki
+              </button>
             </div>
           </div>
         </div>
@@ -339,28 +579,32 @@ export default function StudentHome({ onNavigate, onLogout }) {
           <div className="profile-modal-box">
             <div className="profile-modal-header">
               <h2>Öğrenci Profili</h2>
-              <button className="profile-modal-close" onClick={closeProfileModal} type="button">×</button>
+
+              <button
+                className="profile-modal-close"
+                onClick={closeProfileModal}
+                type="button"
+              >
+                ×
+              </button>
             </div>
 
-            {profileMessage && (
-              <div style={{ background: "#d1fae5", color: "#065f46", padding: 10, borderRadius: 6, fontSize: 13, marginBottom: 12, textAlign: "center" }}>
-                {profileMessage}
-              </div>
-            )}
-            {profileError && (
-              <div style={{ background: "#fee2e2", color: "#991b1b", padding: 10, borderRadius: 6, fontSize: 13, marginBottom: 12, textAlign: "center" }}>
-                {profileError}
-              </div>
-            )}
-
             <div className="profile-avatar-large">
-              {profileForm.avatar ? <img src={profileForm.avatar} alt="Profil" /> : (profileForm.name || "Ö").charAt(0).toUpperCase()}
+              {profileForm.avatar ? (
+                <img src={profileForm.avatar} alt="Profil" />
+              ) : (
+                (profileForm.name || "Ö").charAt(0).toUpperCase()
+              )}
             </div>
 
             {isEditingProfile && (
               <label className="profile-file-label">
                 Profil resmi seç
-                <input type="file" accept="image/*" onChange={handleProfileImageChange} />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleProfileImageChange}
+                />
               </label>
             )}
 
@@ -369,51 +613,62 @@ export default function StudentHome({ onNavigate, onLogout }) {
                 İsim
                 <input
                   value={profileForm.name}
-                  onChange={(event) => setProfileForm((current) => ({ ...current, name: event.target.value }))}
+                  onChange={(event) =>
+                    setProfileForm((current) => ({
+                      ...current,
+                      name: event.target.value,
+                    }))
+                  }
                   disabled={!isEditingProfile}
                 />
               </label>
+
               <label>
                 Mail
                 <input
                   type="email"
                   value={profileForm.email}
-                  onChange={(event) => setProfileForm((current) => ({ ...current, email: event.target.value }))}
-                  disabled={true} // Mail adresi değiştirilemez (güvenlik ve tutarlılık için)
+                  onChange={(event) =>
+                    setProfileForm((current) => ({
+                      ...current,
+                      email: event.target.value,
+                    }))
+                  }
+                  disabled={!isEditingProfile}
                 />
               </label>
-              {isEditingProfile && (
-                <>
-                  <label>
-                    Mevcut Şifre
-                    <input
-                      type="password"
-                      placeholder="Mevcut şifreniz"
-                      value={currentPassword}
-                      onChange={(event) => setCurrentPassword(event.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Yeni Şifre
-                    <input
-                      type="password"
-                      placeholder="Yeni şifreniz (En az 6 karakter)"
-                      value={newPassword}
-                      onChange={(event) => setNewPassword(event.target.value)}
-                    />
-                  </label>
-                </>
-              )}
             </div>
 
             <div className="profile-modal-actions">
               {isEditingProfile ? (
                 <>
-                  <button className="profile-secondary-btn" onClick={() => { setProfileForm(profile); setIsEditingProfile(false); setProfileError(""); setProfileMessage(""); setCurrentPassword(""); setNewPassword(""); }} type="button">Vazgeç</button>
-                  <button className="profile-primary-btn" onClick={saveProfile} type="button">Kaydet</button>
+                  <button
+                    className="profile-secondary-btn"
+                    onClick={() => {
+                      setProfileForm(profile);
+                      setIsEditingProfile(false);
+                    }}
+                    type="button"
+                  >
+                    Vazgeç
+                  </button>
+
+                  <button
+                    className="profile-primary-btn"
+                    onClick={saveProfile}
+                    type="button"
+                  >
+                    Kaydet
+                  </button>
                 </>
               ) : (
-                <button className="profile-primary-btn" onClick={() => { setIsEditingProfile(true); setProfileError(""); setProfileMessage(""); }} type="button">Düzenle</button>
+                <button
+                  className="profile-primary-btn"
+                  onClick={() => setIsEditingProfile(true)}
+                  type="button"
+                >
+                  Düzenle
+                </button>
               )}
             </div>
           </div>

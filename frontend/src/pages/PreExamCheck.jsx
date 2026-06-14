@@ -1,19 +1,21 @@
-import React, { useState, useRef } from "react";
-import proctoringService from "../services/proctoring";
+import React, { useRef, useState } from "react";
 import "../styles/preExamCheck.css";
+import proctoringService from "../services/proctoring.js";
 
 export default function PreExamCheck({ onComplete, examTitle }) {
+  const videoRef = useRef(null);
+  const streamRef = useRef(null);
+
   const [checks, setChecks] = useState({
     camera: "waiting",
     microphone: "waiting",
     fullscreen: "waiting",
     network: "waiting",
+    face: "waiting",
   });
 
   const [isChecking, setIsChecking] = useState(false);
   const [message, setMessage] = useState("");
-  const videoRef = useRef(null);
-  const streamRef = useRef(null);
 
   const getStatusText = (status) => {
     if (status === "success") return "Başarılı";
@@ -25,6 +27,34 @@ export default function PreExamCheck({ onComplete, examTitle }) {
     (status) => status === "success"
   );
 
+  const stopPreviewStream = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+  };
+
+  const captureFrame = () => {
+    const video = videoRef.current;
+
+    if (!video || video.readyState < 2) {
+      return null;
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    return canvas.toDataURL("image/jpeg", 0.8).split(",")[1];
+  };
+
   const startChecks = async () => {
     setIsChecking(true);
     setMessage("");
@@ -33,6 +63,7 @@ export default function PreExamCheck({ onComplete, examTitle }) {
     let microphoneStatus = "failed";
     let fullscreenStatus = "failed";
     let networkStatus = navigator.onLine ? "success" : "failed";
+    let faceStatus = "failed";
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -45,48 +76,53 @@ export default function PreExamCheck({ onComplete, examTitle }) {
       });
 
       streamRef.current = stream;
+
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        await videoRef.current.play().catch(() => {});
+        await videoRef.current.play();
       }
 
-      // Capture frame from video
-      const video = videoRef.current;
-      const canvas = document.createElement("canvas");
-      canvas.width = video?.videoWidth || 640;
-      canvas.height = video?.videoHeight || 480;
-      const ctx = canvas.getContext("2d");
-      if (video) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      }
-      const dataUrl = canvas.toDataURL("image/jpeg");
-      const base64 = dataUrl.split(",")[1];
+      cameraStatus = stream.getVideoTracks().length > 0 ? "success" : "failed";
+      microphoneStatus =
+        stream.getAudioTracks().length > 0 ? "success" : "failed";
 
-      // Perform face detection via B2B API
-      const res = await proctoringService.precheckFace(base64);
-      const faceDetected = Boolean(res && (res.face_detected === true || res.face?.face_detected === true));
+      setChecks((prev) => ({
+        ...prev,
+        camera: cameraStatus,
+        microphone: microphoneStatus,
+        network: networkStatus,
+      }));
 
-      const hasVideo = stream.getVideoTracks().length > 0;
-      const hasAudio = stream.getAudioTracks().length > 0;
+      await new Promise((resolve) => setTimeout(resolve, 700));
 
-      cameraStatus = (hasVideo && faceDetected) ? "success" : "failed";
-      microphoneStatus = hasAudio ? "success" : "failed";
+      const frame = captureFrame();
 
-      if (faceDetected) {
-        setMessage("Yüz algılandı. Sınava geçebilirsiniz.");
+      if (!frame) {
+        faceStatus = "failed";
+        setMessage("Kamera görüntüsü alınamadı. Kameraya bakıp tekrar deneyin.");
       } else {
-        setMessage("Yüz algılanmadı. Lütfen kameraya net görünecek şekilde tekrar deneyin.");
+        const faceResult = await proctoringService.precheckFace(frame);
+
+        console.log("[PreExamCheck] Face result:", faceResult);
+
+        if (faceResult?.face_detected === true || faceResult?.face?.face_detected === true) {
+          faceStatus = "success";
+          setMessage("Yüz algılandı. Sınava geçebilirsiniz.");
+        } else {
+          faceStatus = "failed";
+          setMessage("Yüz algılanmadı. Lütfen kameraya net görünecek şekilde tekrar deneyin.");
+        }
       }
     } catch (error) {
+      console.error("[PreExamCheck] Kamera/mikrofon hatası:", error);
       cameraStatus = "failed";
       microphoneStatus = "failed";
+      faceStatus = "failed";
       setMessage("Kamera veya mikrofon izni alınamadı.");
     }
 
     try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-      }
+      await document.documentElement.requestFullscreen();
       fullscreenStatus = document.fullscreenElement ? "success" : "failed";
     } catch (error) {
       fullscreenStatus = "failed";
@@ -97,15 +133,14 @@ export default function PreExamCheck({ onComplete, examTitle }) {
       microphone: microphoneStatus,
       fullscreen: fullscreenStatus,
       network: networkStatus,
+      face: faceStatus,
     });
 
     setIsChecking(false);
   };
 
   const handleComplete = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((track) => track.stop());
-    }
+    stopPreviewStream();
     onComplete();
   };
 
@@ -114,7 +149,9 @@ export default function PreExamCheck({ onComplete, examTitle }) {
       <span className="pre-check-icon">
         {status === "success" ? "✓" : status === "failed" ? "!" : "◌"}
       </span>
+
       <strong>{label}</strong>
+
       <span className="pre-check-status">
         Durum: {getStatusText(status)}
       </span>
@@ -123,57 +160,65 @@ export default function PreExamCheck({ onComplete, examTitle }) {
 
   return (
     <div className="pre-check-page">
-      <div className="pre-check-shell">
-        <div className="pre-check-header">
-          <div>
-            <h1>Sınav Öncesi Kontroller</h1>
-            {examTitle && (
-              <p>
-                Sınav: <strong>{examTitle}</strong>
-              </p>
-            )}
-          </div>
+      <div className="pre-check-card">
+        <h1 className="pre-check-title">Sınav Öncesi Kontroller</h1>
+
+        {examTitle && (
+          <p className="pre-check-exam-name">
+            Sınav: <strong>{examTitle}</strong>
+          </p>
+        )}
+
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          playsInline
+          style={{
+            width: "320px",
+            height: "240px",
+            objectFit: "cover",
+            borderRadius: "12px",
+            border: "2px solid rgba(255,255,255,0.25)",
+            transform: "scaleX(-1)",
+            background: "#000",
+            margin: "16px auto",
+            display: "block",
+          }}
+        />
+
+        {message && (
+          <p style={{ textAlign: "center", marginBottom: "16px" }}>
+            {message}
+          </p>
+        )}
+
+        <div className="pre-check-list">
+          {renderCheckItem("Kamera İzni", checks.camera)}
+          {renderCheckItem("Mikrofon İzni", checks.microphone)}
+          {renderCheckItem("Tam Ekran Zorunluluğu", checks.fullscreen)}
+          {renderCheckItem("Ağ Bağlantısı", checks.network)}
+          {renderCheckItem("Yüz Algılama", checks.face)}
         </div>
 
-        <div className="pre-check-content">
-          <video
-            ref={videoRef}
-            className="pre-check-video"
-            autoPlay
-            playsInline
-            muted
-          />
+        <div className="pre-check-actions">
+          <button
+            type="button"
+            className="pre-check-btn pre-check-btn--outline"
+            onClick={startChecks}
+            disabled={isChecking}
+          >
+            {isChecking ? "Kontrol Ediliyor..." : "Kontrolleri Başlat"}
+          </button>
 
-          <div className="pre-check-panel">
-            <div className="pre-check-list">
-              {renderCheckItem("Kamera İzni", checks.camera)}
-              {renderCheckItem("Mikrofon İzni", checks.microphone)}
-              {renderCheckItem("Tam Ekran Zorunluluğu", checks.fullscreen)}
-              {renderCheckItem("Ağ Bağlantısı", checks.network)}
-            </div>
-
-            {message && <div className="pre-check-message">{message}</div>}
-
-            <div className="pre-check-actions" style={{ marginTop: 20 }}>
-              <button
-                type="button"
-                className="pre-check-btn pre-check-btn--outline"
-                onClick={startChecks}
-                disabled={isChecking}
-              >
-                {isChecking ? "Kontrol Ediliyor..." : "Kontrolleri Başlat"}
-              </button>
-
-              <button
-                type="button"
-                className="pre-check-btn pre-check-btn--primary"
-                onClick={handleComplete}
-                disabled={!allChecksPassed}
-              >
-                Sınava Geç
-              </button>
-            </div>
-          </div>
+          <button
+            type="button"
+            className="pre-check-btn pre-check-btn--primary"
+            onClick={handleComplete}
+            disabled={!allChecksPassed}
+          >
+            Sınava Geç
+          </button>
         </div>
       </div>
     </div>

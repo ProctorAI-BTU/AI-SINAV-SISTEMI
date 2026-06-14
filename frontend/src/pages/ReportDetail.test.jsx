@@ -29,7 +29,7 @@ const report = {
     {
       id: 'e1',
       eventType: 'FULLSCREEN_EXIT',
-      label: 'Tam ekrandan cikildi',
+      label: 'Tam ekrandan çıkıldı.',
       message: '5 saniye',
       riskScore: 20,
       timestamp: '2026-05-17T10:00:00.000Z',
@@ -82,7 +82,7 @@ describe('ReportPage', () => {
   test('timeline eventleri render edilmeli', async () => {
     render(<ReportPage onNavigate={() => {}} sessionId="S12345" />)
 
-    expect(await screen.findByText(/Tam ekrandan cikildi/)).toBeInTheDocument()
+    expect(await screen.findByText(/Tam ekrandan çıkıldı./)).toBeInTheDocument()
     expect(screen.getByText(/Bakis ekran disina kaydi/)).toBeInTheDocument()
   })
 

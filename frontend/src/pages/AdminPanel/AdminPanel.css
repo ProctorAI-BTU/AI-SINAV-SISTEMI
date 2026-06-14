@@ -309,7 +309,6 @@
   padding: 4px 10px;
   color: #86efac;
   word-break: break-all;
-  user-select: all;
 }
 
 /* ── Modal ───────────────────────────────────────────────────── */
@@ -321,7 +320,6 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
-  backdrop-filter: blur(4px);
 }
 
 .modal-card {

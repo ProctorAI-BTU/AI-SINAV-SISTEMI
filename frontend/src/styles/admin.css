@@ -4,7 +4,7 @@
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
 }
 
 .admin-table {
@@ -14,18 +14,18 @@
 }
 
 .admin-table thead {
-  background: #f8f9fb;
+  background: #f8f9fa;
 }
 
 .admin-table th {
   text-align: left;
   padding: 14px 20px;
-  color: #6b7280;
+  color: #5f6368;
   font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #dadce0;
 }
 
 .admin-table td {
@@ -39,7 +39,7 @@
 }
 
 .admin-row:hover {
-  background-color: #f8f9fb;
+  background-color: #f8f9fa;
 }
 
 .admin-row--high {
@@ -47,12 +47,12 @@
 }
 
 .admin-row--high:hover {
-  background: #fee2e2;
+  background: #fce8e6;
 }
 
 .td-student {
   font-weight: 600;
-  color: #1f2937;
+  color: #202124;
 }
 
 .risk-badge {
@@ -68,18 +68,18 @@
 }
 
 .risk-badge--normal {
-  background: #dcfce7;
-  color: #16a34a;
+  background: #e6f4ea;
+  color: #1e8e3e;
 }
 
 .risk-badge--high {
-  background: #fee2e2;
-  color: #dc2626;
+  background: #fce8e6;
+  color: #d93025;
 }
 
 .risk-badge--critical {
-  background: #fecdd3;
-  color: #be123c;
+  background: #fce8e6;
+  color: #a50e0e;
 }
 
 
@@ -108,21 +108,21 @@
 }
 
 .action-btn--report {
-  background: #f0fdf4;
-  color: #16a34a;
+  background: #e6f4ea;
+  color: #1e8e3e;
 }
 
 .action-btn--report:hover {
-  background: #dcfce7;
+  background: #e6f4ea;
 }
 
 .action-btn--warn {
-  background: #fef3c7;
-  color: #d97706;
+  background: #fef7e0;
+  color: #f29900;
 }
 
 .action-btn--warn:hover {
-  background: #fde68a;
+  background: #fce8b2;
 }
 
 
@@ -147,9 +147,9 @@
 .admin-tab-btn {
   padding: 10px 22px;
   border-radius: 8px;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid #dadce0;
   background: #fff;
-  color: #374151;
+  color: #3c4043;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -157,15 +157,15 @@
 }
 
 .admin-tab-btn:hover {
-  background: #f5f3ff;
-  border-color: #4b35f2;
-  color: #4b35f2;
+  background: #e8f0fe;
+  border-color: #1a73e8;
+  color: #1a73e8;
 }
 
 .admin-tab-btn--active {
-  background: #4b35f2;
+  background: #1a73e8;
   color: #fff;
-  border-color: #4b35f2;
+  border-color: #1a73e8;
 }
 
 .admin-list-header {
@@ -173,21 +173,21 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #dadce0;
 }
 
 .admin-list-title {
   font-size: 15px;
   font-weight: 700;
-  color: #1f2937;
+  color: #202124;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .admin-count-badge {
-  background: #ede9fe;
-  color: #4b35f2;
+  background: #e8f0fe;
+  color: #1a73e8;
   font-size: 12px;
   font-weight: 700;
   padding: 2px 8px;
@@ -196,7 +196,7 @@
 
 .admin-search-input {
   padding: 8px 14px;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid #dadce0;
   border-radius: 8px;
   font-size: 13px;
   outline: none;
@@ -205,13 +205,13 @@
 }
 
 .admin-search-input:focus {
-  border-color: #4b35f2;
+  border-color: #1a73e8;
 }
 
 .admin-generate-btn {
   width: 100%;
   padding: 14px;
-  background: #4b35f2;
+  background: #1a73e8;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -223,12 +223,12 @@
 }
 
 .admin-generate-btn:hover {
-  background: #3a25e0;
+  background: #1558d6;
 }
 
 .admin-code-box {
-  background: #f5f3ff;
-  border: 2px solid #c4b5fd;
+  background: #e8f0fe;
+  border: 2px solid #d2e3fc;
   border-radius: 12px;
   padding: 20px;
   text-align: center;
@@ -237,7 +237,7 @@
 .admin-code-text {
   font-size: 22px;
   font-weight: 800;
-  color: #4b35f2;
+  color: #1a73e8;
   letter-spacing: 3px;
   font-family: 'Courier New', monospace;
   margin-bottom: 12px;
@@ -246,9 +246,9 @@
 .admin-copy-btn {
   padding: 8px 24px;
   background: #fff;
-  border: 2px solid #4b35f2;
+  border: 2px solid #1a73e8;
   border-radius: 8px;
-  color: #4b35f2;
+  color: #1a73e8;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -256,7 +256,7 @@
 }
 
 .admin-copy-btn:hover {
-  background: #4b35f2;
+  background: #1a73e8;
   color: #fff;
 }
 
@@ -273,7 +273,7 @@
 .admin-section-title {
   font-size: 20px;
   font-weight: 800;
-  color: #1f2937;
+  color: #202124;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -295,14 +295,14 @@
   background: #fff;
   border-radius: 12px;
   padding: 20px 22px;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
-  border-left: 4px solid #4b35f2;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+  border-left: 4px solid #1a73e8;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .admin-stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .admin-stat-icon {
@@ -324,13 +324,13 @@
 .admin-stat-value {
   font-size: 24px;
   font-weight: 800;
-  color: #1f2937;
+  color: #202124;
   line-height: 1.1;
 }
 
 .admin-stat-label {
   font-size: 12px;
-  color: #6b7280;
+  color: #5f6368;
   font-weight: 500;
   margin-top: 2px;
 }
@@ -339,9 +339,9 @@
 .admin-view-all-btn {
   padding: 6px 16px;
   border-radius: 8px;
-  border: 1.5px solid #4b35f2;
+  border: 1.5px solid #1a73e8;
   background: transparent;
-  color: #4b35f2;
+  color: #1a73e8;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -349,7 +349,7 @@
 }
 
 .admin-view-all-btn:hover {
-  background: #4b35f2;
+  background: #1a73e8;
   color: #fff;
 }
 
@@ -358,7 +358,7 @@
   display: flex;
   align-items: center;
   background: #fff;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #dadce0;
   border-radius: 12px;
   padding: 4px 16px;
   margin-bottom: 20px;
@@ -367,7 +367,7 @@
 }
 
 .admin-report-search-bar:focus-within {
-  border-color: #4b35f2;
+  border-color: #1a73e8;
   box-shadow: 0 0 0 3px rgba(75, 53, 242, 0.1);
 }
 
@@ -383,7 +383,7 @@
   border: none;
   outline: none;
   font-size: 15px;
-  color: #1f2937;
+  color: #202124;
   background: transparent;
 }
 
@@ -396,8 +396,8 @@
   height: 28px;
   border-radius: 50%;
   border: none;
-  background: #f3f4f6;
-  color: #6b7280;
+  background: #f1f3f4;
+  color: #5f6368;
   font-size: 14px;
   cursor: pointer;
   display: flex;
@@ -407,8 +407,8 @@
 }
 
 .admin-report-search-clear:hover {
-  background: #e5e7eb;
-  color: #1f2937;
+  background: #dadce0;
+  color: #202124;
 }
 
 /* ─── Responsive ──────────────────────────────────────── */

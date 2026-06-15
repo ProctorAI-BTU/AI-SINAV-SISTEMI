@@ -11,19 +11,19 @@ body {
 
 .dashboard-layout {
   min-height: 100vh;
-  background: #f0f4f8;
+  background: #f8f9fa;
 }
 
 
 .navbar {
   height: 60px;
-  background: linear-gradient(135deg, #4b35f2 0%, #6c5ce7 100%);
+  background: linear-gradient(135deg, #1a73e8 0%, #6c5ce7 100%);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 28px;
-  box-shadow: 0 2px 12px rgba(75, 53, 242, 0.25);
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
 }
 
 .navbar-brand {
@@ -37,7 +37,7 @@ body {
   height: 34px;
   border-radius: 50%;
   background: #fff;
-  color: #4b35f2;
+  color: #1a73e8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,29 +114,29 @@ body {
   background: #fff;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .stat-number {
   font-size: 36px;
   font-weight: 800;
-  color: #4b35f2;
+  color: #1a73e8;
   margin-bottom: 6px;
 }
 
 .stat-number--danger {
-  color: #ef4444;
+  color: #d93025;
 }
 
 .stat-label {
   font-size: 14px;
-  color: #6b7280;
+  color: #5f6368;
   font-weight: 500;
 }
 
@@ -197,7 +197,7 @@ body {
   height: 28px;
   border-radius: 50%;
   background: #ffffff;
-  color: #4b35f2;
+  color: #1a73e8;
   display: inline-flex;
   align-items: center;
   justify-content: center;

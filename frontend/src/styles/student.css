@@ -1,13 +1,13 @@
 .student-page {
   min-height: 100vh;
-  background: #f5f7fb;
-  color: #152033;
+  background: #f8f9fa;
+  color: #202124;
 }
 
 .student-topbar {
   height: 64px;
   background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #dadce0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,7 +24,7 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #4b35f2;
+  background: #1a73e8;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -34,10 +34,10 @@
 
 .student-logout {
   height: 38px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #dadce0;
   border-radius: 5px;
   background: #ffffff;
-  color: #1f2937;
+  color: #202124;
   padding: 0 14px;
   cursor: pointer;
 }
@@ -50,13 +50,13 @@
 
 .student-panel {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #dadce0;
   border-radius: 8px;
   padding: 32px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
-  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .student-panel h1 {
@@ -65,7 +65,7 @@
 }
 
 .student-panel p {
-  color: #64748b;
+  color: #5f6368;
   line-height: 1.6;
   margin: 0;
 }
@@ -96,9 +96,9 @@
 }
 
 .student-error {
-  color: #b91c1c;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  color: #d93025;
+  background: #fce8e6;
+  border: 1px solid #fad2cf;
   border-radius: 5px;
   padding: 10px 12px;
   font-size: 14px;
@@ -132,10 +132,10 @@
 
 .student-profile-btn {
   height: 38px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #dadce0;
   border-radius: 999px;
   background: #ffffff;
-  color: #1f2937;
+  color: #202124;
   padding: 0 14px 0 6px;
   display: inline-flex;
   align-items: center;
@@ -148,7 +148,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #4b35f2;
+  background: #1a73e8;
   color: #ffffff;
   display: inline-flex;
   align-items: center;
@@ -168,10 +168,10 @@
 /* Öğrenci girilmiş sınavlar butonu ve modal listesi */
 .student-history-btn {
   height: 38px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #dadce0;
   border-radius: 999px;
-  background: #f8fafc;
-  color: #1f2937;
+  background: #ffffff;
+  color: #202124;
   padding: 0 14px;
   display: inline-flex;
   align-items: center;
@@ -183,13 +183,13 @@
 .student-history-btn:hover,
 .student-profile-btn:hover,
 .student-logout:hover {
-  border-color: #4b35f2;
-  color: #4b35f2;
+  border-color: #1a73e8;
+  color: #1a73e8;
 }
 
 .student-history-desc {
   margin: 0 0 16px;
-  color: #64748b;
+  color: #5f6368;
   line-height: 1.5;
   font-size: 14px;
 }
@@ -205,10 +205,10 @@
   grid-template-columns: 1.4fr 1fr 80px;
   gap: 14px;
   align-items: center;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #dadce0;
   border-radius: 8px;
   padding: 12px;
-  background: #f8fafc;
+  background: #ffffff;
 }
 
 .student-history-card div {
@@ -218,21 +218,21 @@
 }
 
 .student-history-card span {
-  color: #64748b;
+  color: #5f6368;
   font-size: 13px;
 }
 
 .student-history-card strong {
-  color: #152033;
+  color: #202124;
   font-size: 14px;
 }
 
 .student-history-empty {
-  border: 1px dashed #cbd5e1;
+  border: 1px dashed #dadce0;
   border-radius: 8px;
   padding: 18px;
   text-align: center;
-  color: #64748b;
+  color: #5f6368;
 }
 
 @media (max-width: 760px) {

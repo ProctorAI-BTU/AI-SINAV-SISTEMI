@@ -17,7 +17,7 @@
   background: #ffffff;
   border-radius: 6px;
   padding: 24px 26px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
 }
 
 .modal-header {
@@ -35,7 +35,7 @@
   margin: 0;
   font-size: 17px;
   font-weight: 600;
-  color: #1f2937;
+  color: #202124;
 }
 
 .modal-body {
@@ -45,7 +45,7 @@
 .modal-line {
   margin: 0 0 14px;
   font-size: 15px;
-  color: #111827;
+  color: #202124;
   line-height: 1.5;
 }
 
@@ -53,7 +53,7 @@
   margin: 0;
   font-size: 15px;
   font-weight: 700;
-  color: #ff4d00;
+  color: #d93025;
 }
 
 
@@ -91,8 +91,8 @@
   background: #ffffff;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32);
-  color: #152033;
+  box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+  color: #202124;
 }
 
 .profile-modal-header {
@@ -105,7 +105,7 @@
 .profile-modal-header h2 {
   margin: 0;
   font-size: 20px;
-  color: #152033;
+  color: #202124;
 }
 
 .profile-modal-close {
@@ -113,8 +113,8 @@
   height: 34px;
   border: none;
   border-radius: 50%;
-  background: #f1f5f9;
-  color: #334155;
+  background: #f1f3f4;
+  color: #5f6368;
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
@@ -125,7 +125,7 @@
   height: 92px;
   border-radius: 50%;
   margin: 0 auto 16px;
-  background: #4b35f2;
+  background: #1a73e8;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -170,23 +170,23 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
-  color: #334155;
+  color: #5f6368;
   font-size: 14px;
   font-weight: 700;
 }
 
 .profile-form input {
   height: 42px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #dadce0;
   border-radius: 6px;
   padding: 0 12px;
-  color: #1f2937;
+  color: #202124;
   background: #ffffff;
 }
 
 .profile-form input:disabled {
-  background: #f8fafc;
-  color: #64748b;
+  background: #ffffff;
+  color: #5f6368;
 }
 
 .profile-modal-actions {
@@ -212,9 +212,9 @@
 }
 
 .profile-secondary-btn {
-  border: 1px solid #cbd5e1;
+  border: 1px solid #dadce0;
   background: #ffffff;
-  color: #334155;
+  color: #5f6368;
 }
 
 .profile-modal-box--wide {

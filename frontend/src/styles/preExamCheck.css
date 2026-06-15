@@ -1,7 +1,7 @@
 .pre-check-page {
   min-height: 100vh;
-  background: #f5f7fb;
-  color: #152033;
+  background: #f8f9fa;
+  color: #202124;
   padding: 32px;
 }
 
@@ -12,7 +12,7 @@
 
 .pre-check-header {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #dadce0;
   border-radius: 8px;
   padding: 22px 24px;
   display: flex;
@@ -28,13 +28,13 @@
 
 .pre-check-header p {
   margin: 0;
-  color: #64748b;
+  color: #5f6368;
 }
 
 .pre-check-link {
-  border: 1px solid #cbd5e1;
+  border: 1px solid #dadce0;
   background: #ffffff;
-  color: #1f2937;
+  color: #202124;
   border-radius: 5px;
   height: 38px;
   padding: 0 14px;
@@ -59,7 +59,7 @@
 
 .pre-check-panel {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #dadce0;
   border-radius: 8px;
   padding: 22px;
 }
@@ -75,7 +75,7 @@
   grid-template-columns: 44px 1fr;
   gap: 4px 12px;
   align-items: center;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #dadce0;
   border-radius: 6px;
   padding: 12px;
 }
@@ -88,34 +88,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e2e8f0;
-  color: #334155;
+  background: #dadce0;
+  color: #5f6368;
   font-size: 12px;
   font-weight: 700;
 }
 
 .pre-check-status {
-  color: #64748b;
+  color: #5f6368;
   font-size: 13px;
 }
 
 .pre-check-item--success {
-  border-color: #86efac;
-  background: #f0fdf4;
+  border-color: #81c995;
+  background: #e6f4ea;
 }
 
 .pre-check-item--success .pre-check-icon {
-  background: #16a34a;
+  background: #1e8e3e;
   color: #ffffff;
 }
 
 .pre-check-item--failed {
-  border-color: #fecaca;
-  background: #fef2f2;
+  border-color: #fad2cf;
+  background: #fce8e6;
 }
 
 .pre-check-item--failed .pre-check-icon {
-  background: #dc2626;
+  background: #d93025;
   color: #ffffff;
 }
 

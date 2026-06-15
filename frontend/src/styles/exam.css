@@ -5,9 +5,9 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Roboto', sans-serif;
   background: #ffffff;
-  color: #1f2937;
+  color: #202124;
 }
 
 
@@ -19,7 +19,7 @@ body {
 
 .exam-header {
   height: 64px;
-  background: #4b35f2;
+  background: #1a73e8;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -38,7 +38,7 @@ body {
   height: 36px;
   border-radius: 50%;
   background: #ffffff;
-  color: #4b35f2;
+  color: #1a73e8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +61,7 @@ body {
 .exam-status-bar {
   height: 48px;
   background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #dadce0;
   display: flex;
   align-items: center;
   gap: 24px;
@@ -72,12 +72,12 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #1f2937;
+  color: #202124;
   font-size: 15px;
 }
 
 .risk-indicator {
-  color: #22c55e;
+  color: #1e8e3e;
   font-weight: 700;
 }
 
@@ -89,11 +89,11 @@ body {
 }
 
 .dot--green {
-  background: #22c55e;
+  background: #1e8e3e;
 }
 
 .dot--red {
-  background: #ef4444;
+  background: #d93025;
 }
 
 
@@ -117,7 +117,7 @@ body {
 
 .question-card {
   min-height: 320px;
-  background: #f8fafc;
+  background: #ffffff;
   border-radius: 10px;
   padding: 30px;
 }
@@ -177,13 +177,13 @@ body {
 
 .btn-exam--prev {
   background: #ffffff;
-  color: #c7c7c7;
-  border: 1px solid #e5e7eb;
+  color: #dadce0;
+  border: 1px solid #dadce0;
   cursor: not-allowed;
 }
 
 .btn-exam--prev:not(:disabled) {
-  color: #1f2937;
+  color: #202124;
   cursor: pointer;
 }
 
@@ -198,13 +198,13 @@ body {
 }
 
 .btn-exam--submit {
-  background: #d32f2f;
+  background: #d93025;
   color: #ffffff;
   box-shadow: 0 3px 7px rgba(211, 47, 47, 0.28);
 }
 
 .btn-exam--submit:hover {
-  background: #b71c1c;
+  background: #b31412;
 }
 
 
@@ -255,7 +255,7 @@ body {
   width: 100%;
   max-width: 420px;
   margin: 0 auto 1rem;
-  color: #fecaca;
+  color: #fad2cf;
   background: rgba(127, 29, 29, 0.55);
   border: 1px solid rgba(248, 113, 113, 0.45);
   border-radius: 6px;
@@ -283,7 +283,7 @@ body {
    ═══════════════════════════════════════ */
 
 .risk-indicator--low {
-  color: #22c55e;
+  color: #1e8e3e;
 }
 
 .risk-indicator--medium {
@@ -291,7 +291,7 @@ body {
 }
 
 .risk-indicator--high {
-  color: #ef4444;
+  color: #d93025;
 }
 
 .violation-pill {

@@ -1,6 +1,23 @@
-# 🎓 AI Destekli Kopya Tespitli Çevrimiçi Sınav & Gözetmenlik Platformu (Monorepo)
+# 🎓 AI Destekli Kopya Tespitli Çevrimiçi Sınav & Gözetmenlik Platformu
 
 Bu proje; yapay zeka (AI) destekli, gerçek zamanlı kopya ve ihlal tespiti yapabilen, aynı zamanda B2B SaaS modeliyle harici platformlara (LMS, Moodle, Canvas vb.) kolayca gömülebilen (embeddable) yeni nesil bir **Çevrimiçi Gözetmenlik (AI Proctoring) ve Sınav Yönetim Sistemi**dir.
+
+---
+## 🎥 Proje Tanıtımı & Canlı Çalışma Demosu
+
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/60882faf-fb47-496c-82af-5973e76ade24" poster="https://img.youtube.com/vi/g_y7j9-Prn8/maxresdefault.jpg" width="100%" controls style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.25);">
+    Tarayıcınız yerleşik video oynatıcıyı desteklemiyor.
+  </video>
+  <p align="center">
+    🏁 <i>ProctorAI'nin yüz tespiti, göz takibi, ses analizi modüllerini ve B2B SaaS entegrasyon yeteneklerini tarayıcıyı terk etmeden doğrudan yukarıdaki oynatıcıdan izleyebilirsiniz.</i>
+  </p>
+</div>
+
+---
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=g_y7j9-Prn8">YouTube Videosu</a>
+</p>
 
 ---
 
